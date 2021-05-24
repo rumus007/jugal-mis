@@ -1,0 +1,2 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[504],{9504:(e,l,n)=>{"use strict";n.r(l),n.d(l,{default:()=>t});const t=(0,n(1900).Z)({},(function(){var e=this,l=e.$createElement;return(e._self._c||l)("div",[e._v("Hello world")])}),[],!1,null,null,null).exports}}]);
+//# sourceMappingURL=504.js.map
