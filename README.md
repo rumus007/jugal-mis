@@ -42,7 +42,7 @@ This application is structured in a simple way within `app` folder. The various 
 - Repositories : Contains all the classes for storage and retrieval from database.
 - Services : Contains the classes which serves as a bridge between Controller and Repositories. All the application logic are handled here.
 
-## Structure for Backend
+## Structure for Frontend
 This application uses Vue.js for frontend all files related to frontend is found within `resources/js` for JavaScript and `resources/css` for CSS. The various folders and contents are as follows:
 - app.js : Entry point for vue.js application
 - src : Contains all the files for frontend part
