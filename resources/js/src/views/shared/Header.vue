@@ -22,7 +22,7 @@
 import logo from "../../../../assets/images/nepal-gov.png";
 
 export default {
-  name: "header",
+  name: "Header",
   data: function () {
     return {
       logo: logo,

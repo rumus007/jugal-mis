@@ -9,7 +9,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerIcon from "../../../../../assets/marker.svg";
 // import nepal from "../../../../assets/data/Nepal.json";
-// import localLevel from "../../../../assets/data/NewNepalLocalLevel.json";
+import localLevel from "../../../../../assets/data/NewNepalLocalLevel.json";
 
 export default {
   name: "Map",
@@ -38,19 +38,11 @@ export default {
         }
       ).addTo(this.map);
 
-      // L.geoJSON(localLevel).addTo(this.map);
-
+      let jsonLayer = L.geoJSON(localLevel).addTo(this.map);
+      this.map.fitBounds(jsonLayer.getBounds());
       this.addMarker();
     },
     addMarker: function () {
-      console.log("==================add markerrrrrrrr-----", this.mapData);
-      // mapRef.eachLayer((layer) => {
-      //   console.log(layer)
-      //   // layer.remove();
-      // });
-      // var marker;
-      // marker && mapRef.removeLayer(marker)
-
       this.layerGroup = L.layerGroup().addTo(this.map);
       const myIcon = L.icon({
         iconUrl: markerIcon,
@@ -58,24 +50,11 @@ export default {
         popupAnchor: [0, -41],
       });
 
-      this.mapData.map((state) =>
-        //   marker = L.marker(state.geolocation, { icon: myIcon })
-        //     .bindPopup("<b>Hello world!</b><br>I am a popup.")
-        //     .addTo(mapRef)
-        // );
-
-        // L.marker(state.geolocation, { icon: myIcon })
-        //   .bindPopup("<b>Hello world!</b><br>I am a popup.")
-        //   .addTo(this.map)
-        L.marker(state.geolocation, { icon: myIcon })
-          .bindPopup("<b>Hello world!</b><br>I am a popup.")
+      this.mapData.map((data) =>
+        L.marker(data.leaflet_geolocation, { icon: myIcon })
+          .bindPopup(`Name:<b>${data.local_name}</b>`)
           .addTo(this.layerGroup)
       );
-
-      // var marker = L.marker([27.83732885694356, 85.77425191534314], {
-      //   icon: myIcon,
-      // }).addTo(mapRef);
-      // marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
     },
     removeMarker: function () {
       this.layerGroup.clearLayers();
