@@ -392,3 +392,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #72738e;
 }
+
+.main-container {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 100vh;
+}

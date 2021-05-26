@@ -14,3 +14,10 @@
 // layout
 
 // pages
+
+.main-container {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    min-height: 100vh;
+}
