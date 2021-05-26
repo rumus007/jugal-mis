@@ -1,8 +1,8 @@
 <template>
   <div class="section__map--inner">
-    <div class="map-sidebar">
-      <span>संस्थागत विवरण</span>
-      <div>
+    <div class="sidebar">
+      <!-- <span>संस्थागत विवरण</span> -->
+      <div class="select-all-filter">
         <input
           type="checkbox"
           v-model="allSelected"
@@ -110,11 +110,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
-<style scoped>
+<style scoped lang="scss">
 .institution {
   display: flex;
 }
-.map-filter {
+
+.sidebar {
+  border-right: 1px solid rgba(114,115,142,0.2);
+}
+.map-filter, .select-all-filter {
+  border-bottom: 1px solid rgba(114,115,142,0.2);
   list-style: none;
+  padding: 16px 24px;
 }
 </style>

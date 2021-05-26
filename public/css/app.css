@@ -374,6 +374,20 @@ h6 {
   font-weight: inherit;
 }
 
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  color: var(--color-primary-dark);
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
 ul,
 ol,
 dd,
@@ -401,7 +415,7 @@ body {
   font: 16px/1.5 "Noto Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--neutrals-300);
+  color: var(--color-primary-light);
 }
 
 .container {
@@ -423,4 +437,56 @@ body {
 
 .flex {
   display: flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.multiselect__tags {
+  background: transparent !important;
+  padding-top: 4px !important;
+}
+.multiselect__placeholder {
+  color: var(--color-base) !important;
+  font-size: 16px;
+  padding-left: 8px;
+}
+.multiselect__select:before {
+  border-color: var(--color-base) transparent transparent !important;
+}
+
+.tabs-component {
+  display: flex;
+}
+.tabs-component-tabs {
+  background-color: var(--color-secondary-light);
+  width: 300px;
+}
+.tabs-component-panels {
+  width: calc(100vw - 300px);
+  padding: 40px;
+}
+.tabs-component-panels h2 {
+  margin-bottom: 24px;
+}
+.tabs-component-tab {
+  border-bottom: 1px solid rgba(51, 52, 86, 0.2);
+}
+.tabs-component-tab a {
+  display: block;
+  padding: 16px 40px;
+}
+.tabs-component-tab.is-active {
+  background-color: var(--color-primary-dark);
+}
+.tabs-component-tab.is-active a {
+  color: #fff;
+}
+
+.apexcharts-canvas {
+  width: 100% !important;
+}
+.apexcharts-canvas svg {
+  width: 100%;
 }
