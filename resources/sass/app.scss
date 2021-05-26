@@ -12,6 +12,7 @@
 // components
 
 // layout
+@import "./layout/container.scss";
 
 // pages
 
@@ -20,4 +21,8 @@
     display: block;
     overflow: hidden;
     min-height: 100vh;
+}
+
+.flex {
+    display: flex;
 }
