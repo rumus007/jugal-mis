@@ -1,28 +1,28 @@
+
 <template>
-  <div class="header">
-    <div>
-      <router-link to="/">
-        <img :src="logo" alt="" height="50px" />
+  <header class="header">
+    <div class="logo">
+      <router-link to="/" class="logo__link">
+        <img :src="logo" alt class="logo__img" width="77" height="65" />
+        <span class="logo__text">
+          <span>जुगल गाउँपालिका</span>
+          <span>
+            "माहामारी विरुद्ध सजकता, पुर्वाधार विकास र कृषिमा
+            व्यवसायिकता समृद्ध जुगल निर्माणमा हामी सबैको सहभागिता"
+          </span>
+        </span>
       </router-link>
     </div>
-    <div>
-      <router-link to="/house">
-        <span>Ghardhuri bibaran</span>
-      </router-link>
-      <span>Pariparik bibaran</span>
-      <span>Population bibaran</span>
-      <router-link to="/institution">
-        <span>Sanshtagat bibaran</span>
-      </router-link>
-    </div>
-  </div>
+    <Nav/>
+  </header>
 </template>
-
 <script>
-import logo from "../../../../assets/images/nepal-gov.png";
-
+import logo from "../../../../../public/images/nepal-gov.svg";
 export default {
-  name: "Header",
+  name: "header",
+  components: {
+    Nav: () => import("../shared/Nav"),
+  },
   data: function () {
     return {
       logo: logo,
@@ -30,10 +30,46 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-}
+<style lang="scss" scoped>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 26px 80px;
+    background-color: var(--color-base);
+  }
+  .logo {
+    width: 474px;
+    &__link {
+      display: flex;
+    }
+    &__img {
+      margin-right: 16px;
+    }
+    &__text {
+      color: var(--color-primary-light);
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      span {
+        &:first-child {
+          font-size: 16px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  .nav {
+    display: flex;
+    &__item:not(:last-child) {
+        margin-right: 40px;
+    }
+    &__link {
+      color: var(--color-primary-light);
+      transition: all 0.32s ease-in-out;
+      &:hover {
+        color: var(--color-primary-dark);
+      }
+    }
+  }
 </style>

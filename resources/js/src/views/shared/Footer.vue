@@ -1,31 +1,24 @@
 <template>
-  <footer class="main-footer">
-    <div>
-      <router-link to="/house">
-        <span>Ghardhuri bibaran</span>
-      </router-link>
-      <span>Pariparik bibaran</span>
-      <span>Population bibaran</span>
-      <router-link to="/institution">
-        <span>Sanshtagat bibaran</span>
-      </router-link>
-    </div>
+  <footer class="footer">
+    <Nav/>
   </footer>
 </template>
-
 <script>
 export default {
-  name: "Footer",
+  name: "footer",
+  components: {
+    Nav: () => import("../shared/Nav"),
+  }
 };
 </script>
-<style scoped>
-.main-footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-  color: black;
-  text-align: center;
-}
+<style lang="scss" scoped>
+  .footer {
+    background-color: var(--color-base);
+    border-top: 1px solid rgba(51,52,86,0.2);
+    padding: 50px 40px;
+    width: 100%;
+  }
+  .nav {
+    justify-content: center;
+  }
 </style>

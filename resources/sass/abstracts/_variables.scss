@@ -1,5 +1,19 @@
 :root {
-    --primary-b1: #333456;
-    --primary-b2: #72738e;
-    --secondary-n: #f5f5f7;
+    --color-base: var(--neutrals-0);
+    --color-primary-dark: var(--neutrals-700);
+    --color-primary-light: var(--neutrals-300);
+    --color-secondary-light: var(--blue-100);
+    --color-link: var(--blue-400);
+    --color-btn: var(--orange-400);
+
+    --neutrals-0: #FFFFFF;
+    --neutrals-100: #666E76;
+    --neutrals-300: #4C565E;
+    --neutrals-700:#283947;
+    
+    --blue-100: #F0F8FF;
+    --blue-200: #A8D8FF;
+    --blue-400: #028EFF;
+
+    --orange-400: #F97D21;
 }
