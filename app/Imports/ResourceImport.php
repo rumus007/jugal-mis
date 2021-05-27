@@ -35,7 +35,7 @@ class ResourceImport implements ToCollection, WithHeadingRow
                         'district'         => $data['jallka_nama'],
                         'locallevel'       => $data['sathanaya_tahaka_nama'],
                         'locallevel_code'  => $data['sathanaya_tahaka_kada'],
-                        'ward'             => $this->getEnglishNumber($data['vada_na']),
+                        'ward'             => getEnglishNumber($data['vada_na']),
                         'tole'             => $data['vasatatalka_nama'],
                         'tole_misc'        => $data['vasatatalka_nama_anaya_bhae_ullkha_garanahasa'],
                         'address'          => $data['thagana'],
@@ -59,20 +59,6 @@ class ResourceImport implements ToCollection, WithHeadingRow
                 continue;
             }
         }
-    }
-
-    /**
-     * Returns english equivalent of nepali number
-     *
-     * @param $number
-     *
-     * @return string
-     */
-    function getEnglishNumber($number) : string
-    {
-        $mapping = preg_split('//u', "०१२३४५६७८९", -1, PREG_SPLIT_NO_EMPTY);
-
-        return str_replace($mapping, array_keys($mapping), $number);
     }
 
     /**

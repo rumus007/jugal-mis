@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Resource\ResourceRepository;
+use App\Imports\HouseholdImport;
 use App\Services\Resource\ResourceService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResourceController extends Controller
 {
@@ -55,9 +56,9 @@ class ResourceController extends Controller
     public function getResourceMapData(Request $request)
     {
         try {
-            $resource_type_id = $request->resource_type_id ? explode(',',$request->resource_type_id) : [];
             $ward = $request->ward ? explode(',',$request->ward) : [];
-            return response()->json($this->resourceService->getResourceMapData($resource_type_id,$ward));
+            $resource_type_id = $request->resource_type_id ? explode(',',$request->resource_type_id) : [];
+            return response()->json($this->resourceService->getResourceMapData($resource_type_id, $ward));
         } catch (\Exception $e) {
             logger()->error($e);
 

@@ -17,4 +17,6 @@ abstract class DBTables
      */
     const RESOURCE_TYPE = 'resource_type';
     const RESOURCE      = 'resource';
+    const HOUSEHOLD     = 'household';
+    const INDIVIDUAL    = 'individual';
 }

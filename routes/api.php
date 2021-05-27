@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Household\HouseholdController;
 use App\Http\Controllers\Resource\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/resource/stats',[ResourceController::class,'getResourceStats'])->name('resource.stats');
 Route::get('/resource/mapdata',[ResourceController::class,'getResourceMapData'])->name('resource.mapdata');
+
+Route::prefix('household')->group(function(){
+    Route::get('ownership',[HouseholdController::class,'getHouseOwnershipData'])->name('household.ownership');
+    Route::get('roofing',[HouseholdController::class,'getRoofingData'])->name('household.roofing');
+    Route::get('foundation',[HouseholdController::class,'getFoundationData'])->name('household.foundation');
+    Route::get('house-number',[HouseholdController::class,'getHouseNumberData'])->name('household.number');
+    Route::get('road-type-to-house',[HouseholdController::class,'getRoadToHouseData'])->name('household.roadToHouse');
+    Route::get('road-type',[HouseholdController::class,'getRoadTypeData'])->name('household.roadType');
+});
