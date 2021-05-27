@@ -3,25 +3,15 @@
     <section class="hero-section">
       <div class="container">
         <div class="hero-section__container">
-          <h1 class="hero-section__text">
+          <h1 class="hero-section__title">जुगल गाउँपालिका</h1>
+          <h2 class="hero-section__desc">
             जुगल गाउँपालिका बागमती प्रदेश अन्तरगत सिन्धुपाल्चोक
             जिल्लामा पर्दछ । यो गाँउपालिकाकाे कुल क्षेत्रफल ५९२ वर्ग
             कि.मी. छ ।
-          </h1>
+          </h2>
           <button class="hero-section__btn">
             थप जानकारी
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.89997 10.6505L12.7274 5.957L14 7.19425L7 14L0 7.19425L1.27256 5.957L6.10003 10.6505V0H7.89997V10.6505Z"
-                fill="white"
-              />
-            </svg>
+            <i class="ri-arrow-down-line"></i>
           </button>
         </div>
       </div>
@@ -55,7 +45,9 @@
       <div class="container">
         <div class="category-cards-section__container">
           <div class="card">
-            <div class="card__img"></div>
+            <div class="card__img">
+              <i class="ri-home-4-fill"></i>
+            </div>
             <h2 class="card__title">घरधुरीकाे विवरण</h2>
             <div
               class="card__desc"
@@ -63,90 +55,52 @@
             <div class="card__action">
               <a href="#">
                 थप जानकारी
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.129 5.22859L5.106 1.09077L6.1665 -2.69546e-07L12 6L6.1665 12L5.106 10.9092L9.129 6.77141L-2.28549e-07 6.77141L-2.95988e-07 5.22859L9.129 5.22859Z"
-                    fill="#333456"
-                  />
-                </svg>
+                <i class="ri-arrow-right-line"></i>
               </a>
             </div>
           </div>
           <div class="card">
-            <div class="card__img"></div>
-            <h2 class="card__title">घरधुरीकाे विवरण</h2>
+            <div class="card__img">
+              <i class="ri-team-fill"></i>
+            </div>
+            <h2 class="card__title">पारिवारिक विवरण</h2>
             <div
               class="card__desc"
             >यस खण्डअन्तर्गत वागमती गाउँपालिकामा रहेका घरधुरीकाे भाैतिक अवस्थाका साथसाथै अन्य अवस्था जस्तैः उपभाेग्य बस्तु, शाैचालयकाे अवस्था आदिका बारेमा जानकारी लिन सकिन्छ।</div>
             <div class="card__action">
               <a href="#">
                 थप जानकारी
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.129 5.22859L5.106 1.09077L6.1665 -2.69546e-07L12 6L6.1665 12L5.106 10.9092L9.129 6.77141L-2.28549e-07 6.77141L-2.95988e-07 5.22859L9.129 5.22859Z"
-                    fill="#333456"
-                  />
-                </svg>
+                <i class="ri-arrow-right-line"></i>
               </a>
             </div>
           </div>
           <div class="card">
-            <div class="card__img"></div>
-            <h2 class="card__title">घरधुरीकाे विवरण</h2>
+            <div class="card__img">
+              <i class="ri-parent-fill"></i>
+            </div>
+            <h2 class="card__title">जनसांख्यिकीय विवरण</h2>
             <div
               class="card__desc"
             >यस खण्डअन्तर्गत वागमती गाउँपालिकामा रहेका घरधुरीकाे भाैतिक अवस्थाका साथसाथै अन्य अवस्था जस्तैः उपभाेग्य बस्तु, शाैचालयकाे अवस्था आदिका बारेमा जानकारी लिन सकिन्छ।</div>
             <div class="card__action">
               <a href="#">
                 थप जानकारी
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.129 5.22859L5.106 1.09077L6.1665 -2.69546e-07L12 6L6.1665 12L5.106 10.9092L9.129 6.77141L-2.28549e-07 6.77141L-2.95988e-07 5.22859L9.129 5.22859Z"
-                    fill="#333456"
-                  />
-                </svg>
+                <i class="ri-arrow-right-line"></i>
               </a>
             </div>
           </div>
           <div class="card">
-            <div class="card__img"></div>
-            <h2 class="card__title">घरधुरीकाे विवरण</h2>
+            <div class="card__img">
+              <i class="ri-hotel-fill"></i>
+            </div>
+            <h2 class="card__title">संस्थागत विवरण</h2>
             <div
               class="card__desc"
             >यस खण्डअन्तर्गत वागमती गाउँपालिकामा रहेका घरधुरीकाे भाैतिक अवस्थाका साथसाथै अन्य अवस्था जस्तैः उपभाेग्य बस्तु, शाैचालयकाे अवस्था आदिका बारेमा जानकारी लिन सकिन्छ।</div>
             <div class="card__action">
               <a href="#">
                 थप जानकारी
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.129 5.22859L5.106 1.09077L6.1665 -2.69546e-07L12 6L6.1665 12L5.106 10.9092L9.129 6.77141L-2.28549e-07 6.77141L-2.95988e-07 5.22859L9.129 5.22859Z"
-                    fill="#333456"
-                  />
-                </svg>
+                <i class="ri-arrow-right-line"></i>
               </a>
             </div>
           </div>
@@ -192,10 +146,24 @@
 <style lang="scss" scoped>
 .about-section {
   margin-bottom: 80px;
+  margin-top: -70px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 21px;
+    transform: translateX(-50%);
+    width: 702px;
+    height: 375px;
+    box-shadow: 0px 2px 60px #014983;
+    z-index: -2;
+  }
 
   &__container {
-    background-color: var(--secondary-n);
-    padding: 80px 120px;
+    padding: 77px 129px;
+    background-color: var(--neutrals-0);
   }
 
   &__title {
@@ -203,7 +171,7 @@
     line-height: 54px;
     font-weight: bold;
     margin-bottom: 32px;
-    color: var(--primary-b1);
+    color: var(--neutrals-700);
   }
 
   &__desc {
@@ -213,40 +181,44 @@
 }
 
 .card {
-  padding: 56px;
+  padding: 69px 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: var(--secondary-n);
+  background-color: var(--neutrals-0);
 
   &__img {
-    width: 112px;
-    height: 112px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background-color: var(--primary-b1);
-    margin-bottom: 24px;
+    background-color: var(--blue-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    color: var(--blue-400);
+    margin-bottom: 33px;
   }
 
   &__title {
     font-size: 32px;
-    color: var(--primary-b1);
-    margin-bottom: 16px;
+    font-weight: 500;
+    color: var(--neutrals-700);
+    margin-bottom: 18px;
   }
 
   &__desc {
     font-size: 18px;
     line-height: 27px;
-    margin-bottom: 26px;
+    margin-bottom: 29px;
   }
 
   &__action {
-    align-self: flex-end;
-
     a {
-      color: var(--primary-b1);
+      display: flex;
+      color: #333456;
 
-      svg {
+      i {
         margin-left: 8px;
       }
     }
@@ -263,11 +235,36 @@
 }
 
 .hero-section {
-  background-color: var(--secondary-n);
-  margin-bottom: 80px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #014983;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(rgba(1, 73, 131, 0.3), rgba(1, 73, 131, 0.3)),
+      url("../../../../../public/images/hero-img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+  }
 
   &__container {
-    height: 480px;
+    height: calc(100vh - 124px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -275,32 +272,41 @@
     text-align: center;
   }
 
-  &__text {
-    font-size: 40px;
-    line-height: 60px;
+  &__title {
+    font-size: 80px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--neutrals-0);
+  }
+
+  &__desc {
+    font-size: 32px;
+    font-weight: 700;
     margin-bottom: 40px;
+    color: var(--neutrals-0);
   }
 
   &__btn {
-    width: 216px;
-    height: 64px;
+    width: 292px;
+    height: 56px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-b1);
+    background-color: var(--orange-400);
     border-radius: 50px;
     cursor: pointer;
     color: #fff;
+    font-size: 18px;
 
-    svg {
-      margin-left: 16px;
+    i {
+      margin-left: 8px;
     }
   }
 }
 
 .info-cards-section {
   padding: 64px 0;
-  background-color: var(--secondary-n);
+  background-color: var(--blue-400);
 
   &__container {
     display: grid;
@@ -310,15 +316,19 @@
 
   .card {
     background-color: #fff;
+    padding: 56px;
+    align-items: center;
 
     &__title {
+      font-size: 40px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
 
     &__desc {
       font-size: 24px;
       margin-bottom: 0px;
+      line-height: 31px;
     }
   }
 }
