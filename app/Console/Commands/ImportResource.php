@@ -40,7 +40,7 @@ class ImportResource extends Command
     public function handle()
     {
         $this->info("Importing resource data");
-        $excel_path = storage_path('app/public/resource.xlsx');
+        $excel_path = public_path('files/resource.xlsx');
         Excel::import(new ResourceImport, $excel_path);
         $this->info("Data import complete");
     }
