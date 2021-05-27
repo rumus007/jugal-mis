@@ -1,280 +1,91 @@
 <template>
-  <div class="institution">
-    <div class="section__map--inner">
-      <div class="map-sidebar">
-        <span>व्यवसायिक संस्था</span>
-        <ul class="map-filter">
-          <!-- <label><input type="checkbox" v-model="showAllMarkers" />सबै</label> -->
-          <li>
-            <input type="checkbox" v-model="showKiranaPasalMarkers" />किराना पसल
-          </li>
-          <li><input type="checkbox" v-model="showSahakariMarkers" />सहकारी</li>
-        </ul>
-      </div>
+  <div>
+    <div>
+      <multiselect
+        v-model="filter.ward"
+        :options="wardList"
+        :multiple="true"
+      ></multiselect>
     </div>
-    <Map :mapData="mapData"></Map>
+    <div class="institution">
+      <FilterByType
+        :resourceFilter="filter.resource_type_id"
+        :wardFilter="filter.ward"
+        @change="handleResourceFilter"
+      />
+      <Map :mapData="mapData"></Map>
+    </div>
   </div>
 </template>
 
 <script>
+import { filterObject, route } from "../../common/helper.js";
+import Multiselect from "vue-multiselect";
 export default {
   name: "Institution",
-  components:{
-        Map: () => import("../components/Map/Map.vue"),
-    },
-  props: {
-    msg: String,
+  components: {
+    Map: () => import("../components/Map/Map.vue"),
+    FilterByType: () => import("./FilterInstitutionByType.vue"),
+    Multiselect,
   },
   data: function () {
     return {
-      showKiranaPasalMarkers: false,
-      showSahakariMarkers: false,
-      mapData: [
-        {
-          GPS: "27.98712552356428,  85.77560628632924",
-          commercialinst: "किराना पसल",
-          type: "Kirana pasal",
-          deviceid: "358449071073586",
-          end: "2020-02-19T17:20:11.150+05:45",
-          enu_name: "Nanimaya_K",
-          formhub: "b546e89447914b09b42f2426355b07a4",
-          instype: "व्यवसायिक संस्था",
-          meta: "uuid:0bc993d7-6fa4-4496-b961-92651a7e8948",
-          name: "Computer languages ",
-          photo: "1582112100098.jpg",
-          shopitem: "other",
-          shopreg: "yes",
-          start: "2020-02-19T17:17:37.706+05:45",
-          __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-          _bamboo_dataset_id: "",
-          geolocation: [27.98712552356428,  85.77560628632924],
-          _id: 41128,
-          _notes: [],
-          _status: "submitted_via_web",
-          _submission_time: "2020-02-19T13:22:08",
-          _submitted_by: null,
-          _tags: [],
-          _uuid: "0bc993d7-6fa4-4496-b961-92651a7e8948",
-          _validation_status: {},
-          _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-          _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-          _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-        },
-        {
-          GPS: "28.057438520876673,  85.83327406192468",
-          commercialinst: "सहकारी",
-          type: "Sahakari",
-          deviceid: "358449071073586",
-          end: "2020-02-19T17:22:17.864+05:45",
-          enu_name: "Nanimaya_K",
-          uuid: "b546e89447914b09b42f2426355b07a4",
-          instype: "व्यवसायिक संस्था",
-          meta: "uuid:f6320508-079a-4e0d-8caa-b28f90aff2de",
-          name: "Diamond  pharnichar",
-          photo: "1582112209971.jpg",
-          shopitem: "clothes",
-          shopreg: "yes",
-          start: "2020-02-19T17:20:14.852+05:45",
-          __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-          _bamboo_dataset_id: "",
-          geolocation: [28.057438520876673,  85.83327406192468],
-          _id: 41129,
-          _notes: [],
-          _status: "submitted_via_web",
-          _submission_time: "2020-02-19T13:22:17",
-          _submitted_by: null,
-          _tags: [],
-          _uuid: "f6320508-079a-4e0d-8caa-b28f90aff2de",
-          _validation_status: {},
-          _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-          _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-          _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-        },
-      ],
+      filter: {
+        ward: [],
+        resource_type_id: [],
+      },
+      wardList: [1, 2, 3, 4, 5, 6, 7],
+      selectedWard: "",
+      mapData: [],
+      resourceTypeList: [],
     };
   },
   // watcher needs to be used as depending upon this we need to send filtered data to map component
   watch: {
-    // showKiranaPasalMarkers: {
-    //   handler() {
-    //     this.showKiranaPasalMarkers = !this.showKiranaPasalMarkers;
-    //   },
-    // },
-    // showSahakariMarkers: {
-    //   handler() {
-    //     this.showSahakariMarkers = !this.showSahakariMarkers;
-    //   },
-    // },
-
-    showSahakariMarkers: {
-      handler(showSahakariMarker) {
-        if(this.showSahakariMarkers === true)
-        {
-          this.mapData = [{
-            GPS: "28.057438520876673,  85.83327406192468",
-            commercialinst: "सहकारी",
-            type: "Sahakari",
-            deviceid: "358449071073586",
-            end: "2020-02-19T17:22:17.864+05:45",
-            enu_name: "Nanimaya_K",
-            uuid: "b546e89447914b09b42f2426355b07a4",
-            instype: "व्यवसायिक संस्था",
-            meta: "uuid:f6320508-079a-4e0d-8caa-b28f90aff2de",
-            name: "Diamond  pharnichar",
-            photo: "1582112209971.jpg",
-            shopitem: "clothes",
-            shopreg: "yes",
-            start: "2020-02-19T17:20:14.852+05:45",
-            __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-            _bamboo_dataset_id: "",
-            geolocation: [28.057438520876673,  85.83327406192468],
-            _id: 41129,
-            _notes: [],
-            _status: "submitted_via_web",
-            _submission_time: "2020-02-19T13:22:17",
-            _submitted_by: null,
-            _tags: [],
-            _uuid: "f6320508-079a-4e0d-8caa-b28f90aff2de",
-            _validation_status: {},
-            _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-            _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-            _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-          }];
-
-        } 
+    filter: {
+      handler() {
+        this.getMapData();
       },
+      deep: true,
     },
-    showKiranaPasalMarkers: {
-      
-      handler(showKiranaPasalMarker) {
-        if(showKiranaPasalMarker === true) {
-          this.mapData = [{
-            GPS: "27.98712552356428,  85.77560628632924",
-            commercialinst: "किराना पसल",
-            type: "Kirana pasal",
-            deviceid: "358449071073586",
-            end: "2020-02-19T17:20:11.150+05:45",
-            enu_name: "Nanimaya_K",
-            formhub: "b546e89447914b09b42f2426355b07a4",
-            instype: "व्यवसायिक संस्था",
-            meta: "uuid:0bc993d7-6fa4-4496-b961-92651a7e8948",
-            name: "Computer languages ",
-            photo: "1582112100098.jpg",
-            shopitem: "other",
-            shopreg: "yes",
-            start: "2020-02-19T17:17:37.706+05:45",
-            __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-            _bamboo_dataset_id: "",
-            geolocation: [27.98712552356428,  85.77560628632924],
-            _id: 41128,
-            _notes: [],
-            _status: "submitted_via_web",
-            _submission_time: "2020-02-19T13:22:08",
-            _submitted_by: null,
-            _tags: [],
-            _uuid: "0bc993d7-6fa4-4496-b961-92651a7e8948",
-            _validation_status: {},
-            _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-            _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-            _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-          }]
-        }
-      },
-    },
-    // mapData: {
-    //   handler(showKiranaPasalMarkers,showSahakariMarkers){
-    //     console.log('-------marker changedddd-----',this.mapData)
-    //   }
-    // }
   },
   methods: {
-    updateData: function () {
-      this.barChartoptions = {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-        },
-      };
+    getMapData: function () {
+      const targetUrl = `resource/mapdata`;
+      let queryParams = Object.assign({}, this.filter);
+      queryParams = filterObject(queryParams);
+      let formattedParams = {};
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
+
+      this.filter.resource_type_id.length !== 0
+        ? axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
+            this.mapData = data.data;
+          })
+        : (this.mapData = []);
     },
-    originalData: function () {
-      return [
-        {
-          GPS: "27.98712552356428,  85.77560628632924",
-          commercialinst: "किराना पसल",
-          type: "Kirana pasal",
-          deviceid: "358449071073586",
-          end: "2020-02-19T17:20:11.150+05:45",
-          enu_name: "Nanimaya_K",
-          formhub: "b546e89447914b09b42f2426355b07a4",
-          instype: "व्यवसायिक संस्था",
-          meta: "uuid:0bc993d7-6fa4-4496-b961-92651a7e8948",
-          name: "Computer languages ",
-          photo: "1582112100098.jpg",
-          shopitem: "other",
-          shopreg: "yes",
-          start: "2020-02-19T17:17:37.706+05:45",
-          __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-          _bamboo_dataset_id: "",
-          geolocation: [27.98712552356428,  85.77560628632924],
-          _id: 41128,
-          _notes: [],
-          _status: "submitted_via_web",
-          _submission_time: "2020-02-19T13:22:08",
-          _submitted_by: null,
-          _tags: [],
-          _uuid: "0bc993d7-6fa4-4496-b961-92651a7e8948",
-          _validation_status: {},
-          _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-          _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-          _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-        },
-        {
-          GPS: "28.057438520876673,  85.83327406192468",
-          commercialinst: "सहकारी",
-          type: "Sahakari",
-          deviceid: "358449071073586",
-          end: "2020-02-19T17:22:17.864+05:45",
-          enu_name: "Nanimaya_K",
-          uuid: "b546e89447914b09b42f2426355b07a4",
-          instype: "व्यवसायिक संस्था",
-          meta: "uuid:f6320508-079a-4e0d-8caa-b28f90aff2de",
-          name: "Diamond  pharnichar",
-          photo: "1582112209971.jpg",
-          shopitem: "clothes",
-          shopreg: "yes",
-          start: "2020-02-19T17:20:14.852+05:45",
-          __version__: "v5TTbty2cVkZ5wKFQAEtFj",
-          _bamboo_dataset_id: "",
-          geolocation: [28.057438520876673,  85.83327406192468],
-          _id: 41129,
-          _notes: [],
-          _status: "submitted_via_web",
-          _submission_time: "2020-02-19T13:22:17",
-          _submitted_by: null,
-          _tags: [],
-          _uuid: "f6320508-079a-4e0d-8caa-b28f90aff2de",
-          _validation_status: {},
-          _version_: "vnuyWwWYyxCMmnvS6mkYxL",
-          _version__001: "vp7HYiKssosYj3Ec7pFuEY",
-          _xform_id_string: "a4CuktLBPsxhNHcTPaFNkG",
-        },
-      ]
-    }
+
+    handleResourceFilter: function (selectedFilter) {
+      this.filter.resource_type_id = selectedFilter;
+    },
   },
 };
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
 .institution {
   display: flex;
 }
-section__map--inner {
-  display: flex;
-  flex-direction: column;
+.map-filter {
+  list-style: none;
 }
 </style>
