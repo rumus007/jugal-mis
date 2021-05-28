@@ -33,7 +33,7 @@ class HouseholdService
      */
     public function getHouseOwnershipData($ward = []): array
     {
-        $select_attr   = ['house_ownership', DB::raw('count(*) as total')];
+        $select_attr   = ['house_ownership as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['house_ownership'];
@@ -56,7 +56,7 @@ class HouseholdService
      */
     public function getRoofingData($ward = []): array
     {
-        $select_attr   = ['roofing', DB::raw('count(*) as total')];
+        $select_attr   = ['roofing as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['roofing'];
@@ -79,7 +79,7 @@ class HouseholdService
      */
     public function getFoundationData($ward = []): array
     {
-        $select_attr   = ['foundation', DB::raw('count(*) as total')];
+        $select_attr   = ['foundation  as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['foundation'];
@@ -107,7 +107,7 @@ class HouseholdService
             'no' => 0,
         ];
 
-        $select_attr   = ['has_house_number', DB::raw('count(*) as total')];
+        $select_attr   = ['has_house_number as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['has_house_number'];
@@ -119,7 +119,7 @@ class HouseholdService
         $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
 
         foreach ($data as $v) {
-            if ($v['has_house_number']) {
+            if ($v['category']) {
                 $format['yes'] = $v['total'];
                 continue;
             }
@@ -129,7 +129,7 @@ class HouseholdService
 
         $final = array_map(function ($val, $key) {
             return [
-                "has_house_number" => $key,
+                "category" => $key,
                 "total" => $val
             ];
         }, $format, array_keys($format));
@@ -146,7 +146,7 @@ class HouseholdService
      */
     public function getRoadToHouseData($ward = []): array
     {
-        $select_attr   = ['type_of_access_to_road as road_type', DB::raw('count(*) as total')];
+        $select_attr   = ['type_of_access_to_road as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['type_of_access_to_road'];
@@ -169,7 +169,7 @@ class HouseholdService
      */
     public function getRoadTypeData($ward = []): array
     {
-        $select_attr   = ['type_of_road', DB::raw('count(*) as total')];
+        $select_attr   = ['type_of_road as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = ['type_of_road'];
@@ -181,7 +181,7 @@ class HouseholdService
         $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
 
         $final = array_map(function($val){
-            $val['type_of_road'] = $val['type_of_road'] ? $val['type_of_road'] : 'N/A';
+            $val['category'] = $val['category'] ? $val['category'] : 'N/A';
             return $val;
         }, $data);
 
