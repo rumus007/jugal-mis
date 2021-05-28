@@ -3,7 +3,7 @@
     <apexchart
       width="450"
       type="bar"
-      :options="options"
+      :options="chartOptions"
       :series="series"
     ></apexchart>
   </div>
@@ -14,17 +14,94 @@ import VueApexCharts from "vue-apexcharts";
 export default {
   name: "BarChart",
   props: {
-    series: { type: Array, required: true },
-    options: { type: Object, required: true },
+    data: { type: Array, required: true },
+    // options: { type: Object, required: true },
   },
   components: {
     apexchart: VueApexCharts,
   },
-  data:function (){
+  computed: {
+    categories() {
+      return this.data.map((barChartData) => barChartData.category);
+    },
+    stats() {
+      return this.data.map((barChartData) => barChartData.total);
+    },
+    series() {
+      return [
+        {
+          data: [...this.stats],
+        },
+      ];
+    },
+
+    chartOptions() {
+      return {
+        chart: {
+          type: "bar",
+        },
+        colors: "#2F80ED",
+        plotOptions: {
+            bar: {
+                horizontal: true,
+            }
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        xaxis: {
+          categories: [...this.categories],
+          labels: {
+            style: {
+              fontSize: "11px",
+              fontFamily: "Mukta, sans-serif",
+            },
+            // formatter: function (value) {
+            //     return englishToNepaliNumber(value) ;
+            // }
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          labels: {
+            style: {
+              fontSize: "13px",
+              fontFamily: "Mukta, sans-serif",
+            },
+          },
+        },
+        //  todo add local check
+        tooltip: {
+          style: {
+            fontSize: "12px",
+            fontFamily: "Mukta, sans-serif",
+          },
+          x: {
+            show: false,
+          },
+          y: {
+            formatter: function (value) {
+              return value;
+              // return englishToNepaliNumber(value)
+            },
+            title: {
+              formatter: (seriesName) => "",
+            },
+          },
+          marker: {
+            show: false,
+          },
+        },
+      };
+    },
+  },
+  data: function () {
     return {
-      showGraph : true
-    }
-  }
+      showGraph: true,
+    };
+  },
 };
 </script>
 
