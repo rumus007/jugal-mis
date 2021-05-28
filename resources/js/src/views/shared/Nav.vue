@@ -28,7 +28,7 @@ export default {
     &__link {
       transition: all 0.32s ease-in-out;
       &:hover {
-        color: var(--color-primary-dark);
+        color: var(--color-primary-light);
       }
     }
   }

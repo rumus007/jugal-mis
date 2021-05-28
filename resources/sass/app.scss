@@ -30,3 +30,62 @@ body {
 .flex {
     display: flex;
 }
+.flex {
+    display: flex;
+}
+
+.multiselect{
+    &__tags {
+        background: transparent!important;
+        padding-top: 4px !important;
+    }
+    &__placeholder {
+        color: var(--color-base)!important;
+        font-size: 16px;
+        padding-left: 8px;
+    }
+    &__select:before {
+        border-color: var(--color-base) transparent transparent !important;
+    }
+}
+
+.tabs-component {
+    display: flex;
+
+    &-tabs {
+        background-color: var(--color-secondary-light);
+        width: 300px;
+    }
+
+    &-panels {
+        width: calc(100vw - 300px);
+        padding: 40px;
+        h2 {
+            margin-bottom: 24px;
+        }
+    }
+
+    &-tab {
+        border-bottom: 1px solid rgba(51, 52, 86, 0.2);
+
+        a {
+            display: block;
+            padding: 16px 40px;
+        }
+        &.is-active {
+            background-color: var(--color-primary-dark);
+
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.apexcharts-canvas {
+    width: 100% !important;
+
+    svg {
+        width: 100%;
+    }
+}

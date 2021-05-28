@@ -1,16 +1,10 @@
 <template>
-  <div>
-    <div>
-      <multiselect
-        v-model="filter.ward"
-        :options="wardList"
-        :multiple="true"
-      ></multiselect>
-    </div>
+  <div class="institution-wrapper">
+    <TitleBar/>
     <div class="institution">
       <FilterByType
         :resourceFilter="filter.resource_type_id"
-        :wardFilter="filter.ward"
+        :wardFilter="filter.wardList"
         @change="handleResourceFilter"
       />
       <Map :mapData="mapData"></Map>
@@ -20,22 +14,18 @@
 
 <script>
 import { filterObject, route } from "../../common/helper.js";
-import Multiselect from "vue-multiselect";
 export default {
   name: "Institution",
   components: {
     Map: () => import("../components/Map/Map.vue"),
     FilterByType: () => import("./FilterInstitutionByType.vue"),
-    Multiselect,
+    TitleBar: () => import("../shared/TitleBar"),
   },
   data: function () {
     return {
       filter: {
-        ward: [],
         resource_type_id: [],
       },
-      wardList: [1, 2, 3, 4, 5, 6, 7],
-      selectedWard: "",
       mapData: [],
       resourceTypeList: [],
     };

@@ -1,41 +1,188 @@
 <template>
-  <div>
-    <div>
-      <button v-on:click="showTable('showBarChartGraph')">Show table</button>
-      <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
-      <div v-if="showBarChartGraph">
-        <BarChart :series="barChartSeries" :options="barChartoptions" />
-      </div>
-      <div v-else>
-        <Table :data="tableBarChartData" />
-      </div>
-    </div>
-    <div>
-      <button v-on:click="showTable('showLineChartGraph')">Show table</button>
-      <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
-      <div v-if="showLineChartGraph">
-        <LineChart :series="lineChartSeries" :options="lineChartOptions" />
-      </div>
-      <div v-else>
-        <Table :data="tableLineChartData" />
-      </div>
-    </div>
-
-    <div>
-      <button v-on:click="showTable('showPieChartGraph')">Show table</button>
-      <button v-on:click="showGraph('showPieChartGraph')">Show graph</button>
-      <div v-if="showPieChartGraph">
-        <PieChart :series="pieChartSeries" :options="pieChartOptions" />
-      </div>
-      <div v-else>
-        <Table :data="tablePieChartData" />
-      </div>
-    </div>
-    <button v-on:click="updateData">Update Data</button>
+<div class="house-wrapper">
+    <!-- <button v-on:click="updateData">Update Data</button> -->
+  <TitleBar/>
+  <div class="tabs">   
+      <tabs>
+        <tab name="घरकाे अवस्था">     
+          <h2>घरकाे अवस्था</h2>
+          <div class="chart-wrapper flex">
+            <div class="charts">
+              <h3>वडागत रुपमा घरकाे संख्या</h3>
+              <div class="chart">
+                <button v-on:click="showTable('showBarChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
+                <div v-if="showBarChartGraph">
+                  <BarChart :series="barChartSeries" :options="barChartoptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableBarChartData" />
+                </div>                   
+              </div>
+            </div>
+            <div class="charts">
+              <h3>घरकाे स्वामित्व</h3>
+              <div class="chart">
+                <button v-on:click="showTable('showLineChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
+                <div v-if="showLineChartGraph">
+                  <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableLineChartData" />
+                </div>
+              </div>
+            </div>
+             <div class="charts">
+              <h3>छानाकाे प्रकार</h3>             
+               <div class="chart">                 
+                  <button v-on:click="showTable('showPieChartGraph')">Show table</button>
+                  <button v-on:click="showGraph('showPieChartGraph')">Show graph</button>
+                  <div v-if="showPieChartGraph">
+                    <PieChart :series="pieChartSeries" :options="pieChartOptions" />
+                  </div>
+                  <div v-else>
+                    <Table :data="tablePieChartData" />
+                  </div>
+               </div>
+            </div>
+            <div class="charts">
+              <h3>घरकाेे जग</h3>             
+              <div class="chart">
+                <button v-on:click="showTable('showBarChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
+                <div v-if="showBarChartGraph">
+                  <BarChart :series="barChartSeries" :options="barChartoptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableBarChartData" />
+                </div>                   
+              </div>
+            </div>
+          </div>
+        </tab>
+        <tab name="उपयाेग्य बस्तु"> 
+          <h2>उपयाेग्य बस्तु</h2>    
+           <div class="chart-wrapper flex">
+            <div class="charts">
+              <h3>परिवारका लागि खानेपानीकाे स्राेत</h3>                      
+              <div class="chart">
+                <button v-on:click="showTable('showLineChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
+                <div v-if="showLineChartGraph">
+                  <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableLineChartData" />
+                </div>
+              </div>
+            </div>
+            <div class="charts">
+              <h3>खाना पकाउने मुख्य इन्धन </h3>
+              <div class="chart">
+                <button v-on:click="showTable('showBarChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
+                <div v-if="showBarChartGraph">
+                  <BarChart :series="barChartSeries" :options="barChartoptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableBarChartData" />
+                </div>                   
+              </div>
+            </div>
+            <div class="charts">
+              <h3>विद्युतकाे प्रमुख इन्धन</h3>
+              <div class="chart">
+                <button v-on:click="showTable('showLineChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
+                <div v-if="showLineChartGraph">
+                  <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableLineChartData" />
+                </div>
+              </div>
+            </div>
+             <div class="charts">
+              <h3>बैकल्पिक इन्धनकाे प्रयाेग</h3>
+              <div class="chart">
+                <button v-on:click="showTable('showBarChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
+                <div v-if="showBarChartGraph">
+                  <BarChart :series="barChartSeries" :options="barChartoptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableBarChartData" />
+                </div>                   
+              </div>
+            </div>
+            <div class="charts">
+              <h3>आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय</h3>
+              <div class="chart">
+                <button v-on:click="showTable('showLineChartGraph')">Show table</button>
+                <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
+                <div v-if="showLineChartGraph">
+                  <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+                </div>
+                <div v-else>
+                  <Table :data="tableLineChartData" />
+                </div>
+              </div>
+            </div>
+          </div> 
+        </tab>
+        <tab name="विपद पूर्वतयारी">  
+          <h2>विपद पूर्वतयारी</h2>                
+           <div class="chart-wrapper flex">  
+              <div class="charts">
+               <h3>भूकम्प प्रतिराेधी घर</h3>  
+               <div class="chart">                 
+                  <button v-on:click="showTable('showPieChartGraph')">Show table</button>
+                  <button v-on:click="showGraph('showPieChartGraph')">Show graph</button>
+                  <div v-if="showPieChartGraph">
+                    <PieChart :series="pieChartSeries" :options="pieChartOptions" />
+                  </div>
+                  <div v-else>
+                    <Table :data="tablePieChartData" />
+                  </div>
+               </div>
+              </div>
+              <div class="charts">
+                <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
+                <div class="chart">
+                  <button v-on:click="showTable('showBarChartGraph')">Show table</button>
+                  <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
+                  <div v-if="showBarChartGraph">
+                    <BarChart :series="barChartSeries" :options="barChartoptions" />
+                  </div>
+                  <div v-else>
+                    <Table :data="tableBarChartData" />
+                  </div>                   
+                </div>
+              </div>
+              <div class="charts">
+                <h3>विद्युतकाे प्रमुख इन्धन</h3>
+                <div class="chart">
+                  <button v-on:click="showTable('showLineChartGraph')">Show table</button>
+                  <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
+                  <div v-if="showLineChartGraph">
+                    <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+                  </div>
+                  <div v-else>
+                    <Table :data="tableLineChartData" />
+                  </div>
+                </div>
+              </div>
+          </div> 
+        </tab>
+    </tabs>
+  </div>
   </div>
 </template>
 
 <script>
+
+import {Tabs, Tab} from 'vue-tabs-component';
 
 export default {
   name: "Ghar",
@@ -44,6 +191,10 @@ export default {
         LineChart: () => import("../components/Chart/LineChart"),
         PieChart: () => import("../components/Chart/PieChart"),
         Table: () => import("../components/Table/Table"),
+        TitleBar: () => import("../shared/TitleBar"),
+        Tabs,
+        Tab
+        // TabFilter: () => import("../components/TabFilter/TabFilter"),
     },
   props: {
     msg: String,
@@ -139,5 +290,24 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+
+  .charts {
+    width: 48%;
+  }
+
+  .chart {
+      background: #F5F5F7;
+      border-radius: 8px;
+      height: 370px;
+      margin-bottom: 40px;
+      padding: 24px;
+      &-wrapper {
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      button {
+        margin-bottom: 24px;
+      }
+  }
 </style>
