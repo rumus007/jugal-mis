@@ -194,8 +194,9 @@ export default {
 
 <style scoped lang="scss">
 #mapContainer {
+  border-left: 1px solid rgba(114,115,142,0.2);
+  height: 966px;
   width: 80vw;
-  height: 100%;
   z-index: 0;
 }
 

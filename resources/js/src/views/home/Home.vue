@@ -185,10 +185,7 @@
 }
 
 .card {
-  border-radius: 8px;
-  background-color: var(--color-base);
   padding: 64px 56px;
-  transition: box-shadow 0.3s ease-in-out;
 
   &__img {
     align-items: center;

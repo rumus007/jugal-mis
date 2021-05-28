@@ -440,8 +440,10 @@ body {
   display: flex;
 }
 
-.flex {
-  display: flex;
+.card {
+  border-radius: 8px;
+  background-color: var(--color-base);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .multiselect {
@@ -468,6 +470,7 @@ body {
   width: 300px;
 }
 .tabs-component-panels {
+  border-left: 1px solid rgba(114, 115, 142, 0.2);
   width: calc(100vw - 300px);
   padding: 40px;
 }
@@ -475,17 +478,25 @@ body {
   margin-bottom: 24px;
 }
 .tabs-component-tab {
-  border-bottom: 1px solid rgba(51, 52, 86, 0.2);
+  border-bottom: 1px solid rgba(114, 115, 142, 0.2);
 }
 .tabs-component-tab a {
   display: block;
-  padding: 16px 40px;
+  padding: 16px 28px 16px 48px;
 }
 .tabs-component-tab.is-active {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-base);
 }
 .tabs-component-tab.is-active a {
-  color: #fff;
+  color: var(--color-primary-dark);
+}
+.tabs-component-tab.is-active a:after {
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000;
+  border-top: 5px solid transparent;
+  content: "";
+  float: right;
+  margin-top: 8px;
 }
 
 .apexcharts-canvas {
@@ -493,4 +504,56 @@ body {
 }
 .apexcharts-canvas svg {
   width: 100%;
+}
+
+.apexcharts-toolbar {
+  top: -48px !important;
+}
+
+.apexcharts-zoom-icon,
+.apexcharts-reset-icon,
+.apexcharts-menu-icon {
+  transform: none !important;
+}
+.apexcharts-zoom-icon svg,
+.apexcharts-reset-icon svg,
+.apexcharts-menu-icon svg {
+  fill: var(--color-link) !important;
+  opacity: 0.3;
+}
+.apexcharts-zoom-icon:hover svg,
+.apexcharts-reset-icon:hover svg,
+.apexcharts-menu-icon:hover svg {
+  opacity: 1;
+}
+
+.charts {
+  width: 48%;
+}
+
+.chart {
+  min-height: 370px;
+  margin-bottom: 40px;
+  padding: 24px;
+}
+.chart-wrapper {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.chart button {
+  margin-bottom: 24px;
+}
+
+.view-icons {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 32px;
+}
+.view-icons button {
+  background: transparent;
+  border: 0;
+  opacity: 0.3;
+}
+.view-icons button:hover, .view-icons button.active {
+  opacity: 1;
 }

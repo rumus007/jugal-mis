@@ -40,7 +40,7 @@ export default {
         chart: {
           type: "bar",
         },
-        colors: "#2F80ED",
+        colors: "#028EFF",
         plotOptions: {
             bar: {
                 horizontal: true,

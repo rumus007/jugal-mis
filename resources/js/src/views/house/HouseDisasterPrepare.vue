@@ -2,7 +2,7 @@
   <div class="chart-wrapper flex">
     <div class="charts">
       <h3>भूकम्प प्रतिराेधी घर</h3>
-      <div class="chart">
+      <div class="card chart">
         <button v-on:click="showTable('showPieChartGraph')">Show table</button>
         <button v-on:click="showGraph('showPieChartGraph')">Show graph</button>
         <div v-if="showPieChartGraph">
@@ -15,7 +15,7 @@
     </div>
     <div class="charts">
       <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
-      <div class="chart">
+      <div class="card chart">
         <button v-on:click="showTable('showBarChartGraph')">Show table</button>
         <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
         <div v-if="showBarChartGraph">
@@ -28,7 +28,7 @@
     </div>
     <div class="charts">
       <h3>विद्युतकाे प्रमुख इन्धन</h3>
-      <div class="chart">
+      <div class="card chart">
         <button v-on:click="showTable('showLineChartGraph')">Show table</button>
         <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
         <div v-if="showLineChartGraph">
@@ -175,24 +175,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.charts {
-  width: 48%;
-}
+<style scoped>
 
-.chart {
-  background: #f5f5f7;
-  border-radius: 8px;
-  height: 370px;
-  margin-bottom: 40px;
-  padding: 24px;
-  &-wrapper {
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  button {
-    margin-bottom: 24px;
-  }
-}
 </style>
+

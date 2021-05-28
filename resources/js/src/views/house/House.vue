@@ -55,22 +55,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.charts {
-  width: 48%;
-}
-
-.chart {
-  background: #f5f5f7;
-  border-radius: 8px;
-  height: 370px;
-  margin-bottom: 40px;
-  padding: 24px;
-  &-wrapper {
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  button {
-    margin-bottom: 24px;
-  }
-}
 </style>

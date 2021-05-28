@@ -54,6 +54,7 @@
     align-items: baseline;
     display: flex;
   }
+  
   .multiselect {
     height: 42px;
     width: 169px;
