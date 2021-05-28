@@ -53,6 +53,11 @@ body {
     }
 }
 
+.multiselect__tag {
+    background: #fff !important;
+    color: var(--color-primary-dark) !important;
+}
+
 .tabs-component {
     display: flex;
 
