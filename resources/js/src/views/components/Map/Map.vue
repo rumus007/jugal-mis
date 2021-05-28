@@ -196,7 +196,7 @@ export default {
 #mapContainer {
   border-left: 1px solid rgba(114,115,142,0.2);
   height: 966px;
-  width: 80vw;
+  width: calc(100vw - 300px);
   z-index: 0;
 }
 

@@ -28,11 +28,12 @@ export default {
     &__link {
       transition: all 0.32s ease-in-out;
       &:hover {
-        color: var(--color-primary-dark);
+        color: var(--color-link);
       }
     }
   }
   .router-link-active,.router-link-active:hover {
-    color: var(--color-link);
+    font-weight: 500;
+    color: var(--orange-500);
   }
 </style>
