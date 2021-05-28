@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  name: "nav",
+  name: "Nav",
 };
 </script>
 <style lang="scss" scoped>

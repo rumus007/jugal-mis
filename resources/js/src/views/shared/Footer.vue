@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: "footer",
+  name: "Footer",
   components: {
     Nav: () => import("../shared/Nav"),
   }

@@ -19,7 +19,7 @@
 <script>
 import logo from "../../../../../public/images/nepal-gov.svg";
 export default {
-  name: "header",
+  name: "Header",
   components: {
     Nav: () => import("../shared/Nav"),
   },
