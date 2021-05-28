@@ -35,6 +35,7 @@ body {
 }
 
 .multiselect{
+    z-index: 1;
     &__tags {
         background: transparent!important;
         padding-top: 4px !important;

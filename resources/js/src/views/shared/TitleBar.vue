@@ -1,6 +1,6 @@
 <template>    
   <div class="title-bar flex">
-    <h1>घरधुरीकाे विवरण</h1>
+    <h1>{{title}}</h1>
     <div class="ward-options">
       <multiselect
         v-model="filter.ward"
@@ -23,6 +23,7 @@
     import Multiselect from "vue-multiselect";
     export default {
         name: "TitleBar",
+        props: ['title'],
         components: {
             Multiselect,
         },
@@ -42,10 +43,8 @@
   .title-bar {
     align-items: center;
     background-color: #028EFF;
-    border-top: 1px solid rgba(51,52,86,0.2);
-    border-bottom: 1px solid rgba(51,52,86,0.2);
     justify-content: space-between;
-    padding: 20px 80px;
+    padding: 20px 48px;
     h1 {
       color: var(--color-base);
     }
