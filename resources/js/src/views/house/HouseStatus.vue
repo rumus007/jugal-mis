@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { Tabs, Tab } from "vue-tabs-component";
+import { filterObject } from "../../common/helper.js";
 
 export default {
   name: "HouseStatus",
@@ -144,10 +144,7 @@ export default {
     LineChart: () => import("../components/Chart/LineChart"),
     PieChart: () => import("../components/Chart/PieChart"),
     DonutChart: () => import("../components/Chart/DonutChart"),
-    Table: () => import("../components/Table/Table")
-  },
-  props: {
-    msg: String,
+    Table: () => import("../components/Table/Table"),
   },
   data: function () {
     return {
@@ -189,7 +186,6 @@ export default {
         { category: 1995, total: 49 },
         { category: 1996, total: 60 },
       ],
-
     };
   },
   methods: {
@@ -201,35 +197,34 @@ export default {
     },
     getOwnerShipData: function () {
       const targetUrl = `household/ownership`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
-
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.ownershipData = data.data;
       });
     },
     getHouseNumberData: function () {
       const targetUrl = `household/house-number`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
 
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.houseNumberData = data.data;
@@ -237,17 +232,17 @@ export default {
     },
     getFoundationData: function () {
       const targetUrl = `household/foundation`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
 
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.foundationData = data.data;
@@ -255,17 +250,17 @@ export default {
     },
     getRoofingData: function () {
       const targetUrl = `household/roofing`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
 
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.roofingData = data.data;
@@ -273,17 +268,17 @@ export default {
     },
     getRoadTypeToHouseData: function () {
       const targetUrl = `household/road-type-to-house`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
 
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.roadToHouseData = data.data;
@@ -291,17 +286,17 @@ export default {
     },
     getRoadTypeData: function () {
       const targetUrl = `household/road-type`;
-      //   let queryParams = Object.assign({}, this.filter);
-      //   queryParams = filterObject(queryParams);
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
       let formattedParams = {};
-      //   Object.keys(queryParams).map((data) => {
-      //     if (queryParams[data].length > 0) {
-      //       formattedParams = {
-      //         ...formattedParams,
-      //         [data]: `${queryParams[data].join(",")}`,
-      //       };
-      //     }
-      //   });
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
 
       axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
         this.roadTypeData = data.data;
@@ -315,6 +310,24 @@ export default {
     this.getRoofingData();
     this.getRoadTypeToHouseData();
     this.getRoadTypeData();
+  },
+  computed: {
+    ward() {
+      return this.$store.getters.ward;
+    },
+  },
+  watch: {
+    ward: {
+      handler() {
+        this.getOwnerShipData();
+        this.getHouseNumberData();
+        this.getFoundationData();
+        this.getRoofingData();
+        this.getRoadTypeToHouseData();
+        this.getRoadTypeData();
+      },
+      deep: true,
+    },
   },
 };
 </script>
