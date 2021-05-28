@@ -40,7 +40,7 @@ class ResourceService
         $group_by_attr = ['resource_type.id', 'resource_type.name_np', 'resource_type.name'];
         $data          = $this->resourceRepository->getWithResourceType($select_attr, $where_attr, $where_in_attr, $group_by_attr);
 
-        return $this->prepareResponseFormat($data);
+        return prepareResponseFormat($data);
     }
 
     /**
@@ -88,24 +88,6 @@ class ResourceService
             return $v;
         }, $data);
 
-        return $this->prepareResponseFormat($data);
-    }
-
-    /**
-     * Prepares response for api
-     *
-     * @param $data
-     *
-     * @return array
-     */
-    private function prepareResponseFormat($data): array
-    {
-        $response = [
-            "status"  => "Success",
-            "message" => "",
-            "data"    => $data
-        ];
-
-        return $response;
+        return prepareResponseFormat($data);
     }
 }

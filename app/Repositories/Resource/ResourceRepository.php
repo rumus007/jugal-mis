@@ -29,15 +29,16 @@ class ResourceRepository extends Repository
      * 
      * @param $selec_attr
      * @param $where_attr
+     * @param $where_in_attr
      * @param $group_by_attr
      * 
      * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getWithResourceType($selec_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    public function getWithResourceType($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
     {
         $data = $this->model
             ->join('resource_type', 'resource_type.id', '=', 'resource.resource_type_id')
-            ->select($selec_attr);
+            ->select($select_attr);
 
         if ($where_attr) {
             $data->where($where_attr);

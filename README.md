@@ -5,7 +5,7 @@
 
 The prerequisite for this GRMSS are:
 - php>=8.0.0
-- node>=15
+- node>=14
 - node package manager(npm)
 - postgres
 - composer>=2
@@ -35,6 +35,11 @@ This application is coded in PHP using [Laravel](http://laravel.com) framework f
 ## Tools and packages
 The packages used in this application can be seen in [composer.json](https://gitlab.yipl.com.np/web-apps/jugal-mis/-/blob/master/composer.json) file and [package.json](https://gitlab.yipl.com.np/web-apps/jugal-mis/-/blob/master/package.json) file.
 
+## Important commands
+The following commands should be run one after another for populating the database 
+- `php artisan migrate:fresh --seed` Run all migrations and seed the necessary data into the database
+- `php artisan import:resource` Import Resource profile data from excel and save into database
+- `php artisan import:household` Import household(घरधुरीकाे विवरण) data from excel and save into database
 
 ## Structure for Backend
 This application is structured in a simple way within `app` folder. The various folders and their corresponding contents are:
