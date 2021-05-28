@@ -444,6 +444,9 @@ body {
   display: flex;
 }
 
+.multiselect {
+  z-index: 1;
+}
 .multiselect__tags {
   background: transparent !important;
   padding-top: 4px !important;

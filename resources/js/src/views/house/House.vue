@@ -1,7 +1,7 @@
 <template>
 <div class="house-wrapper">
     <!-- <button v-on:click="updateData">Update Data</button> -->
-  <TitleBar/>
+  <TitleBar title="घरधुरीकाे विवरण" />
   <div class="tabs">   
       <tabs>
         <tab name="घरकाे अवस्था">     

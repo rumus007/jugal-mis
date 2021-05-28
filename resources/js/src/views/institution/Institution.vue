@@ -1,6 +1,6 @@
 <template>
   <div class="institution-wrapper">
-    <TitleBar/>
+    <TitleBar title="संस्थागत विवरण" />
     <div class="institution">
       <FilterByType
         :resourceFilter="filter.resource_type_id"

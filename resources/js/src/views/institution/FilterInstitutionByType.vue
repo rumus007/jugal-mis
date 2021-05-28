@@ -5,10 +5,12 @@
       <div class="select-all-filter">
         <input
           type="checkbox"
+          class="select-all-filter__input"
+          id="selectAll"
           v-model="allSelected"
           @click="handleSelectAllClick"
         />
-        Select All
+        <label for="selectAll">सबै छान्नु</label>
       </div>
       <div
         class="map-filter"
@@ -17,11 +19,12 @@
       >
         <input
           type="checkbox"
+          class="map-filter__input"
           :id="typeData.id"
           :value="typeData.id"
           v-model="selectedCategory"
         />
-        <label>{{ typeData.nepali_name }} {{ `(${typeData.total})` }}</label>
+        <label class="map-filter__label" :for="typeData.id">{{ typeData.nepali_name }} <span class="map-filter__count">{{ `(${typeData.total})` }}</span></label>
         <br />
       </div>
     </div>
@@ -117,10 +120,23 @@ export default {
 
 .sidebar {
   border-right: 1px solid rgba(114,115,142,0.2);
+  width: 360px;
 }
+
 .map-filter, .select-all-filter {
   border-bottom: 1px solid rgba(114,115,142,0.2);
+  display: flex;
   list-style: none;
-  padding: 16px 24px;
+  padding: 16px 28px;
+
+
+  &__input {
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+
+  &__count {
+    font-weight: bold;
+  }
 }
 </style>
