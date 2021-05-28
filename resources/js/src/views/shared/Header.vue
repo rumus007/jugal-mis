@@ -32,11 +32,11 @@ export default {
 </script>
 <style lang="scss" scoped>
   header {
+    align-items: center;
+    background-color: var(--color-base);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 26px 80px;
-    background-color: var(--color-base);
+    padding: 26px 48px;
   }
   .logo {
     width: 474px;
