@@ -39,6 +39,9 @@
     }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style scoped lang="scss">
   .title-bar {
     align-items: center;
@@ -51,9 +54,10 @@
   }
 
   .ward-options {
-    align-items: baseline;
+    align-items: center;
     display: flex;
   }
+  
   .multiselect {
     height: 42px;
     width: 169px;

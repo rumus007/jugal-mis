@@ -10,11 +10,12 @@ export default {
   name: 'PieChart',
      props: {
         series: {type: Array, required: true},
-        options: {type: Object, required: true},
+        options: {type: Object, required: true
+      },
   },
   components:{
     apexchart: VueApexCharts
-  }
+  },
 }
 </script>
 

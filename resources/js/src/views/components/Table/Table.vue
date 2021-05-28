@@ -29,12 +29,12 @@ export default {
 table,
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid rgba(114, 115, 142, 0.2);
   border-collapse: collapse;
 }
 th,
 td {
-  padding: 15px;
+  padding: 8px 16px;
   text-align: left;
 }
 </style>

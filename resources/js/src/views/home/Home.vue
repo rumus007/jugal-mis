@@ -185,10 +185,7 @@
 }
 
 .card {
-  border-radius: 8px;
-  background-color: var(--color-base);
   padding: 64px 56px;
-  transition: box-shadow 0.3s ease-in-out;
 
   &__img {
     align-items: center;
@@ -276,7 +273,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 124px);
+    height: calc(100vh - 118px);
     justify-content: center;
     text-align: center;
   }
@@ -307,6 +304,7 @@
     transition: transform 0.3s ease-in-out;
     width: 292px;
     &:hover {
+      background-color: var(--orange-500);
       transform: scale(1.1);
     }
     i {

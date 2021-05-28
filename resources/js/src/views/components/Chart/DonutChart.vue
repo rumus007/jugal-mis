@@ -39,9 +39,9 @@ export default {
         //     fontFamily: "Mukta, sans-serif",
         //   },
         // },
-        // fill: {
-        //   colors: ["#35cec8", "#eee"],
-        // },
+        fill: {
+          colors: ["#028EFF", "#35cec8"],
+        },
         // legend: {
         //   show: false,
         // },

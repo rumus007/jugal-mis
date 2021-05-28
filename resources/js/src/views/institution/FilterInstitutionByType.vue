@@ -119,8 +119,7 @@ export default {
 }
 
 .sidebar {
-  border-right: 1px solid rgba(114,115,142,0.2);
-  width: 360px;
+  width: 300px;
 }
 
 .map-filter, .select-all-filter {
