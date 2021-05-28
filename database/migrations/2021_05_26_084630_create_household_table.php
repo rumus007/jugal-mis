@@ -16,7 +16,6 @@ class CreateHouseholdTable extends Migration
     {
         Schema::create(DBTables::HOUSEHOLD, function (Blueprint $table) {
             $table->id();
-            $table->string('index');
             $table->string('province')->nullable();
             $table->string('district')->nullable();
             $table->string('locallevel')->nullable();
@@ -46,7 +45,7 @@ class CreateHouseholdTable extends Migration
             $table->string('cooking_fuel_misc')->nullable();
             $table->string('main_electricity_source')->nullable();
             $table->string('alternative_electricity_source')->nullable();
-            $table->string('distance_to_basic_healthcarre')->nullable();
+            $table->string('distance_to_basic_healthcare')->nullable();
             $table->boolean('is_earthquake_resistant')->nullable();
             $table->boolean('has_risk_mitigation_plans')->nullable();
             $table->boolean('vulnerable_to_national_disaster')->nullable();
