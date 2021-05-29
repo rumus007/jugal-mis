@@ -20,7 +20,7 @@ class ImportHousehold extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Import all household data';
 
     /**
      * Create a new command instance.

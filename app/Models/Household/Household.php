@@ -72,4 +72,12 @@ class Household extends Model
         'geo_precision',
         'photo',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdFacilities()
+    {
+        return $this->belongsToMany(Facilities::class, DBTables::HOUSEHOLD_FACILITIES);
+    }
 }

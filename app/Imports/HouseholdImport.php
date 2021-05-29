@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Household\Facilities;
 use App\Models\Household\Household;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -15,6 +16,8 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     public function collection(Collection $collection)
     {
         Household::truncate();
+        $facilities = Facilities::get();
+
         foreach ($collection as $row) {
             $data = $row->toArray();
 
@@ -22,7 +25,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 $avg_income = (int) $data['paravaraka_sarathara_brashhaka_aamathana_kata_chha_ra_ma_ullkha_garana'];
                 $avg_expenditure = (int) $data['paravaraka_sarathara_brashhaka_kharaca_kata_chha_ra_ma_ullkha_garana'];
                 $avg_saving = $avg_income - $avg_expenditure;
-                Household::create([
+                $saved = Household::create([
                     'id'                                => $data['index'],
                     'province'                          => $data['parathasha_na'],
                     'district'                          => $data['jallka_nama'],
@@ -75,10 +78,50 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                     'geo_precision'                     => $data['gharaka_jayakada_precision'],
                     'photo'                             => $data['gharaka_fata'],
                 ]);
+
+                $facility_arr = $this->getFacilites($facilities, $data);
+                $saved->householdFacilities()->sync($facility_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of facilities for a particular household
+     * 
+     * @param $facilities
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getFacilites($facilities, $data): array
+    {
+        $id = [];
+
+        $map = [
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_radaya" => "radio",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_talbhajana" => "television",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_talfanamavail_fana" => "mobile_telephone",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_kamayatara" => "computer",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_inataranata" => "internet",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_matarasaikal" => "motorcycle",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_matarakara" => "motor_car",
+            "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_rafarajaratara" => "refrigerator",
+        ];
+
+        if($data["kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_kana_pana_chhana"]){
+            return [$facilities->where('name','none')->first()->id];
+        }
+
+        foreach($map as $key => $value){
+            $temp = $facilities->where('name', $value)->first()?->id;
+            if($data[$key] && $temp){
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 }

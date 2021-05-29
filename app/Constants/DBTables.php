@@ -19,4 +19,7 @@ abstract class DBTables
     const RESOURCE      = 'resource';
     const HOUSEHOLD     = 'household';
     const INDIVIDUAL    = 'individual';
+    const FACILITIES    = 'facilities';
+
+    const HOUSEHOLD_FACILITIES = 'household_facilities';
 }
