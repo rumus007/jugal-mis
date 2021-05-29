@@ -6,6 +6,7 @@ use App\Models\Household\Birthplace;
 use App\Models\Household\Disastor;
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
+use App\Models\Household\IncomeSrc;
 use App\Models\Household\WasteMgmt;
 use App\Models\Household\WaterDistance;
 use Illuminate\Support\Collection;
@@ -25,6 +26,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
         $birthplace     = Birthplace::get();
         $disastor       = Disastor::get();
         $water_distance = WaterDistance::get();
+        $income_src     = IncomeSrc::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -106,11 +108,45 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the water distance id in pivot table
                 $water_distance_arr = $this->getWaterDistance($water_distance, $data);
                 $saved->householdWaterDistance()->sync($water_distance_arr);
+
+                // sync the income source id in pivot table
+                $income_src_arr = $this->getIncomeSrc($income_src, $data);
+                $saved->householdIncomeSrc()->sync($income_src_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of income source id for particular household 
+     * 
+     * @param $income_src
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getIncomeSrc($income_src, $data): array
+    {
+        $id  = [];
+
+        $map = [
+            "paravaraka_aamathanaka_makhaya_sarata_ka_ha_rajagara" => "employment",
+            "paravaraka_aamathanaka_makhaya_sarata_ka_ha_majathara" => "labour",
+            "paravaraka_aamathanaka_makhaya_sarata_ka_ha_kashha" => "agriculture",
+            "paravaraka_aamathanaka_makhaya_sarata_ka_ha_ramatayanasa" => "remittance",
+            "paravaraka_aamathanaka_makhaya_sarata_ka_ha_uthayama" => "enterprise",
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $income_src->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 
     /**

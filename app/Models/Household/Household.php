@@ -112,4 +112,12 @@ class Household extends Model
     {
         return $this->belongsToMany(WaterDistance::class, DBTables::HOUSEHOLD_WATER_DISTANCE);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdIncomeSrc()
+    {
+        return $this->belongsToMany(IncomeSrc::class, DBTables::HOUSEHOLD_INCOME_SRC);
+    }
 }

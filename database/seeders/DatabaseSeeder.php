@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NewbornBirthplaceTypeSeeder::class);
         $this->call(DisastorTypeSeeder::class);
         $this->call(WaterDistanceSeeder::class);
+        $this->call(IncomeSourceSeeder::class);
     }
 }
