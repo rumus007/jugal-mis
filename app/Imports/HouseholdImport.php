@@ -7,6 +7,7 @@ use App\Models\Household\Disastor;
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
 use App\Models\Household\WasteMgmt;
+use App\Models\Household\WaterDistance;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -19,10 +20,11 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     public function collection(Collection $collection)
     {
         Household::truncate();
-        $facilities = Facilities::get();
-        $waste_mgmt = WasteMgmt::get();
-        $birthplace = Birthplace::get();
-        $disastor   = Disastor::get();
+        $facilities     = Facilities::get();
+        $waste_mgmt     = WasteMgmt::get();
+        $birthplace     = Birthplace::get();
+        $disastor       = Disastor::get();
+        $water_distance = WaterDistance::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -68,7 +70,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                     "vulnerable_to_national_disaster"   => $data['tapaika_ghara_parakataka_parakapaka_jakhamama_chha'] == 'छ' ? true : false,
                     "toilet_facility"                   => $data['paravaral_parayaga_garana_shacalya_kasata_parakaraka_chha'],
                     "family_member_count"               => $data['paravara_sakhaya_gharamal_sahata'],
-                    // "is_income_enough" => $data[''],
+                    "is_income_enough"                  => $data['paravaraka_aamathana_parayapata_chha']  == 'छ' ? true : false,
                     "avg_family_income"                 => $avg_income,
                     "avg_family_expenditure"            => $avg_expenditure,
                     "avg_family_saving"                 => $avg_saving,
@@ -100,11 +102,44 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the household disastor id in pivot table
                 $disastor_arr = $this->getDisastor($disastor, $data);
                 $saved->householdDisastor()->sync($disastor_arr);
+
+                // sync the water distance id in pivot table
+                $water_distance_arr = $this->getWaterDistance($water_distance, $data);
+                $saved->householdWaterDistance()->sync($water_distance_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of water distance id for particular household 
+     * 
+     * @param $water_distance
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getWaterDistance($water_distance, $data): array
+    {
+        $id = [];
+
+        $map = [
+            "khanapana_samama_pagana_kata_samaya_hadana_parachha_paca_manatabhanatha_kama" => 'less_than_five_mins',
+            "khanapana_samama_pagana_kata_samaya_hadana_parachha_thasa_manatabhanatha_kama" => 'less_than_ten_mins',
+            "khanapana_samama_pagana_kata_samaya_hadana_parachha_aathha_ghanaetabhanatha_kama" => 'less_than_half_hour',
+            "khanapana_samama_pagana_kata_samaya_hadana_parachha_aathha_ghanaetabhanatha_bdha" => 'more_than_half_hour',
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $water_distance->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 
     /**
@@ -119,7 +154,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     {
         $id = [];
 
-        if(is_null($data['tapaika_ghara_kasata_parakaraka_jakhamama_chha'])){
+        if (is_null($data['tapaika_ghara_kasata_parakaraka_jakhamama_chha'])) {
             return $id;
         }
 

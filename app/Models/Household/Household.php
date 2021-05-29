@@ -104,4 +104,12 @@ class Household extends Model
     {
         return $this->belongsToMany(Disastor::class, DBTables::HOUSEHOLD_DISASTOR);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdWaterDistance()
+    {
+        return $this->belongsToMany(WaterDistance::class, DBTables::HOUSEHOLD_WATER_DISTANCE);
+    }
 }
