@@ -20,6 +20,8 @@ abstract class DBTables
     const HOUSEHOLD     = 'household';
     const INDIVIDUAL    = 'individual';
     const FACILITIES    = 'facilities';
+    const WASTE_MGMT    = 'waste_mgmt';
 
     const HOUSEHOLD_FACILITIES = 'household_facilities';
+    const HOUSEHOLD_WASTE_MGMT = 'household_waste_mgmt';
 }

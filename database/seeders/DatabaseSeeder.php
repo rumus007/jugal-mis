@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(ResourceTypeSeeder::class);
         $this->call(FacilityTypeSeeder::class);
+        $this->call(WasteMgmtTypeSeeder::class);
     }
 }

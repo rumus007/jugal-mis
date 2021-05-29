@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
+use App\Models\Household\WasteMgmt;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -17,6 +18,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     {
         Household::truncate();
         $facilities = Facilities::get();
+        $waste_mgmt = WasteMgmt::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -79,8 +81,13 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                     'photo'                             => $data['gharaka_fata'],
                 ]);
 
+                // sync the household facilities id in pivot table
                 $facility_arr = $this->getFacilites($facilities, $data);
                 $saved->householdFacilities()->sync($facility_arr);
+
+                // sync the household waste mgmt id in pivot table
+                $waste_mgmt_arr = $this->getWasteMgmt($waste_mgmt, $data);
+                $saved->householdWasteMgmt()->sync($waste_mgmt_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
@@ -89,7 +96,36 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     }
 
     /**
-     * Get array of facilities for a particular household
+     * Get array of waste mgmt id for particular household 
+     * 
+     * @param $waste_mgmt
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getWasteMgmt($waste_mgmt, $data): array
+    {
+        $id = [];
+
+        $map = [
+            "tapail_ghara_aagana_bta_nasakana_thasa_faharalii_kasara_vayavasathapana_garana_bhaeka_chha_fahara_vayavasathapanaka_lga_kaha_pana_garaka_chhana" => "no_waste_mgmt",
+            "tapail_ghara_aagana_bta_nasakana_thasa_faharalii_kasara_vayavasathapana_garana_bhaeka_chha_varagakaranae_nagara_khaldama_rakha_vayavasathapana_garaka" => "pit_without_classification",
+            "tapail_ghara_aagana_bta_nasakana_thasa_faharalii_kasara_vayavasathapana_garana_bhaeka_chha_varagakaranae_gara_alga_alga_khaldama_rakha_vayavasathapana_garaka" => "separate_pit_with_classification",
+            "tapail_ghara_aagana_bta_nasakana_thasa_faharalii_kasara_vayavasathapana_garana_bhaeka_chha_fahara_sakalna_sasathal_vayavasathapana_garaka" => "garbage_collection_org",
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $waste_mgmt->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
+    }
+
+    /**
+     * Get array of facilities id for a particular household
      * 
      * @param $facilities
      * @param $data
@@ -111,13 +147,13 @@ class HouseholdImport implements ToCollection, WithHeadingRow
             "kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_rafarajaratara" => "refrigerator",
         ];
 
-        if($data["kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_kana_pana_chhana"]){
-            return [$facilities->where('name','none')->first()->id];
+        if ($data["kana_kana_savathhahara_paravaral_upabhaga_garaka_chha_kana_pana_chhana"]) {
+            return [$facilities->where('name', 'none')->first()->id];
         }
 
-        foreach($map as $key => $value){
+        foreach ($map as $key => $value) {
             $temp = $facilities->where('name', $value)->first()?->id;
-            if($data[$key] && $temp){
+            if ($data[$key] && $temp) {
                 $id[] = $temp;
             }
         }
