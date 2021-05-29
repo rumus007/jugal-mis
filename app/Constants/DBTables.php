@@ -25,6 +25,7 @@ abstract class DBTables
     const DISASTOR          = 'disastor';
     const WATER_DISTANCE    = 'water_distance';
     const INCOME_SRC        = 'income_src';
+    const LAND_TITLE        = 'land_title';
 
     /**
      * List of pivot table names
@@ -35,4 +36,5 @@ abstract class DBTables
     const HOUSEHOLD_DISASTOR        = 'household_disastor';
     const HOUSEHOLD_WATER_DISTANCE  = 'household_water_distance';
     const HOUSEHOLD_INCOME_SRC      = 'household_income_src';
+    const HOUSEHOLD_LAND_TITLE      = 'household_land_title';
 }

@@ -7,6 +7,7 @@ use App\Models\Household\Disastor;
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
 use App\Models\Household\IncomeSrc;
+use App\Models\Household\LandTitle;
 use App\Models\Household\WasteMgmt;
 use App\Models\Household\WaterDistance;
 use Illuminate\Support\Collection;
@@ -27,6 +28,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
         $disastor       = Disastor::get();
         $water_distance = WaterDistance::get();
         $income_src     = IncomeSrc::get();
+        $land_title     = LandTitle::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -112,11 +114,46 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the income source id in pivot table
                 $income_src_arr = $this->getIncomeSrc($income_src, $data);
                 $saved->householdIncomeSrc()->sync($income_src_arr);
+
+                // sync the land title id in pivot table
+                $land_title_arr = $this->getLandTitle($land_title, $data);
+                $saved->householdLandTitle()->sync($land_title_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of land title id for particular household 
+     * 
+     * @param $land_title
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getLandTitle($land_title, $data): array
+    {
+        $id = [];
+
+        $map = [
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_aafana_paravaraka_parashha" => 'own_family_male',
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_aafana_paravaraka_mahal" => 'own_family_female',
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_aafana_paravaraka_sayakata" => 'own_family_joint',
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_aafana_paravaraka_tashara_lnaga" => 'own_family_third_gender',
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_paravara_bhaka_araka" => 'not_owned_by_family',
+            "kasaka_savamatavaka_jagaga_kashha_karayaka_lga_parayaga_garanabhaeka_chha_anaya" => 'other'
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $land_title->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 
     /**
