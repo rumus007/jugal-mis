@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Household\Birthplace;
+use App\Models\Household\Disastor;
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
 use App\Models\Household\WasteMgmt;
@@ -21,6 +22,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
         $facilities = Facilities::get();
         $waste_mgmt = WasteMgmt::get();
         $birthplace = Birthplace::get();
+        $disastor   = Disastor::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -94,11 +96,50 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the household newborn birthplace id in pivot table
                 $birthplace_arr = $this->getNewbornBirthplace($birthplace, $data);
                 $saved->householdBirthplace()->sync($birthplace_arr);
+
+                // sync the household disastor id in pivot table
+                $disastor_arr = $this->getDisastor($disastor, $data);
+                $saved->householdDisastor()->sync($disastor_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of disastor id for particular household 
+     * 
+     * @param $disastor
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getDisastor($disastor, $data): array
+    {
+        $id = [];
+
+        if(is_null($data['tapaika_ghara_kasata_parakaraka_jakhamama_chha'])){
+            return $id;
+        }
+
+        $map = [
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_bhakamapa" => "earthquake",
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_bdha" => "flood",
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_catayanaga" => "lightning",
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_havahara" => "strong_winds",
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_shatalhara" => "cold_wave",
+            "tapaika_ghara_kasata_parakaraka_jakhamama_chha_davana_va_katana" => "duban_katan",
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $disastor->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 
     /**
@@ -112,10 +153,6 @@ class HouseholdImport implements ToCollection, WithHeadingRow
     private function getNewbornBirthplace($birthplace, $data): array
     {
         $id = [];
-
-        // if(!$data['gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya']){
-        //     return [];
-        // }
 
         $map = [
             "gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya_ghara" => "house",

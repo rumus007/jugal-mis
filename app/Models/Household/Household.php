@@ -96,4 +96,12 @@ class Household extends Model
     {
         return $this->belongsToMany(Birthplace::class, DBTables::HOUSEHOLD_BIRTHPLACE);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdDisastor()
+    {
+        return $this->belongsToMany(Disastor::class, DBTables::HOUSEHOLD_DISASTOR);
+    }
 }
