@@ -128,4 +128,12 @@ class Household extends Model
     {
         return $this->belongsToMany(LandTitle::class, DBTables::HOUSEHOLD_LAND_TITLE);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdAgriProduct()
+    {
+        return $this->belongsToMany(AgriProduct::class, DBTables::HOUSEHOLD_AGRI_PRODUCT);
+    }
 }

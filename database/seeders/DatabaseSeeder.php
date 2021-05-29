@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WaterDistanceSeeder::class);
         $this->call(IncomeSourceSeeder::class);
         $this->call(LandTitleSeeder::class);
+        $this->call(AgriProductSeeder::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Household\AgriProduct;
 use App\Models\Household\Birthplace;
 use App\Models\Household\Disastor;
 use App\Models\Household\Facilities;
@@ -118,6 +119,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the land title id in pivot table
                 $land_title_arr = $this->getLandTitle($land_title, $data);
                 $saved->householdLandTitle()->sync($land_title_arr);
+
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;

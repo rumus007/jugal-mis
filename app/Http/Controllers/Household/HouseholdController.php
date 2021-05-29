@@ -5,6 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Household;
 
 use App\Http\Controllers\Controller;
+use App\Models\Household\HouseholdAgriProduct;
+use App\Models\Household\HouseholdBirthplace;
+use App\Models\Household\HouseholdDisastor;
+use App\Models\Household\HouseholdFacilities;
+use App\Models\Household\HouseholdIncomeSrc;
+use App\Models\Household\HouseholdLandTitle;
+use App\Models\Household\HouseholdWasteMgmt;
+use App\Models\Household\HouseholdWaterDistance;
 use App\Services\Household\HouseholdService;
 use Illuminate\Http\Request;
 
@@ -36,7 +44,7 @@ class HouseholdController extends Controller
     public function getHouseOwnershipData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getHouseOwnershipData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -59,7 +67,7 @@ class HouseholdController extends Controller
     public function getRoofingData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getRoofingData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -82,7 +90,7 @@ class HouseholdController extends Controller
     public function getFoundationData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getFoundationData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -105,7 +113,7 @@ class HouseholdController extends Controller
     public function getHouseNumberData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getHouseNumberData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -128,7 +136,7 @@ class HouseholdController extends Controller
     public function getRoadToHouseData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getRoadToHouseData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -151,7 +159,7 @@ class HouseholdController extends Controller
     public function getRoadTypeData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
+            $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json($this->householdService->getRoadTypeData($ward));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -161,5 +169,40 @@ class HouseholdController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function test(Request $request)
+    {
+        $data = [];
+        $type = $request->type;
+
+
+        switch ($type) {
+            case 'agri':
+                dd(HouseholdAgriProduct::count());
+                break;
+            case 'facility':
+                dd(HouseholdFacilities::count());
+                break;
+            case 'waste':
+                dd(HouseholdWasteMgmt::count());
+                break;
+            case 'birthplace':
+                dd(HouseholdBirthplace::count());
+                break;
+            case 'disastor':
+                dd(HouseholdDisastor::count());
+                break;
+            case 'water':
+                dd(HouseholdWaterDistance::count());
+                break;
+            case 'income':
+                dd(HouseholdIncomeSrc::count());
+                break;
+            case 'land':
+                dd(HouseholdLandTitle::count());
+                break;
+        }
+        dd('here');
     }
 }
