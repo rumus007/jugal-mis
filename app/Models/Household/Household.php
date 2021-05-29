@@ -88,4 +88,12 @@ class Household extends Model
     {
         return $this->belongsToMany(WasteMgmt::class, DBTables::HOUSEHOLD_WASTE_MGMT);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdBirthplace()
+    {
+        return $this->belongsToMany(Birthplace::class, DBTables::HOUSEHOLD_BIRTHPLACE);
+    }
 }

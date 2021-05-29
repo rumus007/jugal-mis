@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Household\Birthplace;
 use App\Models\Household\Facilities;
 use App\Models\Household\Household;
 use App\Models\Household\WasteMgmt;
@@ -19,6 +20,7 @@ class HouseholdImport implements ToCollection, WithHeadingRow
         Household::truncate();
         $facilities = Facilities::get();
         $waste_mgmt = WasteMgmt::get();
+        $birthplace = Birthplace::get();
 
         foreach ($collection as $row) {
             $data = $row->toArray();
@@ -88,11 +90,48 @@ class HouseholdImport implements ToCollection, WithHeadingRow
                 // sync the household waste mgmt id in pivot table
                 $waste_mgmt_arr = $this->getWasteMgmt($waste_mgmt, $data);
                 $saved->householdWasteMgmt()->sync($waste_mgmt_arr);
+
+                // sync the household newborn birthplace id in pivot table
+                $birthplace_arr = $this->getNewbornBirthplace($birthplace, $data);
+                $saved->householdBirthplace()->sync($birthplace_arr);
             } catch (\Exception $e) {
                 logger($e->getMessage());
                 continue;
             }
         }
+    }
+
+    /**
+     * Get array of newborn birthplace id for particular household 
+     * 
+     * @param $waste_mgmt
+     * @param $data
+     * 
+     * @return array
+     */
+    private function getNewbornBirthplace($birthplace, $data): array
+    {
+        $id = [];
+
+        // if(!$data['gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya']){
+        //     return [];
+        // }
+
+        $map = [
+            "gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya_ghara" => "house",
+            "gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya_savasathaya_caka" => "health_post",
+            "gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya_asapatal" => "hospital",
+            "gharama_navajata_shasha_chhana_bhana_shashaka_janama_kaha_bhaeka_thaya_anaya" => "other",
+        ];
+
+        foreach ($map as $key => $value) {
+            $temp = $birthplace->where('name', $value)->first()?->id;
+            if ($data[$key] && $temp) {
+                $id[] = $temp;
+            }
+        }
+
+        return $id;
     }
 
     /**

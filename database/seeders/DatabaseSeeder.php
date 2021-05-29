@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ResourceTypeSeeder::class);
         $this->call(FacilityTypeSeeder::class);
         $this->call(WasteMgmtTypeSeeder::class);
+        $this->call(NewbornBirthplaceTypeSeeder::class);
     }
 }
