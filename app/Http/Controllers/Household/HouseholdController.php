@@ -9,10 +9,14 @@ use App\Models\Household\HouseholdAgriProduct;
 use App\Models\Household\HouseholdBirthplace;
 use App\Models\Household\HouseholdDisastor;
 use App\Models\Household\HouseholdFacilities;
+use App\Models\Household\HouseholdFishBeeSilkworm;
+use App\Models\Household\HouseholdHome;
 use App\Models\Household\HouseholdIncomeSrc;
 use App\Models\Household\HouseholdLandTitle;
+use App\Models\Household\HouseholdLivestock;
 use App\Models\Household\HouseholdWasteMgmt;
 use App\Models\Household\HouseholdWaterDistance;
+use App\Models\Individual\Individual;
 use App\Services\Household\HouseholdService;
 use Illuminate\Http\Request;
 
@@ -202,6 +206,18 @@ class HouseholdController extends Controller
             case 'land':
                 dd(HouseholdLandTitle::count());
                 break;
+            case 'livestock':
+                dd(HouseholdLivestock::count()); 
+                break;    
+            case 'bee':
+                dd(HouseholdFishBeeSilkworm::count());
+                break;    
+            case 'family':
+                dd(Individual::count());
+                break;    
+            case 'rooms':
+                dd(HouseholdHome::count());
+                break;   
         }
         dd('here');
     }

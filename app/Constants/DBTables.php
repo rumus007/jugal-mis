@@ -34,6 +34,7 @@ abstract class DBTables
      */
     const HOUSEHOLD_LIVESTOCK           = 'household_livestock';
     const HOUSEHOLD_BEE_FISH_SILKWORM   = 'household_bee_fish_silkworm';
+    const HOUSEHOLD_HOME                = 'household_home';
 
     /**
      * List of pivot table names

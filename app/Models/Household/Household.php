@@ -162,4 +162,12 @@ class Household extends Model
     {
         return $this->hasMany(Individual::class,'household_id','id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function homes()
+    {
+        return $this->hasMany(HouseholdHome::class,'household_id','id');
+    }
 }
