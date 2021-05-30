@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call(ResourceTypeSeeder::class);
         $this->call(FacilityTypeSeeder::class);
         $this->call(WasteMgmtTypeSeeder::class);
@@ -23,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IncomeSourceSeeder::class);
         $this->call(LandTitleSeeder::class);
         $this->call(AgriProductSeeder::class);
+        $this->call(LivestockSeeder::class);
     }
 }

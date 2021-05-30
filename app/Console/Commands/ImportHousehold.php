@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Imports\HouseholdAgriImport;
 use App\Imports\HouseholdImport;
+use App\Imports\HouseholdLivestockImport;
 use App\Models\Household\Household;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
@@ -58,6 +59,15 @@ class ImportHousehold extends Command
                     break;
                 }
                 Excel::import(new HouseholdAgriImport, $excel_path);
+                break;
+            case 'livestock':
+                $this->info("Importing household livestock data");
+                $excel_path = public_path('files/livestock.csv');
+                if(Household::count() == 0){
+                    $this->warn("Please import household data before importing the livestock data");
+                    break;
+                }
+                Excel::import(new HouseholdLivestockImport, $excel_path);
                 break;
         }
     

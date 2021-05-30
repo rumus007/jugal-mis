@@ -27,6 +27,13 @@ abstract class DBTables
     const INCOME_SRC        = 'income_src';
     const LAND_TITLE        = 'land_title';
     const AGRI_PRODUCT      = 'agri_product';
+    const LIVESTOCK         = 'livestock';
+
+    /**
+     * List of database table names related to household module
+     */
+    const HOUSEHOLD_LIVESTOCK           = 'household_livestock';
+    const HOUSEHOLD_BEE_FISH_SILKWORM   = 'household_bee_fish_silkworm';
 
     /**
      * List of pivot table names

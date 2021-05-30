@@ -136,4 +136,20 @@ class Household extends Model
     {
         return $this->belongsToMany(AgriProduct::class, DBTables::HOUSEHOLD_AGRI_PRODUCT);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function HouseholdLivestock()
+    {
+        return $this->hasMany(HouseholdLivestock::class,'livestock_id','id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function HouseholdFishBeeSilkworm()
+    {
+        return $this->hasMany(HouseholdFishBeeSilkworm::class,'livestock_id','id');
+    }
 }
