@@ -3,12 +3,14 @@
 namespace App\Models\Household;
 
 use App\Constants\DBTables;
+use App\Models\Individual\Individual;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Household extends Model
 {
     use HasFactory;
+
     /**
      * @var string
      */
@@ -142,7 +144,7 @@ class Household extends Model
      */
     public function HouseholdLivestock()
     {
-        return $this->hasMany(HouseholdLivestock::class,'livestock_id','id');
+        return $this->hasMany(HouseholdLivestock::class,'household_id','id');
     }
 
     /**
@@ -150,6 +152,14 @@ class Household extends Model
      */
     public function HouseholdFishBeeSilkworm()
     {
-        return $this->hasMany(HouseholdFishBeeSilkworm::class,'livestock_id','id');
+        return $this->hasMany(HouseholdFishBeeSilkworm::class,'household_id','id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function familyMembers()
+    {
+        return $this->hasMany(Individual::class,'household_id','id');
     }
 }
