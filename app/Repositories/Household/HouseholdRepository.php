@@ -6,6 +6,7 @@ namespace App\Repositories\Household;
 
 use App\Models\Household\Household;
 use App\Repositories\Repository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class HouseholdRepository
@@ -53,5 +54,17 @@ class HouseholdRepository extends Repository
         }
 
         return $data->get();
+    }
+
+    /**
+     * Returns household count
+     * 
+     * @param $where_attr
+     * 
+     * @return int
+     */
+    public function getHouseholdCount($where_attr = []): int
+    {
+        return $this->model->where($where_attr)->count();
     }
 }

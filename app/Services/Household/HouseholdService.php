@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Household;
 
+use App\Repositories\Facilities\FacilitiesRepository;
 use App\Repositories\Household\HouseholdRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -20,8 +21,46 @@ class HouseholdService
      * @param HouseholdRepository $householdRepository
      */
     public function __construct(
-        public HouseholdRepository $householdRepository
+        public HouseholdRepository $householdRepository,
+        public FacilitiesRepository $facilitiesRepository
     ) {
+    }
+
+    /**
+     * Get total household count
+     * 
+     * @return int
+     */
+    public function getTotalHouseholdCount(): int
+    {
+        return $this->householdRepository->getHouseholdCount();
+    }
+
+
+    /**
+     * Get total household count
+     * 
+     * @param array $facilites    List of facilites
+     * @param array $ward         List of ward
+     * 
+     * @return Collection
+     */
+    public function getFacilitiesCount($facilites = [], $ward = [])
+    {
+        $select_attr = ['facilities.name', DB::raw('count(*)')];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = ['facilities.name'];
+
+        if($facilites){
+            $where_in_attr[] = ['facilities.name',$facilites];
+        }
+
+        if($ward){
+            $where_in_attr[] = ['household.ward', $ward];
+        }
+
+        return $this->facilitiesRepository->getFacilitiesCount($select_attr, $where_attr, $where_in_attr, $group_by_attr);
     }
 
     /**
@@ -180,7 +219,7 @@ class HouseholdService
 
         $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
 
-        $final = array_map(function($val){
+        $final = array_map(function ($val) {
             $val['category'] = $val['category'] ? $val['category'] : 'N/A';
             return $val;
         }, $data);
