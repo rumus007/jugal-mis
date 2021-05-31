@@ -7,9 +7,9 @@
         :options="wardList"
         :multiple="true"
         :searchable="false"
-        :selectedLabel="false"
-        :selectLabel="false"
-        :deselectLabel="false"
+        selectedLabel=""
+        selectLabel=""
+        deselectLabel=""
         placeholder="वार्ड छनौट गर्नुहोस्"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->

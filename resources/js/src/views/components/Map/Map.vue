@@ -2,7 +2,11 @@
   <div id="container" class="map-wrapper">
     <div class="map-wrapper__search-input-wrapper map-search">
       <i class="ri-search-line map-search__icon"></i>
-      <input type="text" class="map-search__input" placeholder="ठाउँको नामले खोजी गर्नुहोस्..." />
+      <input
+        type="text"
+        class="map-search__input"
+        placeholder="ठाउँको नामले खोजी गर्नुहोस्..."
+      />
     </div>
     <div id="mapContainer"></div>
   </div>
@@ -79,103 +83,33 @@ export default {
       this.addMarker();
     },
     getMarkerType: function (dataType) {
-      const categories = [
-        "ngo_club_group",
-        "hotel_resort_homestay",
-        "cultural_heritage",
-        "educational_institute",
-      ];
-      if (dataType === "cultural_heritage") {
+      const categories = {
+        cultural_heritage: () => culturalMarker,
+        educational_institute: () => educationMarker,
+        ngo_club_group: () => ngoMarker,
+        hotel_resort_homestay: () => hotelMarker,
+        building: () => buildingMarker,
+        natural_resource: () => naturalResourcesMarker,
+        bank_financial: () => bankMarker,
+        health_institute: () => healthMarker,
+        industry_hydro: () => industryMarker,
+        security_agency: () => agencyMarker,
+        land_use: () => landMarker,
+        business_trade: () => businessMarker,
+        bridge_culvert: () => bridgeMarker,
+      };
+      if (Object.keys(categories).includes(dataType)) {
         return L.icon({
-          iconUrl: culturalMarker,
+          iconUrl: categories[dataType](),
           iconAnchor: [11, 41],
           popupAnchor: [0, -41],
         });
       }
-      if (dataType === "educational_institute") {
-        return L.icon({
-          iconUrl: educationMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "ngo_club_group") {
-        return L.icon({
-          iconUrl: ngoMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "hotel_resort_homestay") {
-        return L.icon({
-          iconUrl: hotelMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "building") {
-        return L.icon({
-          iconUrl: buildingMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "natural_resource") {
-        return L.icon({
-          iconUrl: naturalResourcesMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "bank_financial") {
-        return L.icon({
-          iconUrl: bankMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "health_institute") {
-        return L.icon({
-          iconUrl: healthMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "industry_hydro") {
-        return L.icon({
-          iconUrl: industryMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "security_agency") {
-        return L.icon({
-          iconUrl: agencyMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "land_use") {
-        return L.icon({
-          iconUrl: landMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "business_trade") {
-        return L.icon({
-          iconUrl: businessMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
-      if (dataType === "bridge_culvert") {
-        return L.icon({
-          iconUrl: bridgeMarker,
-          iconAnchor: [11, 41],
-          popupAnchor: [0, -41],
-        });
-      }
+      return L.icon({
+        iconUrl: markerIcon,
+        iconAnchor: [11, 41],
+        popupAnchor: [0, -41],
+      });
     },
   },
   async mounted() {
@@ -194,7 +128,7 @@ export default {
 
 <style scoped lang="scss">
 #mapContainer {
-  border-left: 1px solid rgba(114,115,142,0.2);
+  border-left: 1px solid rgba(114, 115, 142, 0.2);
   height: 966px;
   width: calc(100vw - 300px);
   z-index: 0;
