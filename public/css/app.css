@@ -452,7 +452,10 @@ body {
 }
 .multiselect__tags {
   background: transparent !important;
-  padding-top: 4px !important;
+  min-height: 42px !important;
+  min-width: 169px !important;
+  padding-top: 8px !important;
+  width: auto !important;
 }
 .multiselect__placeholder {
   color: var(--color-base) !important;
@@ -461,6 +464,36 @@ body {
 }
 .multiselect__select:before {
   border-color: var(--color-base) transparent transparent !important;
+}
+
+.multiselect__tag {
+  background: #fff !important;
+  color: var(--color-primary-dark) !important;
+}
+
+.multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+  background: #fff !important;
+}
+.multiselect__tag-icon:focus:after, .multiselect__tag-icon:hover:after {
+  color: var(--color-link) !important;
+}
+
+.multiselect__option--highlight {
+  background-color: var(--blue-400) !important;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+  background: var(--orange-400) !important;
+}
+
+.multiselect__element:not(:first-child) {
+  border-top: 1px solid #e8e8e8;
+}
+
+.multiselect__placeholder {
+  margin-bottom: 8px !important;
+  margin-top: -1px;
+  padding-top: 0 !important;
 }
 
 .tabs-component {
@@ -519,7 +552,7 @@ body {
 .apexcharts-zoom-icon svg,
 .apexcharts-reset-icon svg,
 .apexcharts-menu-icon svg {
-  fill: var(--color-link) !important;
+  fill: var(--blue-400) !important;
   opacity: 0.3;
 }
 .apexcharts-zoom-icon:hover svg,

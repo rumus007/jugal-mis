@@ -37,7 +37,7 @@ export default {
   name: "FilterByType",
   props: {
     resourceFilter: { type: Array, required: true },
-    wardFilter: { type: Array, required: true },
+    // wardFilter: { type: Array, required: true },
   },
   data: function () {
     return {
@@ -59,7 +59,7 @@ export default {
     },
     getTypeList() {
       const targetUrl = `resource/stats`;
-      let queryParams = Object.assign({}, { ward: this.wardFilter });
+      let queryParams = Object.assign({}, { ward: this.ward });
 
       queryParams = filterObject(queryParams);
       let formattedParams = {};
@@ -97,10 +97,16 @@ export default {
         this.changeMarkerType();
       },
     },
-    wardFilter: {
+    ward: {
       handler() {
         this.getTypeList();
       },
+      deep: true,
+    },
+  },
+  computed: {
+    ward() {
+      return this.$store.getters.ward;
     },
   },
 

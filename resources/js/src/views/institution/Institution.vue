@@ -4,7 +4,6 @@
     <div class="institution">
       <FilterByType
         :resourceFilter="filter.resource_type_id"
-        :wardFilter="filter.wardList"
         @change="handleResourceFilter"
       />
       <Map :mapData="mapData"></Map>
@@ -38,11 +37,18 @@ export default {
       },
       deep: true,
     },
+    ward: {
+      handler() {
+        this.getMapData();
+      },
+      deep: true,
+    },
   },
   methods: {
     getMapData: function () {
       const targetUrl = `resource/mapdata`;
-      let queryParams = Object.assign({}, this.filter);
+      let wardParams =  { ward: this.ward }
+      let queryParams = Object.assign({}, {...this.filter,...wardParams});
       queryParams = filterObject(queryParams);
       let formattedParams = {};
       Object.keys(queryParams).map((data) => {
@@ -63,6 +69,11 @@ export default {
 
     handleResourceFilter: function (selectedFilter) {
       this.filter.resource_type_id = selectedFilter;
+    },
+  },
+  computed: {
+    ward() {
+      return this.$store.getters.ward;
     },
   },
 };
