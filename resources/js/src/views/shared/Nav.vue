@@ -7,7 +7,7 @@
         <router-link class="nav__link" to="/family">पारिवारिक विवरण</router-link>
       </li>
       <li class="nav__item">
-        <router-link class="nav__link" to="#">जनसांख्यिकीय विवरण</router-link>
+        <router-link class="nav__link" to="/population">जनसांख्यिकीय विवरण</router-link>
       </li>
       <li class="nav__item">
         <router-link class="nav__link" to="/institution">संस्थागत विवरण</router-link>
