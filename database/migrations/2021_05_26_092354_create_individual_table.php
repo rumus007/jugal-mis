@@ -15,7 +15,7 @@ class CreateIndividualTable extends Migration
     public function up()
     {
         Schema::create(DBTables::INDIVIDUAL, function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('household_id');
             $table->string('full_name')->nullable();
             $table->string('gender')->nullable();
@@ -30,16 +30,23 @@ class CreateIndividualTable extends Migration
             $table->string('education_level')->nullable();
             $table->string('domicile_status')->nullable();
             $table->string('employment_status')->nullable();
+            $table->string('employment_other')->nullable()->default(null);
             $table->string('martial_status')->nullable();
             $table->boolean('in_different_district')->nullable()->default(false);
             $table->string('location_district')->nullable()->default(null);
             $table->boolean('in_foreign_country')->nullable()->default(false);
             $table->string('foreign_country')->nullable()->default(null);
-            $table->string('foreign_employment')->nullable()->default(null);
             $table->string('disability_status')->nullable();
+            $table->string('disability_identification')->nullable();
             $table->string('health_status')->nullable();
             $table->string('relationship_to_family_head')->nullable();
             $table->string('training_taken')->nullable();
+            $table->json('trainings')->nullable();
+            $table->json('common_disease')->nullable();
+            $table->string('common_disease_other')->nullable();
+            $table->json('chronic_disease')->nullable();
+            $table->string('chronic_disease_other')->nullable();
+            $table->json('identifications')->nullable();
             $table->timestamps();
         });
 

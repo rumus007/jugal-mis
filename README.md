@@ -40,6 +40,10 @@ The following commands should be run one after another for populating the databa
 - `php artisan migrate:fresh --seed` Run all migrations and seed the necessary data into the database
 - `php artisan import:resource` Import Resource profile data from excel and save into database
 - `php artisan import:household` Import household(घरधुरीकाे विवरण) data from excel and save into database
+- `php artisan import:household --type=livestock` Import livestock data from excel and save into database
+- `php artisan import:individual` Import family member data from excel and save into database
+- `php artisan import:home` Import household home/room data from excel and save into database
+- `php artisan import:household --type=agri` Import livestock data from excel and save into database
 
 ## Structure for Backend
 This application is structured in a simple way within `app` folder. The various folders and their corresponding contents are:

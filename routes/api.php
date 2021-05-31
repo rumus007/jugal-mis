@@ -30,4 +30,6 @@ Route::prefix('household')->group(function(){
     Route::get('house-number',[HouseholdController::class,'getHouseNumberData'])->name('household.number');
     Route::get('road-type-to-house',[HouseholdController::class,'getRoadToHouseData'])->name('household.roadToHouse');
     Route::get('road-type',[HouseholdController::class,'getRoadTypeData'])->name('household.roadType');
+    Route::get('test',[HouseholdController::class,'test'])->name('household.test');
 });
+
