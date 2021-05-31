@@ -41,7 +41,10 @@ body {
     z-index: 1;
     &__tags {
         background: transparent!important;
-        padding-top: 4px !important;
+        min-height: 42px !important;
+        min-width: 169px !important;
+        padding-top: 8px !important;
+        width: auto !important;
     }
     &__placeholder {
         color: var(--color-base)!important;
@@ -56,6 +59,34 @@ body {
 .multiselect__tag {
     background: #fff !important;
     color: var(--color-primary-dark) !important;
+}
+
+.multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+    background: #fff !important;
+
+    &:after {
+        color: var(--color-link) !important;
+    }
+}
+
+.multiselect__option--highlight {
+    background-color: var(--blue-400) !important;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+    background: var(--orange-400) !important;
+}
+
+.multiselect__element {
+    &:not(:first-child) {
+        border-top: 1px solid #e8e8e8;
+    }
+}
+
+.multiselect__placeholder {
+    margin-bottom: 8px !important;
+    margin-top: -1px;
+    padding-top: 0 !important;
 }
 
 .tabs-component {

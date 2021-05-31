@@ -6,6 +6,10 @@
         v-model="ward"
         :options="wardList"
         :multiple="true"
+        :searchable="false"
+        :selectedLabel="false"
+        :selectLabel="false"
+        :deselectLabel="false"
         placeholder="वार्ड छनौट गर्नुहोस्"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->
@@ -79,7 +83,8 @@ export default {
   
   .multiselect {
     height: 42px;
-    width: 169px;
+    min-width: 169px;
+    width: auto;
   }
 
 .download-pdf {
