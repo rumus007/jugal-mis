@@ -3,7 +3,7 @@
     <div class="charts">
       <h3>वडागत रुपमा घरकाे संख्या</h3>
       <div class="card chart">
-        <div v-if="showHouseCountLoader">
+        <div v-if="showHouseCountLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -36,7 +36,7 @@
     <div class="charts">
       <h3>घरकाे स्वामित्व</h3>
       <div class="card chart">
-        <div v-if="showOwnerShipLoader">
+        <div v-if="showOwnerShipLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -69,7 +69,7 @@
     <div class="charts">
       <h3>छानाकाे प्रकार</h3>
       <div class="card chart">
-        <div v-if="showRoofingLoader">
+        <div v-if="showRoofingLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -103,7 +103,7 @@
     <div class="charts">
       <h3>घरकाेे जग</h3>
       <div class="card chart">
-        <div v-if="showFoundationLoader">
+        <div v-if="showFoundationLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -137,7 +137,7 @@
       <!-- <h3>वडागत रुपमा घरकाे संख्या</h3> -->
       <h3>घर नम्बर भएकाे वा नभएकाे</h3>
       <div class="card chart">
-        <div v-if="showHouseNumberLoader">
+        <div v-if="showHouseNumberLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -171,7 +171,7 @@
       <!-- <h3>वडागत रुपमा घरकाे संख्या</h3> -->
       <h3>घरसम्म पुुग्ने बाटाेकाे प्रकार</h3>
       <div class="card chart">
-        <div v-if="showRoadToHouseLoader">
+        <div v-if="showRoadToHouseLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -210,7 +210,7 @@
       <!-- <h3>वडागत रुपमा घरकाे संख्या</h3> -->
       <h3>घरसम्म पुग्ने बाटाे</h3>
       <div class="card chart">
-        <div v-if="showRoadTypeLoader">
+        <div v-if="showRoadTypeLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -244,7 +244,7 @@
     <div class="charts">
       <h3>काेठाकाे संख्या</h3>
       <div class="card chart">
-        <div v-if="showRoomLoader">
+        <div v-if="showRoomLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
@@ -278,7 +278,7 @@
     <div class="charts">
       <h3>घरनक्सा पास (अभिलेखिकरण)</h3>
       <div class="card chart">
-        <div v-if="showHouseListedLoader">
+        <div v-if="showHouseListedLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>

@@ -10,6 +10,7 @@
 @import "./base/reset", "./base/typography";
 
 // components
+@import "./components/loader";
 
 // layout
 @import "./layout/container.scss";
@@ -74,7 +75,8 @@ body {
 }
 
 .multiselect__option--selected.multiselect__option--highlight {
-    background: var(--orange-400) !important;
+    background: #f3f3f3 !important;
+    color: #35495e !important;
 }
 
 .multiselect__element {
@@ -164,6 +166,7 @@ body {
     min-height: 370px;
     margin-bottom: 40px;
     padding: 24px;
+    position: relative;
 
     &-wrapper {
         flex-wrap: wrap;
@@ -186,5 +189,18 @@ body {
         &:hover,&.active {
             opacity: 1;
      }
+    }
+}
+
+.loader-wrapper {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.info-cards-section {
+    .double-bounce1, .double-bounce2 {
+        background-color: white;
     }
 }

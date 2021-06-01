@@ -130,7 +130,7 @@
 
     <section class="info-cards-section">
       <div class="container">
-        <div v-if="showLoader">
+        <div v-if="showLoader" class="loader-wrapper">
           <loader />
         </div>
         <div class="info-cards-section__container" v-else>
@@ -190,23 +190,28 @@ export default {
     getHomeStats: function () {
       this.showLoader = true;
       const targetUrl = `home/summary-stats`;
-      axios.get(targetUrl, { params: {} }).then(({ data }) => {
-        let testData = {
-          family_count: 20,
-          total_population: 200,
-          youth_percentage: 30,
-          job_count: 30,
-          internet_access: 8,
-          others: 100,
-        };
-        // this.homePageData = data.data;
-        let formattedData = {};
-        for (let [key, value] of Object.entries(data.data)) {
-          formattedData[key] = this.getFormattedCount(value);
-        }
-        this.homePageData = formattedData;
-        this.showLoader = false;
-      });
+      axios
+        .get(targetUrl, { params: {} })
+        .then(({ data }) => {
+          let testData = {
+            family_count: 20,
+            total_population: 200,
+            youth_percentage: 30,
+            job_count: 30,
+            internet_access: 8,
+            others: 100,
+          };
+          // this.homePageData = data.data;
+          let formattedData = {};
+          for (let [key, value] of Object.entries(data.data)) {
+            formattedData[key] = this.getFormattedCount(value);
+          }
+          this.homePageData = formattedData;
+          this.showLoader = false;
+        })
+        .catch(() => {
+          this.showLoader = false;
+        });
     },
     getFormattedCount(count) {
       return englishToNepaliNumber(count);
@@ -391,6 +396,12 @@ export default {
 .info-cards-section {
   background-color: var(--blue-400);
   padding: 64px 0;
+  position: relative;
+
+  .double-bounce1,
+  .double-bounce2 {
+    background-color: white;
+  }
 
   &__container {
     display: grid;
