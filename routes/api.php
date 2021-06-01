@@ -25,12 +25,18 @@ Route::get('/resource/stats',[ResourceController::class,'getResourceStats'])->na
 Route::get('/resource/mapdata',[ResourceController::class,'getResourceMapData'])->name('resource.mapdata');
 
 Route::prefix('household')->group(function(){
+    Route::get('summary-stats',[HouseholdController::class,'getSummaryStats'])->name('household.stats');
     Route::get('ownership',[HouseholdController::class,'getHouseOwnershipData'])->name('household.ownership');
     Route::get('roofing',[HouseholdController::class,'getRoofingData'])->name('household.roofing');
     Route::get('foundation',[HouseholdController::class,'getFoundationData'])->name('household.foundation');
     Route::get('house-number',[HouseholdController::class,'getHouseNumberData'])->name('household.number');
     Route::get('road-type-to-house',[HouseholdController::class,'getRoadToHouseData'])->name('household.roadToHouse');
     Route::get('road-type',[HouseholdController::class,'getRoadTypeData'])->name('household.roadType');
+    Route::get('house-count',[HouseholdController::class,'getHouseCount'])->name('household.houseCount');
+    Route::get('room-count',[HouseholdController::class,'getRoomData'])->name('household.roomData');
+    Route::get('house-listed',[HouseholdController::class,'getHouseListedData'])->name('household.houseListed');
+
+
     Route::get('test',[HouseholdController::class,'test'])->name('household.test');
 });
 
