@@ -2,12 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Individual;
+namespace App\Repositories\Household;
 
-use App\Models\Individual\Individual;
+use App\Models\Household\HouseholdHome;
 use App\Repositories\Repository;
 
-class IndividualRepository extends Repository
+/**
+ * Class HouseholdHomeRepository
+ *
+ * @package App\Repositories\Household
+ */
+class HouseholdHomeRepository extends Repository
 {
     /**
      * Returns model
@@ -16,31 +21,23 @@ class IndividualRepository extends Repository
      */
     function getModel(): string
     {
-        return Individual::class;
+        return HouseholdHome::class;
     }
 
+
     /**
-     * Returns individual count
+     * Returns household home data
      * 
+     * @param $selec_attr
      * @param $where_attr
-     * 
-     * @return int
-     */
-    public function getIndividualCount($where_attr = []): int
-    {
-        return $this->model->where($where_attr)->count();
-    }
-
-    /**
-     * Returns individual data with household data
+     * @param $where_in_attr
+     * @param $group_by_attr
      * 
      * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getWithHousehold($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    function getHouseholdHome($select_attr = '*',$where_attr = [], $where_in_attr = [], $group_by_attr = [])
     {
-        $data = $this->model
-            ->join('household', 'household.id', '=', 'individual.household_id')
-            ->select($select_attr);
+        $data = $this->model->select($select_attr);
 
         if ($where_attr) {
             $data->where($where_attr);

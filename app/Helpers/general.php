@@ -34,3 +34,37 @@ function prepareResponseFormat($data): array
 
     return $response;
 }
+
+
+/**
+ * Prepare data for boolean type (yes/no)
+ * 
+ * @param $data
+ * 
+ * @return array
+ */
+function booleanDataFormat($data): array
+{
+    $format = [
+        'yes' => 0,
+        'no' => 0,
+    ];
+
+    foreach ($data as $v) {
+        if ($v['category']) {
+            $format['yes'] = $v['total'];
+            continue;
+        }
+
+        $format['no'] = $v['total'];
+    }
+
+    $final = array_map(function ($val, $key) {
+        return [
+            "category" => $key,
+            "total" => $val
+        ];
+    }, $format, array_keys($format));
+
+    return $final;
+}

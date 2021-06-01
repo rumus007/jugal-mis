@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Services\Household;
 
 use App\Repositories\Facilities\FacilitiesRepository;
+use App\Repositories\Household\HouseholdHomeRepository;
 use App\Repositories\Household\HouseholdRepository;
+use App\Repositories\Individual\IndividualRepository;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -22,18 +24,28 @@ class HouseholdService
      */
     public function __construct(
         public HouseholdRepository $householdRepository,
-        public FacilitiesRepository $facilitiesRepository
+        public FacilitiesRepository $facilitiesRepository,
+        public HouseholdHomeRepository $householdHomeRepository
     ) {
     }
 
     /**
      * Get total household count
      * 
+     * @param $ward
+     * 
      * @return int
      */
-    public function getTotalHouseholdCount(): int
+    public function getTotalHouseholdCount($ward = []): int
     {
-        return $this->householdRepository->getHouseholdCount();
+        $where_attr = [];
+        $where_in_attr = [];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getHouseholdCount($where_attr, $where_in_attr);
     }
 
 
@@ -52,15 +64,15 @@ class HouseholdService
         $where_in_attr = [];
         $group_by_attr = ['facilities.name'];
 
-        if($facilites){
-            $where_in_attr[] = ['facilities.name',$facilites];
+        if ($facilites) {
+            $where_in_attr[] = ['facilities.name', $facilites];
         }
 
-        if($ward){
+        if ($ward) {
             $where_in_attr[] = ['household.ward', $ward];
         }
 
-        return $this->facilitiesRepository->getFacilitiesCount($select_attr, $where_attr, $where_in_attr, $group_by_attr);
+        return $this->facilitiesRepository->getFacilitiesCount($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**
@@ -81,9 +93,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr);
-
-        return prepareResponseFormat($data);
+        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**
@@ -104,9 +114,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr);
-
-        return prepareResponseFormat($data);
+        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**
@@ -127,9 +135,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr);
-
-        return prepareResponseFormat($data);
+        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**
@@ -141,11 +147,6 @@ class HouseholdService
      */
     public function getHouseNumberData($ward = []): array
     {
-        $format = [
-            'yes' => 0,
-            'no' => 0,
-        ];
-
         $select_attr   = ['has_house_number as category', DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
@@ -156,24 +157,7 @@ class HouseholdService
         }
 
         $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
-
-        foreach ($data as $v) {
-            if ($v['category']) {
-                $format['yes'] = $v['total'];
-                continue;
-            }
-
-            $format['no'] = $v['total'];
-        }
-
-        $final = array_map(function ($val, $key) {
-            return [
-                "category" => $key,
-                "total" => $val
-            ];
-        }, $format, array_keys($format));
-
-        return prepareResponseFormat($final);
+        return booleanDataFormat($data);
     }
 
     /**
@@ -194,9 +178,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr);
-
-        return prepareResponseFormat($data);
+        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**
@@ -219,11 +201,76 @@ class HouseholdService
 
         $data = $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
 
-        $final = array_map(function ($val) {
+        return array_map(function ($val) {
             $val['category'] = $val['category'] ? $val['category'] : 'N/A';
             return $val;
         }, $data);
 
-        return prepareResponseFormat($final);
+    }
+
+
+    /**
+     * Return data for ward wise houses
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getHouseCount($ward = []): array
+    {
+        $select_attr = ['ward as category', DB::raw('count(*) as total')];
+        $where_in_attr = [];
+        $where_attr    = [];
+        $group_by_attr = ['ward'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdHomeRepository->getHouseholdHome($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+
+    /**
+     * Return data for ward wise room data
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getRoomData($ward = []): array
+    {
+        $select_attr = ['ward', DB::raw('SUM(cast(no_of_rooms as INT)) as total_rooms, SUM(cast(no_of_rented_rooms as INT)) as rented_rooms')];
+        $where_in_attr = [];
+        $where_attr    = [];
+        $group_by_attr = ['ward'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdHomeRepository->getHouseholdHome($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for house listed (naksa pass)
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getHouseListedData($ward = []): array
+    {
+        $select_attr = ['naksa_pass as category', DB::raw('count(*) as total')];
+        $where_in_attr = [];
+        $where_attr    = [];
+        $group_by_attr = ['naksa_pass'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->householdHomeRepository->getHouseholdHome($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return booleanDataFormat($data);
     }
 }

@@ -60,11 +60,20 @@ class HouseholdRepository extends Repository
      * Returns household count
      * 
      * @param $where_attr
+     * @param $where_in_attr
      * 
      * @return int
      */
-    public function getHouseholdCount($where_attr = []): int
+    public function getHouseholdCount($where_attr = [], $where_in_attr = []): int
     {
-        return $this->model->where($where_attr)->count();
+        $data = $this->model->where($where_attr);
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        return $data->count();
     }
 }
