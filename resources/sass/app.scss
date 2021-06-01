@@ -119,6 +119,7 @@ body {
         a {
             display: block;
             padding: 16px 28px 16px 48px;
+            position: relative;
         }
         &.is-active {
             background-color: var(--blue-400);
@@ -131,8 +132,10 @@ body {
                     border-left: 5px solid var(--color-base);
                     border-top: 5px solid transparent;
                     content: "";
-                    float: right;
-                    margin-top: 8px;
+                    position: absolute;
+                    right: 24px;
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
             }
         }
@@ -192,7 +195,9 @@ body {
     padding: 24px 24px 0;
     position: relative;
     width: 48%;
-
+    .no-data {
+        margin-top: 40px;
+    }
     &-wrapper {
         flex-wrap: wrap;
         justify-content: space-between;
@@ -234,4 +239,18 @@ body {
     .double-bounce1, .double-bounce2 {
         background-color: white;
     }
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    padding: 8px 8px 8px 0 !important;
+}
+
+.leaflet-popup-content p {
+    margin: 7px 0 !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    right: 4px !important;
+    top: 4px !important;
 }

@@ -1,12 +1,14 @@
 <template>
   <div class="institution-wrapper">
     <TitleBar title="संस्थागत विवरण" />
-    <div class="institution">
-      <FilterByType
-        :resourceFilter="filter.resource_type_id"
-        @change="handleResourceFilter"
-      />
-      <Map :mapData="mapData"></Map>
+    <div class="main-content" id="main"> 
+      <div class="institution">
+        <FilterByType
+          :resourceFilter="filter.resource_type_id"
+          @change="handleResourceFilter"
+        />
+        <Map :mapData="mapData"></Map>
+      </div>
     </div>
   </div>
 </template>
