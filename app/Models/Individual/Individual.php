@@ -62,4 +62,17 @@ class Individual extends Model
     {
         return $this->belongsTo(Household::class, 'household_id', 'id');
     }
+
+
+    /**
+     * Returns individual count
+     * 
+     * @param $where_attr
+     * 
+     * @return int
+     */
+    public function getIndividualCount($where_attr): int
+    {
+        return $this->model->where($where_attr)->count();
+    }
 }

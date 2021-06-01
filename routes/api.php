@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Household\HouseholdController;
 use App\Http\Controllers\Resource\ResourceController;
 use Illuminate\Http\Request;
@@ -31,5 +32,9 @@ Route::prefix('household')->group(function(){
     Route::get('road-type-to-house',[HouseholdController::class,'getRoadToHouseData'])->name('household.roadToHouse');
     Route::get('road-type',[HouseholdController::class,'getRoadTypeData'])->name('household.roadType');
     Route::get('test',[HouseholdController::class,'test'])->name('household.test');
+});
+
+Route::prefix('home')->group(function(){
+    Route::get('summary-stats',[HomeController::class,'getSummaryStats'])->name('home.stats');
 });
 
