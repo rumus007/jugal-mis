@@ -15,6 +15,7 @@ export default {
   name: "BarChart",
   props: {
     data: { type: Array, required: true },
+    horizontalBar : {type: Boolean, required: true}
     // options: { type: Object, required: true },
   },
   components: {
@@ -43,7 +44,7 @@ export default {
         colors: "#028EFF",
         plotOptions: {
             bar: {
-                horizontal: true,
+                horizontal: this.horizontalBar,
             }
         },
         dataLabels: {

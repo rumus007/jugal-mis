@@ -51,6 +51,7 @@ export default {
     BarChart: () => import("../components/Chart/BarChart"),
     LineChart: () => import("../components/Chart/LineChart"),
     PieChart: () => import("../components/Chart/PieChart"),
+    ColumnChart: () => import("../components/Chart/ColumnChart"),
     Table: () => import("../components/Table/Table"),
     TitleBar: () => import("../shared/TitleBar"),
     Tabs,
@@ -128,6 +129,21 @@ export default {
         { category: 1995, total: 49 },
         { category: 1996, total: 60 },
       ],
+
+      columnChartData: [
+        {
+          name: "Net Profit",
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        },
+        {
+          name: "Revenue",
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        },
+        {
+          name: "Free Cash Flow",
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        },
+      ],
     };
   },
   methods: {
@@ -176,6 +192,5 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
 

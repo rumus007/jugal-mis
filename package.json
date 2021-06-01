@@ -23,6 +23,7 @@
     "dependencies": {
         "apexcharts": "^3.26.3",
         "leaflet": "^1.7.1",
+        "nepali-number": "^1.0.3",
         "remixicon": "^2.5.0",
         "vue": "^2.6.12",
         "vue-apexcharts": "^1.6.1",
