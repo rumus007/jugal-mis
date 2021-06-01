@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Household;
 
+use App\Repositories\Birthplace\BirthplaceRepository;
+use App\Repositories\Disastor\DisastorRepository;
 use App\Repositories\Facilities\FacilitiesRepository;
 use App\Repositories\Household\HouseholdHomeRepository;
 use App\Repositories\Household\HouseholdRepository;
+use App\Repositories\WasteMgmt\WasteMgmtRepository;
+use App\Repositories\WaterDistance\WaterDistanceRepository;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -24,7 +28,11 @@ class HouseholdService
     public function __construct(
         public HouseholdRepository $householdRepository,
         public FacilitiesRepository $facilitiesRepository,
-        public HouseholdHomeRepository $householdHomeRepository
+        public HouseholdHomeRepository $householdHomeRepository,
+        public WaterDistanceRepository $waterDistanceRepository,
+        public BirthplaceRepository $birthplaceRepository,
+        public DisastorRepository $disastorRepository,
+        public WasteMgmtRepository $wasteMgmtRepository
     ) {
     }
 
@@ -71,7 +79,7 @@ class HouseholdService
             $where_in_attr[] = ['household.ward', $ward];
         }
 
-        return $this->facilitiesRepository->getFacilitiesCount($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->facilitiesRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr);
     }
 
     /**
@@ -364,6 +372,111 @@ class HouseholdService
                 'total' => $v
             ];
         }, $tmp, array_keys($tmp));
+    }
+
+    /**
+     * Return data water distance data
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getDistanceWaterData($ward = []): array
+    {
+        $select_attr = ['water_distance.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['water_distance.name_np'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->waterDistanceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data birthplace
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getBirthplaceData($ward = []): array
+    {
+        $select_attr = ['birthplace.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['birthplace.name_np'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->birthplaceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for househol vulnerabilities
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getVulnerabilityData($ward = []): array
+    {
+        $select_attr = ['disastor.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['disastor.name_np'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->disastorRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for household facilities
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getFacilitiesData($ward = []): array
+    {
+        $select_attr = ['facilities.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['facilities.name_np'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->facilitiesRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for household waste mgmt data
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getWasteMgmtData($ward = []): array
+    {
+        $select_attr = ['waste_mgmt.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['waste_mgmt.name_np'];
+
+        if ($ward) {
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->wasteMgmtRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**

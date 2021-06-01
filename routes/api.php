@@ -45,10 +45,15 @@ Route::prefix('household')->group(function () {
     Route::get('newborn-birthplace', [HouseholdController::class, 'getBirthplaceData'])->name('household.birthplace');
     
     Route::get('earthquake-resistant', [HouseholdController::class, 'getEarthquakeResistantData'])->name('household.eq');
+    Route::get('vulnerable-types', [HouseholdController::class, 'getVulnerabilityData'])->name('household.vulnerable');
     Route::get('risk-mitigation', [HouseholdController::class, 'getRiskMitigationData'])->name('household.risk');
+
+    Route::get('facilities', [HouseholdController::class, 'getFacilitiesData'])->name('household.facilities');
     
     Route::get('toilet-availability', [HouseholdController::class, 'getToiletData'])->name('household.toilet');
     Route::get('toilet-types', [HouseholdController::class, 'getToiletTypeData'])->name('household.toiletType');
+    
+    Route::get('waste-mgmt', [HouseholdController::class, 'getWasteMgmtData'])->name('household.waste');
 
     Route::get('test', [HouseholdController::class, 'test'])->name('household.test');
 });

@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Facilities;
+namespace App\Repositories\Birthplace;
 
-use App\Models\Household\Facilities;
+use App\Models\Household\Birthplace;
 use App\Repositories\Repository;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class FacilitiesRepository
+ * Class BirthplaceRepository
  *
- * @package App\Repositories\Facilities
+ * @package App\Repositories\Birthplace
  */
-class FacilitiesRepository extends Repository
+class BirthplaceRepository extends Repository
 {
     /**
      * Returns model
@@ -22,11 +21,11 @@ class FacilitiesRepository extends Repository
      */
     function getModel(): string
     {
-        return Facilities::class;
+        return Birthplace::class;
     }
 
     /**
-     * Get facilities data
+     * Get new born birthplace data
      * 
      * @param $select_attr
      * @param $where_attr
@@ -38,16 +37,16 @@ class FacilitiesRepository extends Repository
         $toReturn = $this->model
             ->select($select_attr)
             ->join(
-                'household_facilities',
-                'household_facilities.facilities_id',
+                'household_birthplace',
+                'household_birthplace.birthplace_id',
                 '=',
-                'facilities.id'
+                'birthplace.id'
             )
             ->join(
                 'household',
                 'household.id',
                 '=',
-                'household_facilities.household_id'
+                'household_birthplace.household_id'
             );
 
         if ($where_attr) {
