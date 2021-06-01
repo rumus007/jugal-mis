@@ -275,6 +275,259 @@ class HouseholdController extends Controller
         }
     }
 
+    /**
+     * Returns api response for water source data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getWaterSourceData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getWaterSourceData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for fuel source
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getFuelSourceData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getFuelSourceData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for main electricity source
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getElectricitySourceData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getElectricitySourceData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for alternate energy source
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getAlternateEnergyData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getAlternateEnergyData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for distance to receive basic healthcare
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDistanceHealthData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getDistanceHealthData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for earthquake resistant
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getEarthquakeResistantData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getEarthquakeResistantData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for risk mitigation plans
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRiskMitigationData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getRiskMitigationData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for toilet type
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getToiletTypeData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getToiletTypeData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for toilet availability
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getToiletData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getToiletData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for distance to fetch water
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDistanceWaterData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            // return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for new born birthplace
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getBirthplaceData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            // return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function test(Request $request)
     {
         $data = [];
