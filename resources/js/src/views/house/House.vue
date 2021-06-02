@@ -1,10 +1,10 @@
 <template>
   <div class="house-wrapper">
     <!-- <button v-on:click="updateData">Update Data</button> -->
-  <TitleBar title="घरधुरीकाे विवरण" />
-  <div class="tabs">   
+    <TitleBar title="घरधुरीकाे विवरण" />
+    <div class="tabs">
       <tabs :options="{ useUrlFragment: false }">
-        <tab name="घरकाे अवस्था">     
+        <tab name="घरकाे अवस्था">
           <h2>घरकाे अवस्था</h2>
           <house-status />
         </tab>
@@ -15,6 +15,18 @@
         <tab name="विपद पूर्वतयारी">
           <h2>विपद पूर्वतयारी</h2>
           <house-disaster-prepare />
+        </tab>
+        <tab name="भाैतिक पूर्वाधारकाे अवस्था">
+          <h2>भाैतिक पूर्वाधारकाे अवस्था</h2>
+          <house-facilities />
+        </tab>
+        <tab name="शाैचालयकाे अवस्था">
+          <h2>शाैचालयकाे अवस्था</h2>
+          <house-toilet />
+        </tab>
+        <tab name="घरकाे फाेहरमैला व्यवस्थापन">
+          <h2>घरकाे फाेहरमैला व्यवस्थापन</h2>
+          <house-waste-mgmt />
         </tab>
       </tabs>
     </div>
@@ -30,6 +42,9 @@ export default {
     HouseStatus: () => import("./HouseStatus"),
     HouseItems: () => import("./HouseItems"),
     HouseDisasterPrepare: () => import("./HouseDisasterPrepare"),
+    HouseFacilities: () => import("./HouseFacilities"),
+    HouseToilet: () => import("./HouseToilet"),
+    HouseWasteMgmt: () => import("./HouseWasteMgmt"),
     TitleBar: () => import("../shared/TitleBar"),
     Tabs,
     Tab,
