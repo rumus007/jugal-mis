@@ -3,23 +3,30 @@
     <table style="width: 100%">
       <tr>
         <th>SN</th>
-        <th>Year</th>
+        <th>{{ tableHeader ? tableHeader : 'Category'}}</th>
         <th>जम्मा</th>
       </tr>
       <tr v-for="(tableData, index) in data" :key="tableData.index">
         <td>{{ index + 1 }}</td>
         <td>{{ tableData.category }}</td>
-        <td>{{ tableData.total }}</td>
+        <td v-text="getFormattedCount(tableData.total)"></td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
+import { englishToNepaliNumber } from "nepali-number";
 export default {
   name: "Table",
   props: {
     data: { type: Array, required: true },
+    tableHeader: { type: String },
+  },
+  methods: {
+    getFormattedCount(count) {
+      return englishToNepaliNumber(count);
+    },
   },
 };
 </script>
@@ -32,7 +39,7 @@ td {
   border-collapse: collapse;
 }
 tr {
-  border-bottom: 1px solid #D9DBDD;
+  border-bottom: 1px solid #d9dbdd;
 }
 th,
 td {
