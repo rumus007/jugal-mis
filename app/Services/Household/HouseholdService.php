@@ -480,6 +480,103 @@ class HouseholdService
     }
 
     /**
+     * Return data for household income src
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getIncomeSource($params): array
+    {
+        $select_attr = ['income_src.name_np as category',DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['income_src.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',',$params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getWithIncomeSourceData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for income subsistence
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getIncomeSubsistence($ward = []): array
+    {
+        return $this->countBySingleColumnHousehold('subsistence_of_income', $ward);
+    }
+
+    /**
+     * Return data for house head gener
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getHouseHeadGender($ward = []): array
+    {
+        return $this->countBySingleColumnHousehold('family_head_gender', $ward);
+    }
+
+    /**
+     * Return data for household no of houses owned data
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getHouseholdHouseCount($ward = []): array
+    {
+        return $this->countBySingleColumnHousehold('house_count', $ward);
+    }
+
+    /**
+     * Return data for land use for agriculture
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getAgriLandData($ward = []): array
+    {
+        $data = $this->countBySingleColumnHousehold('use_of_family_lang_agriculture', $ward);
+        return booleanDataFormat($data);
+    }
+
+    /**
+     * Return data for family livestock data
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getLivestocks($ward = []): array
+    {
+        $data = $this->countBySingleColumnHousehold('livestock', $ward);
+        return booleanDataFormat($data);
+    }
+
+    /**
+     * Return data for land use for agriculture
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getBankingData($ward = []): array
+    {
+        $data = $this->countBySingleColumnHousehold('has_bank_account', $ward);
+        return booleanDataFormat($data);
+    }
+
+    /**
      * Query for single source of data for Household model;
      * 
      * @param $column

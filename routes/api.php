@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Family\FamilyController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Household\HouseholdController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -57,6 +58,25 @@ Route::prefix('household')->group(function () {
 
     Route::get('test', [HouseholdController::class, 'test'])->name('household.test');
 });
+
+Route::prefix('family')->group(function () {
+    Route::get('summary-stats', [FamilyController::class, 'getSummaryStats'])->name('family.stats');
+    
+    Route::get('house-count', [FamilyController::class, 'getHouseCount'])->name('family.houseCount');
+    // Route::get('permanent-residency', [FamilyController::class, 'getPermanentResidency'])->name('family.pr');
+    Route::get('source-income', [FamilyController::class, 'getIncomeSource'])->name('family.income');
+    // Route::get('avg-income', [FamilyController::class, 'getAvgIncomeData'])->name('family.incomeAvg');
+    // Route::get('avg-expenditure', [FamilyController::class, 'getAvgExpenditureData'])->name('family.expenditureAvg');
+    // Route::get('avg-saving', [FamilyController::class, 'getAvgSavingData'])->name('family.savingAvg');
+    Route::get('subsistence-income', [FamilyController::class, 'getIncomeSubsistence'])->name('family.incomeSubsistence');
+    Route::get('land-in-agriculture', [FamilyController::class, 'getAgriLandData'])->name('family.agriLand');
+    // Route::get('land-title-agriculture', [FamilyController::class, 'getAgriLandTitleData'])->name('family.agriLandTitle');
+    Route::get('banking-details', [FamilyController::class, 'getBankingData'])->name('family.bank');
+    // Route::get('agricultural-products', [FamilyController::class, 'getAgriProducts'])->name('family.agriProucts');
+    Route::get('livestocks', [FamilyController::class, 'getLivestocks'])->name('family.livestocks');
+});
+
+
 
 Route::prefix('home')->group(function () {
     Route::get('summary-stats', [HomeController::class, 'getSummaryStats'])->name('home.stats');
