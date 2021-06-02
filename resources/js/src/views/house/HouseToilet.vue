@@ -1,7 +1,5 @@
 <template>
   <div class="chart-wrapper flex">
-    <div class="charts">
-      <h3>शाैचालयकाे अवस्था</h3>
       <div class="card chart">
         <div v-if="showToiletAvailableStatusLoader" class="loader-wrapper">
           <loader />
@@ -9,19 +7,22 @@
         <div v-else>
           <div v-if="toiletAvailableStatusData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showToiletAvailableGraph')"
-                :class="showToiletAvailableGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showToiletAvailableGraph')"
-                :class="!showToiletAvailableGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>शाैचालयकाे अवस्था</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showToiletAvailableGraph')"
+                  :class="showToiletAvailableGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showToiletAvailableGraph')"
+                  :class="!showToiletAvailableGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showToiletAvailableGraph">
               <DonutChart :data="toiletAvailableStatusData" />
@@ -32,10 +33,7 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="charts">
-      <h3>शाैचालयकाे प्रकार</h3>
       <div class="card chart">
         <div v-if="showToiletTypeLoader" class="loader-wrapper">
           <loader />
@@ -43,19 +41,22 @@
         <div v-else>
           <div v-if="toiletTypeData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showToiletTypeGraph')"
-                :class="showToiletTypeGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showToiletTypeGraph')"
-                :class="!showToiletTypeGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>शाैचालयकाे प्रकार</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showToiletTypeGraph')"
+                  :class="showToiletTypeGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showToiletTypeGraph')"
+                  :class="!showToiletTypeGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showToiletTypeGraph">
               <BarChart :data="toiletTypeData" :horizontalBar="false" />
@@ -67,7 +68,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

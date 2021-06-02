@@ -4,7 +4,7 @@
       <tr>
         <th>SN</th>
         <th>Year</th>
-        <th>Total</th>
+        <th>जम्मा</th>
       </tr>
       <tr v-for="(tableData, index) in data" :key="tableData.index">
         <td>{{ index + 1 }}</td>
@@ -29,8 +29,10 @@ export default {
 table,
 th,
 td {
-  border: 1px solid rgba(114, 115, 142, 0.2);
   border-collapse: collapse;
+}
+tr {
+  border-bottom: 1px solid #D9DBDD;
 }
 th,
 td {

@@ -1,7 +1,5 @@
 <template>
   <div class="chart-wrapper flex">
-    <div class="charts">
-      <h3>परिवारका लागि खानेपानीकाे स्राेत</h3>
       <div class="card chart">
         <div v-if="showDrinkWaterSrcLoader" class="loader-wrapper">
           <loader />
@@ -9,19 +7,22 @@
         <div v-else>
           <div v-if="drinkWaterSrcData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showDrinkWaterSrcGraph')"
-                :class="showDrinkWaterSrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showDrinkWaterSrcGraph')"
-                :class="!showDrinkWaterSrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>परिवारका लागि खानेपानीकाे स्राेत</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showDrinkWaterSrcGraph')"
+                  :class="showDrinkWaterSrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showDrinkWaterSrcGraph')"
+                  :class="!showDrinkWaterSrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showDrinkWaterSrcGraph">
               <BarChart :data="drinkWaterSrcData" :horizontalBar="false" />
@@ -32,9 +33,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>खाना पकाउने मुख्य इन्धन</h3>
       <div class="card chart">
         <div v-if="false" class="loader-wrapper">
           <loader />
@@ -42,19 +40,22 @@
         <div v-else>
           <div v-if="cookFuelData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showCookFuelGraph')"
-                :class="showCookFuelGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showCookFuelGraph')"
-                :class="!showCookFuelGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>खाना पकाउने मुख्य इन्धन</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showCookFuelGraph')"
+                  :class="showCookFuelGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showCookFuelGraph')"
+                  :class="!showCookFuelGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showCookFuelGraph">
               <BarChart :data="cookFuelData" :horizontalBar="false" />
@@ -65,9 +66,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>विद्युतकाे प्रमुख इन्धन</h3>
       <div class="card chart">
         <div v-if="showElectricitySrcLoader" class="loader-wrapper">
           <loader />
@@ -75,19 +73,22 @@
         <div v-else>
           <div v-if="electrictySrcData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showElectricitySrcGraph')"
-                :class="showElectricitySrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showElectricitySrcGraph')"
-                :class="!showElectricitySrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title">
+              <h3>विद्युतकाे प्रमुख इन्धन</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showElectricitySrcGraph')"
+                  :class="showElectricitySrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showElectricitySrcGraph')"
+                  :class="!showElectricitySrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showElectricitySrcGraph">
               <BarChart :data="electrictySrcData" :horizontalBar="true" />
@@ -98,9 +99,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>बैकल्पिक इन्धनकाे प्रयाेग</h3>
       <div class="card chart">
         <div v-if="showAlternativeSrcLoader" class="loader-wrapper">
           <loader />
@@ -108,19 +106,22 @@
         <div v-else>
           <div v-if="alternativeSrcData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showAlternativeSrcGraph')"
-                :class="showAlternativeSrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showAlternativeSrcGraph')"
-                :class="!showAlternativeSrcGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>बैकल्पिक इन्धनकाे प्रयाेग</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showAlternativeSrcGraph')"
+                  :class="showAlternativeSrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showAlternativeSrcGraph')"
+                  :class="!showAlternativeSrcGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showAlternativeSrcGraph">
               <BarChart :data="alternativeSrcData" :horizontalBar="false" />
@@ -131,9 +132,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय</h3>
       <div class="card chart">
         <div v-if="showTimeForHealthCare" class="loader-wrapper">
           <loader />
@@ -141,19 +139,22 @@
         <div v-else>
           <div v-if="timeForHealthCareData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showTimeForHealthCareGraph')"
-                :class="showTimeForHealthCareGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showTimeForHealthCareGraph')"
-                :class="!showTimeForHealthCareGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showTimeForHealthCareGraph')"
+                  :class="showTimeForHealthCareGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showTimeForHealthCareGraph')"
+                  :class="!showTimeForHealthCareGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showTimeForHealthCareGraph">
               <BarChart :data="timeForHealthCareData" :horizontalBar="false" />
@@ -164,9 +165,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>खानेपानी लिनका लागि जाँदा लाग्ने समय</h3>
       <div class="card chart">
         <div v-if="showTimeForWaterFetchLoader" class="loader-wrapper">
           <loader />
@@ -174,24 +172,27 @@
         <div v-else>
           <div v-if="timeForWaterFetchData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showTimeForWaterFetchGraph')"
-                :class="showTimeForWaterFetchGraph ? 'active' : ''"
-              >
-                <img
-                  src="images/ic_graph.svg"
-                  alt=""
-                  width="16"
-                  :class="!showTimeForWaterFetchGraph ? 'active' : ''"
-                />
-              </button>
-              <button
-                v-on:click="showTable('showTimeForWaterFetchGraph')"
-                class="table-view"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>खानेपानी लिनका लागि जाँदा लाग्ने समय</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showTimeForWaterFetchGraph')"
+                  :class="showTimeForWaterFetchGraph ? 'active' : ''"
+                >
+                  <img
+                    src="images/ic_graph.svg"
+                    alt=""
+                    width="16"
+                    :class="!showTimeForWaterFetchGraph ? 'active' : ''"
+                  />
+                </button>
+                <button
+                  v-on:click="showTable('showTimeForWaterFetchGraph')"
+                  class="table-view"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showTimeForWaterFetchGraph">
               <BarChart :data="timeForWaterFetchData" :horizontalBar="false" />
@@ -202,9 +203,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="charts">
-      <h3>शिशुकाे जन्म भएकाे स्थान</h3>
       <div class="card chart">
         <div v-if="showNewBornLocationLoader" class="loader-wrapper">
           <loader />
@@ -212,20 +210,24 @@
         <div v-else>
           <div v-if="newBornLocationData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showNewBornLocationGraph')"
-                :class="showNewBornLocationGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showNewBornLocationGraph')"
-                :class="!showNewBornLocationGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>शिशुकाे जन्म भएकाे स्थान</h3>
+                <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showNewBornLocationGraph')"
+                  :class="showNewBornLocationGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showNewBornLocationGraph')"
+                  :class="!showNewBornLocationGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
+           
             <div v-if="showNewBornLocationGraph">
               <BarChart :data="newBornLocationData" :horizontalBar="true" />
             </div>
@@ -235,7 +237,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 

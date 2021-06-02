@@ -1,11 +1,12 @@
 <template>
   <div>
-    <apexchart width="400" :options="chartOptions" :series="series"></apexchart>
+    <apexchart width="360" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
 <script>
 import VueApexCharts from "vue-apexcharts";
+import {englishToNepaliNumber} from "nepali-number";
 export default {
   name: "DonutChart",
   props: {
@@ -32,22 +33,51 @@ export default {
           type: "donut",
         },
         labels: [...this.categories],
-        // dataLabels: {
-        //   enabled: false,
-        //   style: {
-        //     fontSize: "12px",
-        //     fontFamily: "Mukta, sans-serif",
-        //   },
-        // },
-        fill: {
-          colors: ["#028EFF", "#35cec8"],
+        dataLabels: {
+          enabled: false,
+          style: {
+            fontSize: "12px",
+            fontFamily: "Mukta, sans-serif",
+          },
         },
-        // legend: {
-        //   show: false,
-        // },
-        // tooltip: {
-        //   enabled: true,
-        // },
+        fill: {
+          colors: ['#995BE3', '#46C0B8'],
+        },
+        legend: {
+          position: 'right',
+          horizontalAlign: 'center', 
+          fontSize: "12px",
+          fontFamily: "Noto Sans, sans-serif",
+          markers: {
+            width: 12,
+            height: 12,
+            strokeWidth: 0,
+            strokeColor: '#fff',
+            fillColors: ['#995BE3', '#46C0B8'],
+            radius: 2,
+          },
+         
+      },
+        tooltip: {
+          enabled: true,
+           marker: {
+              show: true,
+          },
+           x: {
+              show: false,
+              formatter: function (value) {
+                return englishToNepaliNumber(value) ;
+            }
+          },
+          y: {
+              formatter: function (value) {
+                return englishToNepaliNumber(value) ;
+            },
+              title: {
+                  formatter: (seriesName) => '',
+              },
+          }
+        },
         // states: {
         //   hover: {
         //     filter: {

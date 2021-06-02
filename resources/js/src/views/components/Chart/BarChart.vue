@@ -11,6 +11,7 @@
 
 <script>
 import VueApexCharts from "vue-apexcharts";
+import {englishToNepaliNumber} from "nepali-number";
 export default {
   name: "BarChart",
   props: {
@@ -54,12 +55,12 @@ export default {
           categories: [...this.categories],
           labels: {
             style: {
-              fontSize: "11px",
-              fontFamily: "Mukta, sans-serif",
+              fontSize: "12px",
+              fontFamily: "Noto Sans, sans-serif",
             },
-            // formatter: function (value) {
-            //     return englishToNepaliNumber(value) ;
-            // }
+            formatter: function (value) {
+                return englishToNepaliNumber(value) ;
+            }
           },
           axisTicks: {
             show: false,
@@ -68,24 +69,26 @@ export default {
         yaxis: {
           labels: {
             style: {
-              fontSize: "13px",
-              fontFamily: "Mukta, sans-serif",
+              fontSize: "12px",
+              fontFamily: "Noto Sans, sans-serif",
             },
+            formatter: function (value) {
+                  return englishToNepaliNumber(value) ;
+            }
           },
         },
         //  todo add local check
         tooltip: {
           style: {
             fontSize: "12px",
-            fontFamily: "Mukta, sans-serif",
+            fontFamily: "Noto Sans, sans-serif",
           },
           x: {
             show: false,
           },
           y: {
             formatter: function (value) {
-              return value;
-              // return englishToNepaliNumber(value)
+              return englishToNepaliNumber(value)
             },
             title: {
               formatter: (seriesName) => "",

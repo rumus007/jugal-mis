@@ -1,5 +1,5 @@
 <template>
-  <div class="title-bar flex">
+  <div class="title-bar flex"  @scroll="handleScroll()">
     <h1>{{ title }}</h1>
     <div class="ward-options">
       <multiselect
@@ -11,6 +11,7 @@
         selectLabel=""
         deselectLabel=""
         placeholder="वार्ड छनौट गर्नुहोस्"
+        :input="scroll('main')"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->
       <a href="#" class="download-pdf">
@@ -44,6 +45,7 @@ export default {
     return {
       wardList: [1, 2, 3, 4, 5, 6, 7],
       selectedWard: "",
+      isFixed: "",
     };
   },
   computed: {
@@ -58,7 +60,36 @@ export default {
   },
   methods: {
     selectWard: function () {},
+     scroll(id) {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth",
+      });
+    },
+    handleScroll (event) {
+      let TitleBar = document.querySelector(".title-bar");
+      let Main = document.querySelector(".main-content");
+      let Tabs = document.querySelector(".tabs");
+      if (window.scrollY > 92 && !TitleBar.className.includes('fixed')) {
+      TitleBar.classList.add('fixed'); 
+      Main.classList.add('main-scroll'); 
+      } else if (window.scrollY < 92) {
+         TitleBar.classList.remove('fixed'); 
+         Main.classList.remove('main-scroll'); 
+      }
+      if (window.scrollY > 194 && !Tabs.className.includes('fixed')) {
+      Tabs.classList.add('fixed'); 
+      } else if (window.scrollY < 194) {
+         Tabs.classList.remove('fixed'); 
+      }
+    }
   },
+    created () {
+      window.addEventListener('scroll', this.handleScroll);
+
+    },
+    destroyed () {
+      window.removeEventListener('scroll', this.handleScroll);
+    } 
 };
 </script>
 
@@ -70,7 +101,15 @@ export default {
   align-items: center;
   background-color: #028eff;
   justify-content: space-between;
-  padding: 20px 48px;
+  padding: 16px 48px;
+ 
+  &.fixed {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+  }
+
   h1 {
     color: var(--color-base);
   }

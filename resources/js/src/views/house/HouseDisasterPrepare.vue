@@ -1,7 +1,5 @@
 <template>
   <div class="chart-wrapper flex">
-    <div class="charts">
-      <h3>भूकम्प प्रतिराेधी घर</h3>
       <div class="card chart">
         <div v-if="showEqResistantLoader" class="loader-wrapper">
           <loader />
@@ -9,19 +7,22 @@
         <div v-else>
           <div v-if="eqResistantData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showEqResistantGraph')"
-                :class="showEqResistantGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showEqResistantGraph')"
-                :class="!showEqResistantGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>भूकम्प प्रतिराेधी घर</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showEqResistantGraph')"
+                  :class="showEqResistantGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showEqResistantGraph')"
+                  :class="!showEqResistantGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showEqResistantGraph">
               <DonutChart :data="eqResistantData" />
@@ -32,10 +33,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="charts">
-      <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
       <div class="card chart">
         <div v-if="showVulnerableLoader" class="loader-wrapper">
           <loader />
@@ -43,19 +40,23 @@
         <div v-else>
           <div v-if="vulnerableData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showVulnerableGraph')"
-                :class="showVulnerableGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showVulnerableGraph')"
-                :class="!showVulnerableGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showVulnerableGraph')"
+                  :class="showVulnerableGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showVulnerableGraph')"
+                  :class="!showVulnerableGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
+
             </div>
             <div v-if="showVulnerableGraph">
               <BarChart :data="vulnerableData" :horizontalBar="false" />
@@ -66,10 +67,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="charts">
-      <h3>घर परिवारको जोखिम पारिवारिक योजना</h3>
       <div class="card chart">
         <div v-if="showRiskMitigateLoader" class="loader-wrapper">
           <loader />
@@ -77,19 +74,22 @@
         <div v-else>
           <div v-if="riskMitigateData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showRiskMitigateGraph')"
-                :class="showRiskMitigateGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showRiskMitigateGraph')"
-                :class="!showRiskMitigateGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>घर परिवारको जोखिम पारिवारिक योजना</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showRiskMitigateGraph')"
+                  :class="showRiskMitigateGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showRiskMitigateGraph')"
+                  :class="!showRiskMitigateGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>
             </div>
             <div v-if="showRiskMitigateGraph">
               <DonutChart :data="riskMitigateData" />
@@ -100,7 +100,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 

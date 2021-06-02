@@ -11,6 +11,7 @@
 
 <script>
 import VueApexCharts from "vue-apexcharts";
+import {englishToNepaliNumber} from "nepali-number"
 export default {
   name: "ColumnChart",
   props: {
@@ -38,6 +39,7 @@ export default {
           height: 350,
           zoom: false,
         },
+        colors: ['#995BE3', '#46C0B8'],
         plotOptions: {
           bar: {
             horizontal: false,
@@ -50,6 +52,43 @@ export default {
         },
         xaxis: {
           categories: [...this.categories],
+          labels: {
+            style: {
+              fontSize: "12px",
+              fontFamily: "Noto Sans, sans-serif",
+            },
+            formatter: function (value) {
+                  return englishToNepaliNumber(value) ;
+            }
+          },
+        },
+        yaxis: {
+          labels: {
+            style: {
+              fontSize: "12px",
+              fontFamily: "Noto Sans, sans-serif",
+            },
+            formatter: function (value) {
+                  return englishToNepaliNumber(value) ;
+            }
+          },
+        },
+        tooltip: {
+          enabled: true,
+           x: {
+              show: false,
+              formatter: function (value) {
+                return englishToNepaliNumber(value) ;
+            }
+          },
+          y: {
+              formatter: function (value) {
+                return englishToNepaliNumber(value) ;
+            },
+              title: {
+                  formatter: (seriesName) => '',
+              },
+          }
         },
         // // stroke: {
         // //   show: true,

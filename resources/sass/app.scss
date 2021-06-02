@@ -91,19 +91,24 @@ body {
     padding-top: 0 !important;
 }
 
+.main-scroll {
+    padding-top: 74px;
+}
+
 .tabs-component {
     display: flex;
 
     &-tabs {
-        background-color: var(--color-secondary-light);
+        background-color: var(--color-base);
         width: 300px;
     }
 
     &-panels {
         border-left: 1px solid rgba(114, 115, 142, 0.2);
         width: calc(100vw - 300px);
-        padding: 40px;
+        padding: 24px 40px;
         h2 {
+            font-weight: 700;
             margin-bottom: 24px;
         }
     }
@@ -116,13 +121,14 @@ body {
             padding: 16px 28px 16px 48px;
         }
         &.is-active {
-            background-color: var(--color-base);
+            background-color: var(--blue-400);
 
             a {
-                color: var(--color-primary-dark);
+                color: var(--color-base);
+                font-weight: 700;
                 &:after {
                     border-bottom: 5px solid transparent;
-                    border-left: 5px solid #000;
+                    border-left: 5px solid var(--color-base);
                     border-top: 5px solid transparent;
                     content: "";
                     float: right;
@@ -130,6 +136,17 @@ body {
                 }
             }
         }
+    }
+}
+
+.tabs.fixed {
+    .tabs-component-tabs {
+        left: 0;
+        position: fixed;
+        top: 74px;
+    }
+    .tabs-component-panels {
+        margin-left: 300px;
     }
 }
 
@@ -158,15 +175,23 @@ body {
     }
 }
 
-.charts {
-    width: 48%;
-}
+ .apexcharts-tooltip,
+ .apexcharts-tooltip-series-group {
+     background-color: var(--color-base)!important;
+     border: 1px solid #e3e3e3;
+     color: var(--color-primary-dark);
+ }
+
+  .apexcharts-tooltip-series-group {
+      border: 0;
+  }
 
 .chart {
     min-height: 370px;
     margin-bottom: 40px;
-    padding: 24px;
+    padding: 24px 24px 0;
     position: relative;
+    width: 48%;
 
     &-wrapper {
         flex-wrap: wrap;
@@ -175,6 +200,12 @@ body {
 
     button {
         margin-bottom: 24px;
+    }
+    &-title {
+        justify-content: space-between;
+    }
+    &-full {
+        width: 100%;
     }
 }
 
