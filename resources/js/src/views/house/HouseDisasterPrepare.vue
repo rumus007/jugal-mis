@@ -3,39 +3,101 @@
     <div class="charts">
       <h3>भूकम्प प्रतिराेधी घर</h3>
       <div class="card chart">
-        <button v-on:click="showTable('showPieChartGraph')">Show table</button>
-        <button v-on:click="showGraph('showPieChartGraph')">Show graph</button>
-        <div v-if="showPieChartGraph">
-          <PieChart :series="pieChartSeries" :options="pieChartOptions" />
+        <div v-if="showEqResistantLoader" class="loader-wrapper">
+          <loader />
         </div>
         <div v-else>
-          <Table :data="tablePieChartData" />
+          <div v-if="eqResistantData.length === 0"><no-data /></div>
+          <div v-else>
+            <div class="view-icons">
+              <button
+                v-on:click="showGraph('showEqResistantGraph')"
+                :class="showEqResistantGraph ? 'active' : ''"
+              >
+                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+              </button>
+              <button
+                v-on:click="showTable('showEqResistantGraph')"
+                :class="!showEqResistantGraph ? 'active' : ''"
+              >
+                <img src="images/ic_table.svg" alt="" width="16" height="16" />
+              </button>
+            </div>
+            <div v-if="showEqResistantGraph">
+              <DonutChart :data="eqResistantData" />
+            </div>
+            <div v-else>
+              <Table :data="eqResistantData" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="charts">
       <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
       <div class="card chart">
-        <button v-on:click="showTable('showBarChartGraph')">Show table</button>
-        <button v-on:click="showGraph('showBarChartGraph')">Show graph</button>
-        <div v-if="showBarChartGraph">
-          <BarChart :data="tableBarChartData" />
+        <div v-if="showVulnerableLoader" class="loader-wrapper">
+          <loader />
         </div>
         <div v-else>
-          <Table :data="tableBarChartData" />
+          <div v-if="vulnerableData.length === 0"><no-data /></div>
+          <div v-else>
+            <div class="view-icons">
+              <button
+                v-on:click="showGraph('showVulnerableGraph')"
+                :class="showVulnerableGraph ? 'active' : ''"
+              >
+                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+              </button>
+              <button
+                v-on:click="showTable('showVulnerableGraph')"
+                :class="!showVulnerableGraph ? 'active' : ''"
+              >
+                <img src="images/ic_table.svg" alt="" width="16" height="16" />
+              </button>
+            </div>
+            <div v-if="showVulnerableGraph">
+              <BarChart :data="vulnerableData" :horizontalBar="false" />
+            </div>
+            <div v-else>
+              <Table :data="vulnerableData" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="charts">
-      <h3>विद्युतकाे प्रमुख इन्धन</h3>
+      <h3>घर परिवारको जोखिम पारिवारिक योजना</h3>
       <div class="card chart">
-        <button v-on:click="showTable('showLineChartGraph')">Show table</button>
-        <button v-on:click="showGraph('showLineChartGraph')">Show graph</button>
-        <div v-if="showLineChartGraph">
-          <LineChart :series="lineChartSeries" :options="lineChartOptions" />
+        <div v-if="showRiskMitigateLoader" class="loader-wrapper">
+          <loader />
         </div>
         <div v-else>
-          <Table :data="tableLineChartData" />
+          <div v-if="riskMitigateData.length === 0"><no-data /></div>
+          <div v-else>
+            <div class="view-icons">
+              <button
+                v-on:click="showGraph('showRiskMitigateGraph')"
+                :class="showRiskMitigateGraph ? 'active' : ''"
+              >
+                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+              </button>
+              <button
+                v-on:click="showTable('showRiskMitigateGraph')"
+                :class="!showRiskMitigateGraph ? 'active' : ''"
+              >
+                <img src="images/ic_table.svg" alt="" width="16" height="16" />
+              </button>
+            </div>
+            <div v-if="showRiskMitigateGraph">
+              <DonutChart :data="riskMitigateData" />
+            </div>
+            <div v-else>
+              <Table :data="riskMitigateData" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -43,129 +105,44 @@
 </template>
 
 <script>
-import { Tabs, Tab } from "vue-tabs-component";
+import { filterObject } from "../../common/helper.js";
 
 export default {
   name: "HouseDisasterPrepare",
   components: {
     BarChart: () => import("../components/Chart/BarChart"),
-    LineChart: () => import("../components/Chart/LineChart"),
-    PieChart: () => import("../components/Chart/PieChart"),
-    ColumnChart: () => import("../components/Chart/ColumnChart"),
+    DonutChart: () => import("../components/Chart/DonutChart"),
     Table: () => import("../components/Table/Table"),
-    TitleBar: () => import("../shared/TitleBar"),
-    Tabs,
-    Tab,
-    // TabFilter: () => import("../components/TabFilter/TabFilter"),
-  },
-  props: {
-    msg: String,
+    Loader: () => import("../components/Loader/Loader"),
+    NoData: () => import("../components/NoData/NoData"),
   },
   data: function () {
     return {
-      showBarChartGraph: true,
-      showLineChartGraph: true,
-      showPieChartGraph: true,
-      houseHoldOwnershipData: [],
-      barChartoptions: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996],
-        },
-      },
-      barChartSeries: [
-        {
-          name: "bar-chart",
-          data: [30, 40, 45, 50, 49, 60],
-        },
-      ],
+      showEqResistantLoader: false,
+      eqResistantData: [],
+      showEqResistantGraph: true,
 
-      tableBarChartData: [
-        { category: 1991, total: 30 },
-        { category: 1992, total: 40 },
-        { category: 1993, total: 45 },
-        { category: 1994, total: 50 },
-        { category: 1995, total: 49 },
-        { category: 1996, total: 60 },
-      ],
+      showRiskMitigateLoader: false,
+      riskMitigateData: [],
+      showRiskMitigateGraph: true,
 
-      lineChartOptions: {
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-        },
-      },
-
-      lineChartSeries: [
-        {
-          name: "line-chart",
-          data: [30, 40, 45, 50, 49, 60, 70, 91],
-        },
-      ],
-
-      tableLineChartData: [
-        { category: 1991, total: 30 },
-        { category: 1992, total: 40 },
-        { category: 1993, total: 45 },
-        { category: 1994, total: 50 },
-        { category: 1995, total: 49 },
-        { category: 1996, total: 60 },
-      ],
-
-      pieChartSeries: [44, 55, 41, 17, 15],
-
-      pieChartOptions: {
-        chart: {
-          type: "donut",
-        },
-      },
-
-      tablePieChartData: [
-        { category: 1991, total: 30 },
-        { category: 1992, total: 40 },
-        { category: 1993, total: 45 },
-        { category: 1994, total: 50 },
-        { category: 1995, total: 49 },
-        { category: 1996, total: 60 },
-      ],
-
-      columnChartData: [
-        {
-          name: "Net Profit",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: "Revenue",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-        },
-        {
-          name: "Free Cash Flow",
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-        },
-      ],
+      showVulnerableLoader: false,
+      vulnerableData: [],
+      showVulnerableGraph: true,
     };
   },
   methods: {
-    updateData: function () {
-      this.barChartoptions = {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-        },
-      };
-    },
     showTable: function (dataType) {
       this[dataType] = false;
     },
     showGraph: function (dataType) {
       this[dataType] = true;
     },
-    getHouseStatusData: function () {
-      const targetUrl = `household/ownership`;
-      let queryParams = Object.assign({}, this.filter);
+
+    getEQResistantData: function () {
+      this.showEqResistantLoader = true;
+      const targetUrl = `household/earthquake-resistant`;
+      let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
       let formattedParams = {};
       Object.keys(queryParams).map((data) => {
@@ -176,17 +153,86 @@ export default {
           };
         }
       });
-
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.houseHoldOwnershipData = data.data;
-      });
-
-      // this.filter.resource_type_id.length !== 0
-      //   ? axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-      //       this.mapData = data.data;
-      //     })
-      //   : (this.mapData = []);
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.eqResistantData = data?.data ?? [];
+          this.showEqResistantLoader = false;
+        })
+        .catch(() => {
+          this.showEqResistantLoader = false;
+        });
     },
+
+    getVulnerableData: function () {
+      this.showVulnerableLoader = true;
+      const targetUrl = `household/vulnerable-types`;
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
+      let formattedParams = {};
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.vulnerableData = data?.data ?? [];
+          this.showVulnerableLoader = false;
+        })
+        .catch(() => {
+          this.showVulnerableLoader = false;
+        });
+    },
+
+    getRiskMitigationData: function () {
+      this.showRiskMitigateLoader = true;
+      const targetUrl = `household/risk-mitigation`;
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
+      let formattedParams = {};
+      Object.keys(queryParams).map((data) => {
+        if (queryParams[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${queryParams[data].join(",")}`,
+          };
+        }
+      });
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.riskMitigateData = data?.data ?? [];
+          this.showRiskMitigateLoader = false;
+        })
+        .catch(() => {
+          this.showRiskMitigateLoader = false;
+        });
+    },
+  },
+  computed: {
+    ward() {
+      return this.$store.getters.ward;
+    },
+  },
+  watch: {
+    ward: {
+      handler() {
+        this.getEQResistantData();
+        this.getVulnerableData();
+        this.getRiskMitigationData();
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.getEQResistantData();
+    this.getVulnerableData();
+    this.getRiskMitigationData();
   },
 };
 </script>
