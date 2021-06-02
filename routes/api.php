@@ -65,15 +65,15 @@ Route::prefix('family')->group(function () {
     Route::get('house-count', [FamilyController::class, 'getHouseCount'])->name('family.houseCount');
     // Route::get('permanent-residency', [FamilyController::class, 'getPermanentResidency'])->name('family.pr');
     Route::get('source-income', [FamilyController::class, 'getIncomeSource'])->name('family.income');
-    // Route::get('avg-income', [FamilyController::class, 'getAvgIncomeData'])->name('family.incomeAvg');
-    // Route::get('avg-expenditure', [FamilyController::class, 'getAvgExpenditureData'])->name('family.expenditureAvg');
-    // Route::get('avg-saving', [FamilyController::class, 'getAvgSavingData'])->name('family.savingAvg');
+    Route::get('avg-income-expenses-saving', [FamilyController::class, 'getAvgIncomeExpensesData'])->name('family.incomeExpense');
     Route::get('subsistence-income', [FamilyController::class, 'getIncomeSubsistence'])->name('family.incomeSubsistence');
     Route::get('land-in-agriculture', [FamilyController::class, 'getAgriLandData'])->name('family.agriLand');
-    // Route::get('land-title-agriculture', [FamilyController::class, 'getAgriLandTitleData'])->name('family.agriLandTitle');
+    Route::get('land-title-agriculture', [FamilyController::class, 'getAgriLandTitleData'])->name('family.agriLandTitle');
     Route::get('banking-details', [FamilyController::class, 'getBankingData'])->name('family.bank');
-    // Route::get('agricultural-products', [FamilyController::class, 'getAgriProducts'])->name('family.agriProucts');
-    Route::get('livestocks', [FamilyController::class, 'getLivestocks'])->name('family.livestocks');
+    Route::get('agricultural-products', [FamilyController::class, 'getAgriProducts'])->name('family.agriProucts');
+    Route::get('has-livestocks', [FamilyController::class, 'getLivestocks'])->name('family.livestocks');
+    Route::get('livestock-in-family', [FamilyController::class, 'getLivestockData'])->name('family.livestockData');
+    Route::get('has-fish-bee-silkworm', [FamilyController::class, 'getFishBeeSilk'])->name('family.fishBeeSilk');
 });
 
 

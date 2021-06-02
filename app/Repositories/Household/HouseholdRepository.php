@@ -101,6 +101,138 @@ class HouseholdRepository extends Repository
     }
 
     /**
+     * Returns with household land title
+     * 
+     * @param $selec_attr
+     * @param $where_attr
+     * @param $where_in_attr
+     * @param $group_by_attr
+     * 
+     * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWithLandTitleData($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    {
+        $data = $this->model
+            ->select($select_attr)
+            ->join(
+                'household_land_title',
+                'household_land_title.household_id',
+                '=',
+                'household.id'
+            )
+            ->join(
+                'land_title',
+                'land_title.id',
+                '=',
+                'household_land_title.land_title_id'
+            );
+
+        if ($where_attr) {
+            $data->where($where_attr);
+        }
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        if ($group_by_attr) {
+            $data->groupBy($group_by_attr);
+        }
+
+        return $data->get();
+    }
+
+    /**
+     * Returns with household agricultural prodcus
+     * 
+     * @param $selec_attr
+     * @param $where_attr
+     * @param $where_in_attr
+     * @param $group_by_attr
+     * 
+     * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWithAgriProductsData($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    {
+        $data = $this->model
+            ->select($select_attr)
+            ->join(
+                'household_agri_product',
+                'household_agri_product.household_id',
+                '=',
+                'household.id'
+            )
+            ->join(
+                'agri_product',
+                'agri_product.id',
+                '=',
+                'household_agri_product.agri_product_id'
+            );
+
+        if ($where_attr) {
+            $data->where($where_attr);
+        }
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        if ($group_by_attr) {
+            $data->groupBy($group_by_attr);
+        }
+
+        return $data->get();
+    }
+
+    /**
+     * Returns with household agricultural prodcus
+     * 
+     * @param $selec_attr
+     * @param $where_attr
+     * @param $where_in_attr
+     * @param $group_by_attr
+     * 
+     * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWithLivestockData($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    {
+        $data = $this->model
+            ->select($select_attr)
+            ->join(
+                'household_livestock',
+                'household_livestock.household_id',
+                '=',
+                'household.id'
+            )
+            ->join(
+                'livestock',
+                'livestock.id',
+                '=',
+                'household_livestock.livestock_id'
+            );
+
+        if ($where_attr) {
+            $data->where($where_attr);
+        }
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        if ($group_by_attr) {
+            $data->groupBy($group_by_attr);
+        }
+
+        return $data->get();
+    }
+
+    /**
      * Returns household count
      * 
      * @param $where_attr

@@ -355,18 +355,18 @@ class HouseholdService
             'no' => 0
         ];
         $data = $this->countBySingleColumnHousehold('toilet_facility', $ward);
-        
-        foreach($data as $v){
-            if($v['category'] == "शौचालय नभएको"){
+
+        foreach ($data as $v) {
+            if ($v['category'] == "शौचालय नभएको") {
                 $tmp['no'] += (int) $v['total'];
                 continue;
             }
 
             $tmp['yes'] += (int) $v['total'];
         }
-        
 
-        return array_map(function($v, $k){
+
+        return array_map(function ($v, $k) {
             return [
                 'category' => $k,
                 'total' => $v
@@ -383,7 +383,7 @@ class HouseholdService
      */
     public function getDistanceWaterData($ward = []): array
     {
-        $select_attr = ['water_distance.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['water_distance.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['water_distance.name_np'];
@@ -404,7 +404,7 @@ class HouseholdService
      */
     public function getBirthplaceData($ward = []): array
     {
-        $select_attr = ['birthplace.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['birthplace.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['birthplace.name_np'];
@@ -425,7 +425,7 @@ class HouseholdService
      */
     public function getVulnerabilityData($ward = []): array
     {
-        $select_attr = ['disastor.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['disastor.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['disastor.name_np'];
@@ -446,7 +446,7 @@ class HouseholdService
      */
     public function getFacilitiesData($ward = []): array
     {
-        $select_attr = ['facilities.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['facilities.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['facilities.name_np'];
@@ -467,7 +467,7 @@ class HouseholdService
      */
     public function getWasteMgmtData($ward = []): array
     {
-        $select_attr = ['waste_mgmt.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['waste_mgmt.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['waste_mgmt.name_np'];
@@ -488,17 +488,146 @@ class HouseholdService
      */
     public function getIncomeSource($params): array
     {
-        $select_attr = ['income_src.name_np as category',DB::raw('count(*) as total')];
+        $select_attr = ['income_src.name_np as category', DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = ['income_src.name_np'];
 
         if (isset($params['ward']) && $params['ward']) {
-            $ward = explode(',',$params['ward']);
+            $ward = explode(',', $params['ward']);
             $where_in_attr[] = ['ward', $ward];
         }
 
         return $this->householdRepository->getWithIncomeSourceData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for household agriculture land title
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getAgriLandTitleData($params): array
+    {
+        $select_attr = ['land_title.name_np as category', DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['land_title.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getWithLandTitleData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+    /**
+     * Return data for household agriculture products
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getAgriProducts($params): array
+    {
+        $select_attr = ['agri_product.name as category', DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['agri_product.name'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getWithAgriProductsData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+
+    /**
+     * Return data for household livestocks
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getLivestockData($params): array
+    {
+        $select_attr = ['livestock.name_np as category', DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['livestock.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+    }
+
+
+    /**
+     * Return data for household income vs expenditure vs saving
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getAvgIncomeExpensesData($params): array
+    {
+        $range = ["None", "1 to 50k", "50k to 100k", "100k to 300K", "300K to 500K", "500K to 900K", "more than 900k"];
+
+        $select_income = [
+            DB::raw('sum(case when cast(avg_family_income as INT) <= 0 then 1 else 0 end) as range1'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 1 and cast(avg_family_income as INT) <= 50000 then 1 else 0 end) as range2'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 50001 and cast(avg_family_income as INT) <= 100000 then 1 else 0 end) as range3'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 100001 and cast(avg_family_income as INT) <= 300000 then 1 else 0 end) as range4'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 300001 and cast(avg_family_income as INT) <= 500000 then 1 else 0 end) as range5'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 500001 and cast(avg_family_income as INT) <= 900000 then 1 else 0 end) as range6'),
+            DB::raw('sum(case when cast(avg_family_income as INT) > 900001 then 1 else 0 end) as range7'),
+        ];
+
+        $select_expenses = [
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) <= 0 then 1 else 0 end) as range1'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 1 and cast(avg_family_expenditure as INT) <= 50000 then 1 else 0 end) as range2'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 50001 and cast(avg_family_expenditure as INT) <= 100000 then 1 else 0 end) as range3'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 100001 and cast(avg_family_expenditure as INT) <= 300000 then 1 else 0 end) as range4'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 300001 and cast(avg_family_expenditure as INT) <= 500000 then 1 else 0 end) as range5'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 500001 and cast(avg_family_expenditure as INT) <= 900000 then 1 else 0 end) as range6'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 900001 then 1 else 0 end) as range7'),
+        ];
+
+        $select_saving = [
+            DB::raw('sum(case when cast(avg_family_saving as INT) <= 0 then 1 else 0 end) as range1'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 1 and cast(avg_family_saving as INT) <= 50000 then 1 else 0 end) as range2'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 50001 and cast(avg_family_saving as INT) <= 100000 then 1 else 0 end) as range3'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 100001 and cast(avg_family_saving as INT) <= 300000 then 1 else 0 end) as range4'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 300001 and cast(avg_family_saving as INT) <= 500000 then 1 else 0 end) as range5'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 500001 and cast(avg_family_saving as INT) <= 900000 then 1 else 0 end) as range6'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) > 900001 then 1 else 0 end) as range7'),
+        ];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $income     = $this->householdRepository->getHouseholdData($select_income, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        $expenses   = $this->householdRepository->getHouseholdData($select_expenses, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        $saving     = $this->householdRepository->getHouseholdData($select_saving, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+
+        return [
+            "xAxis"         => $range,
+            "income"        => is_array($income) ? array_values($income) : [],
+            "expediture"    => is_array($expenses) ? array_values($expenses) : [],
+            "saving"        => is_array($saving) ? array_values($saving) : []
+        ];
     }
 
     /**
@@ -560,6 +689,19 @@ class HouseholdService
     public function getLivestocks($ward = []): array
     {
         $data = $this->countBySingleColumnHousehold('livestock', $ward);
+        return booleanDataFormat($data);
+    }
+
+    /**
+     * Return data for family fish bee 
+     * 
+     * @param $ward
+     * 
+     * @return array
+     */
+    public function getFishBeeSilk($ward = []): array
+    {
+        $data = $this->countBySingleColumnHousehold('fish_honeybee_silkworm', $ward);
         return booleanDataFormat($data);
     }
 

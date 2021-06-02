@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Family;
 
 use App\Http\Controllers\Controller;
-use App\Services\Family\FamilyService;
 use App\Services\Household\HouseholdService;
 use App\Services\Individual\IndividualService;
 use Illuminate\Http\Request;
@@ -21,7 +20,6 @@ class FamilyController extends Controller
      * FamilyController constructor
      */
     public function __construct(
-        public FamilyService $familyService,
         public HouseholdService $householdService,
         public IndividualService $individualService
     )
@@ -91,6 +89,94 @@ class FamilyController extends Controller
     {
         try {
             $response = prepareResponseFormat($this->householdService->getIncomeSource($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response family agricultural land title data
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getAgriLandTitleData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->householdService->getAgriLandTitleData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response family agricultural products
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getAgriProducts(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->householdService->getAgriProducts($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for family income vs expense vs saving
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getAvgIncomeExpensesData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->householdService->getAvgIncomeExpensesData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for livestock in family
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getLivestockData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->householdService->getLivestockData($request->all()));
             return response()->json($response);
         } catch (\Exception $e) {
             logger()->error($e);
@@ -184,6 +270,29 @@ class FamilyController extends Controller
         try {
             $ward = $request->ward ? explode(',', $request->ward) : [];
             return response()->json(prepareResponseFormat($this->householdService->getLivestocks($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for fish bee silkwork
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getFishBeeSilk(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getFishBeeSilk($ward)));
         } catch (\Exception $e) {
             logger()->error($e);
 
