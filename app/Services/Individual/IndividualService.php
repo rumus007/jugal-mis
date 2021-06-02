@@ -81,7 +81,7 @@ class IndividualService
     public function getGenderWise($ward = [])
     {
         $select_attr = ['individual.gender',DB::raw('count(*) as total')];
-        $where_attr = [];
+        $where_attr = [''];
         $where_in_attr = [];
         $group_by_attr = ['individual.gender'];
 
