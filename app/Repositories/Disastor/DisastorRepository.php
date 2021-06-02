@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Facilities;
+namespace App\Repositories\Disastor;
 
-use App\Models\Household\Facilities;
+use App\Models\Household\Disastor;
 use App\Repositories\Repository;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class FacilitiesRepository
+ * Class DisastorRepository
  *
- * @package App\Repositories\Facilities
+ * @package App\Repositories\Disastor
  */
-class FacilitiesRepository extends Repository
+class DisastorRepository extends Repository
 {
     /**
      * Returns model
@@ -22,11 +21,11 @@ class FacilitiesRepository extends Repository
      */
     function getModel(): string
     {
-        return Facilities::class;
+        return Disastor::class;
     }
 
     /**
-     * Get facilities data
+     * Get new born disastor data
      * 
      * @param $select_attr
      * @param $where_attr
@@ -38,16 +37,16 @@ class FacilitiesRepository extends Repository
         $toReturn = $this->model
             ->select($select_attr)
             ->join(
-                'household_facilities',
-                'household_facilities.facilities_id',
+                'household_disastor',
+                'household_disastor.disastor_id',
                 '=',
-                'facilities.id'
+                'disastor.id'
             )
             ->join(
                 'household',
                 'household.id',
                 '=',
-                'household_facilities.household_id'
+                'household_disastor.household_id'
             );
 
         if ($where_attr) {

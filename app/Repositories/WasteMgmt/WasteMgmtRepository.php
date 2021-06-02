@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Facilities;
+namespace App\Repositories\WasteMgmt;
 
-use App\Models\Household\Facilities;
+use App\Models\Household\WasteMgmt;
 use App\Repositories\Repository;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class FacilitiesRepository
+ * Class WasteMgmtRepository
  *
- * @package App\Repositories\Facilities
+ * @package App\Repositories\WasteMgmt
  */
-class FacilitiesRepository extends Repository
+class WasteMgmtRepository extends Repository
 {
     /**
      * Returns model
@@ -22,11 +21,11 @@ class FacilitiesRepository extends Repository
      */
     function getModel(): string
     {
-        return Facilities::class;
+        return WasteMgmt::class;
     }
 
     /**
-     * Get facilities data
+     * Get new born Waste Mgmt data
      * 
      * @param $select_attr
      * @param $where_attr
@@ -38,16 +37,16 @@ class FacilitiesRepository extends Repository
         $toReturn = $this->model
             ->select($select_attr)
             ->join(
-                'household_facilities',
-                'household_facilities.facilities_id',
+                'household_waste_mgmt',
+                'household_waste_mgmt.waste_mgmt_id',
                 '=',
-                'facilities.id'
+                'waste_mgmt.id'
             )
             ->join(
                 'household',
                 'household.id',
                 '=',
-                'household_facilities.household_id'
+                'household_waste_mgmt.household_id'
             );
 
         if ($where_attr) {

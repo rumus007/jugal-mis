@@ -494,7 +494,7 @@ class HouseholdController extends Controller
     {
         try {
             $ward = $request->ward ? explode(',', $request->ward) : [];
-            // return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($ward)));
+            return response()->json(prepareResponseFormat($this->householdService->getDistanceWaterData($ward)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -517,7 +517,76 @@ class HouseholdController extends Controller
     {
         try {
             $ward = $request->ward ? explode(',', $request->ward) : [];
-            // return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($ward)));
+            return response()->json(prepareResponseFormat($this->householdService->getBirthplaceData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for vulnerability types
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getVulnerabilityData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getVulnerabilityData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for household facilities
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getFacilitiesData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getFacilitiesData($ward)));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for household waste mgmt
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getWasteMgmtData(Request $request)
+    {
+        try {
+            $ward = $request->ward ? explode(',', $request->ward) : [];
+            return response()->json(prepareResponseFormat($this->householdService->getWasteMgmtData($ward)));
         } catch (\Exception $e) {
             logger()->error($e);
 

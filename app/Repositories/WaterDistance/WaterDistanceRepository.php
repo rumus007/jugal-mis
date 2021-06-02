@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Facilities;
+namespace App\Repositories\WaterDistance;
 
-use App\Models\Household\Facilities;
+use App\Models\Household\WaterDistance;
 use App\Repositories\Repository;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class FacilitiesRepository
+ * Class WaterDistanceRepository
  *
- * @package App\Repositories\Facilities
+ * @package App\Repositories\WaterDistance
  */
-class FacilitiesRepository extends Repository
+class WaterDistanceRepository extends Repository
 {
     /**
      * Returns model
@@ -22,11 +21,11 @@ class FacilitiesRepository extends Repository
      */
     function getModel(): string
     {
-        return Facilities::class;
+        return WaterDistance::class;
     }
 
     /**
-     * Get facilities data
+     * Get water disatance data
      * 
      * @param $select_attr
      * @param $where_attr
@@ -38,16 +37,16 @@ class FacilitiesRepository extends Repository
         $toReturn = $this->model
             ->select($select_attr)
             ->join(
-                'household_facilities',
-                'household_facilities.facilities_id',
+                'household_water_distance',
+                'household_water_distance.water_distance_id',
                 '=',
-                'facilities.id'
+                'water_distance.id'
             )
             ->join(
                 'household',
                 'household.id',
                 '=',
-                'household_facilities.household_id'
+                'household_water_distance.household_id'
             );
 
         if ($where_attr) {
