@@ -1,0 +1,81 @@
+<template>
+  <div class="card chart">
+    <div v-if="showLoader" class="loader-wrapper">
+      <loader />
+    </div>
+    <div v-else>
+      <div v-if="data.length === 0"><no-data /></div>
+      <div v-else>
+        <div class="chart-title flex">
+          <h3>{{ title }}</h3>
+          <div class="view-icons">
+            <button
+              v-on:click="changeGraphDisplay()"
+              :class="showGraph ? 'active' : ''"
+            >
+              <img
+                src="images/ic_graph.svg"
+                alt=""
+                width="16"
+                :class="!showGraph ? 'active' : ''"
+              />
+            </button>
+            <button v-on:click="changeTableDisplay()" class="table-view">
+              <img src="images/ic_table.svg" alt="" width="16" height="16" />
+            </button>
+          </div>
+        </div>
+        <div v-if="showGraph">
+          <BarChart
+            :data="data"
+            :horizontalBar="chartDetail.horizontalBar"
+            v-if="chartDetail.type === 'Bar'"
+          />
+          <DonutChart :data="data" v-if="chartDetail.type === 'Donut'" />
+          <ColumnChart
+            :data="data"
+            :categoryData="chartDetail.columnCategory"
+            v-if="chartDetail.type === 'Column'"
+          />
+        </div>
+        <div v-else>
+          <Table :data="data" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "FamilyChart",
+  components: {
+    BarChart: () => import("../components/Chart/BarChart"),
+    DonutChart: () => import("../components/Chart/DonutChart"),
+    ColumnChart: () => import("../components/Chart/ColumnChart"),
+    Table: () => import("../components/Table/Table"),
+    Loader: () => import("../components/Loader/Loader"),
+    NoData: () => import("../components/NoData/NoData"),
+  },
+  props: {
+    showLoader: { type: Boolean, required: true },
+    data: { type: Array, required: true },
+    title: { type: String, required: true },
+    showGraph: { type: Boolean, required: true },
+    showGraphText: { type: String, required: true },
+    chartDetail: { type: Object, required: true },
+  },
+  methods: {
+    changeGraphDisplay() {
+      this.$emit("graphFunction", this.showGraphText);
+    },
+    changeTableDisplay() {
+      this.$emit("tableFunction", this.showGraphText);
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+</style>

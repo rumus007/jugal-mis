@@ -599,7 +599,7 @@ class HouseholdService
             if (trim($val['category']) == 'मौरी') {
                 return [
                     "category" => $val['category'],
-                    "quantity" => $val['honey'],
+                    "total" => $val['honey'],
                     "unit" => 'Kg',
                     "type" => 'honey_production'
                 ];
@@ -608,7 +608,7 @@ class HouseholdService
             if (trim($val['category']) == 'माछा') {
                 return [
                     "category" => $val['category'],
-                    "quantity" => $val['fish'],
+                    "total" => $val['fish'],
                     "unit" => 'Kg',
                     "type" => 'fish_production'
                 ];
@@ -617,7 +617,7 @@ class HouseholdService
             if (trim($val['category']) == 'रेशम') {
                 return [
                     "category" => $val['category'],
-                    "quantity" => $val['silk'],
+                    "total" => $val['silk'],
                     "unit" => 'Kg',
                     "type" => 'silk_production'
                 ];
@@ -668,7 +668,7 @@ class HouseholdService
                     if (in_array(trim($val['category']), $milk_items)) {
                         return [
                             "category" => $val['category'],
-                            "quantity" => $val['milk'],
+                            "total" => $val['milk'],
                             "unit" => 'Liter',
                             "type" => 'milk_production'
                         ];
@@ -681,7 +681,7 @@ class HouseholdService
                     if (in_array(trim($val['category']), $meat_bone_items)) {
                         return [
                             "category" => $val['category'],
-                            "quantity" => $val['meat'],
+                            "total" => $val['meat'],
                             "unit" => 'Kg',
                             "type" => 'meat_production'
                         ];
@@ -694,7 +694,7 @@ class HouseholdService
                     if (in_array(trim($val['category']), $meat_bone_items)) {
                         return [
                             "category" => $val['category'],
-                            "quantity" => $val['meat'],
+                            "total" => $val['meat'],
                             "unit" => 'Kg',
                             "type" => 'bone_skin_production'
                         ];
@@ -707,7 +707,7 @@ class HouseholdService
                     if (in_array(trim($val['category']), $wool_items)) {
                         return [
                             "category" => $val['category'],
-                            "quantity" => $val['wool'],
+                            "total" => $val['wool'],
                             "unit" => 'Kg',
                             "type" => 'wool_production'
                         ];
@@ -716,7 +716,7 @@ class HouseholdService
                     if (in_array(trim($val['category']), $egg_items)) {
                         return [
                             "category" => $val['category'],
-                            "quantity" => $val['egg'],
+                            "total" => $val['egg'],
                             "unit" => 'Piece',
                             "type" => 'egg_production'
                         ];
@@ -728,7 +728,7 @@ class HouseholdService
                 $final = array_map(function ($val) {
                     return [
                         "category" => $val['category'],
-                        "quantity" => $val['revenue'],
+                        "total" => $val['revenue'],
                         "unit" => 'NRs',
                         "type" => 'annual_revenue'
                     ];

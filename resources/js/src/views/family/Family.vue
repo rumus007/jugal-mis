@@ -1,12 +1,21 @@
 <template>
   <div class="house-wrapper">
-    <!-- <button v-on:click="updateData">Update Data</button> -->
     <TitleBar title="पारिवारिक विवरण" />
     <div class="tabs">
-      <tabs :options="{ useUrlFragment: false }">
+      <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange">
         <tab name="परिवारकाे संयाेजन">
           <h2>परिवारकाे संयाेजन</h2>
-          <family-details />
+          <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
+        </tab>
+        <tab name="परिवारले कृषि कार्यका लागि जग्गा प्रयोग">
+          <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
+          <family-agriculture
+            v-if="selectedTab === 'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
+          />
+        </tab>
+        <tab name="पशुधन">
+          <h2>पशुधन</h2>
+          <family-livestock v-if="selectedTab === 'पशुधन'" />
         </tab>
       </tabs>
     </div>
@@ -20,24 +29,21 @@ export default {
   name: "Family",
   components: {
     FamilyDetails: () => import("./FamilyDetails"),
+    FamilyAgriculture: () => import("./FamilyAgriculture"),
+    FamilyLivestock: () => import("./FamilyLivestock"),
     TitleBar: () => import("../shared/TitleBar"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),
   },
-  props: {
-    msg: String,
+  data() {
+    return {
+      selectedTab: "परिवारकाे संयाेजन",
+    };
   },
   methods: {
-    updateData: function () {
-      this.barChartoptions = {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-        },
-      };
+    familyTabChange(selectedTab) {
+      this.selectedTab = selectedTab.tab.name;
     },
   },
 };

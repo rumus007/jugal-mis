@@ -1,230 +1,115 @@
 <template>
   <div class="chart-wrapper flex">
-    <!-- <div class="charts">
-      <h3>वडागत रुपमा घरकाे संख्या</h3>
-      <div class="card chart">
-        <button v-on:click="showTable('showBarChartGraph')" class="graph-view"></button>
-        <button v-on:click="showGraph('showBarChartGraph')" class="table-view"><img src="images/ic_graph.svg" alt="" width="16" height="16"></button>
-        <div v-if="showBarChartGraph">
-          <BarChart :series="barChartSeries" :options="barChartoptions" />
-        </div>
-        <div v-else>
-          <Table :data="tableBarChartData" />
-        </div>
-      </div>
-    </div> -->
-    <div class="charts">
-      <h3>परिवारकाे किसिम</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showOwnerShipGraph')"
-            :class="showOwnerShipGraph ? 'active' : ''"
-          >
-            <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-          </button>
-          <button
-            v-on:click="showTable('showOwnerShipGraph')"
-            :class="!showOwnerShipGraph ? 'active' : ''"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showOwnerShipGraph">
-          <BarChart :data="ownershipData" />
-        </div>
-        <div v-else>
-          <Table :data="ownershipData" />
-        </div>
-      </div>
-    </div>
-    <div class="charts">
-      <h3>बसाईँसराईँकाे स्वरुप</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showRoofingGraph')"
-            :class="showRoofingGraph ? 'active' : ''"
-          >
-            <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-          </button>
-          <button
-            v-on:click="showTable('showRoofingGraph')"
-            :class="!showRoofingGraph ? 'active' : ''"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showRoofingGraph">
-          <BarChart :data="roofingData" />
-          <!-- <DonutChart :data="houseNumberData" /> -->
-        </div>
-        <div v-else>
-          <Table :data="roofingData" />
-        </div>
-      </div>
-    </div>
-    <div class="charts">
-      <h3>घरकाेे जग</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showFoundationGraph')"
-            :class="showFoundationGraph ? 'active' : ''"
-          >
-            <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-          </button>
-          <button
-            v-on:click="showTable('showFoundationGraph')"
-            :class="!showFoundationGraph ? 'active' : ''"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showFoundationGraph">
-          <BarChart :data="foundationData" />
-        </div>
-        <div v-else>
-          <Table :data="foundationData" />
-        </div>
-      </div>
-    </div>
-    <div class="charts">
-      <!-- <h3>वडागत रुपमा घरकाे संख्या</h3> -->
-      <h3>घरको number</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showHouseNumberGraph')"
-            :class="showHouseNumberGraph ? 'active' : ''"
-          >
-            <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-          </button>
-          <button
-            v-on:click="showTable('showHouseNumberGraph')"
-            :class="!showHouseNumberGraph ? 'active' : ''"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showHouseNumberGraph">
-          <DonutChart :data="houseNumberData" />
-        </div>
-        <div v-else>
-          <Table :data="houseNumberData" />
-        </div>
-      </div>
-    </div>
-    <div class="charts">
-      <h3>घरसम्म पुुग्ने बाटाेकाे प्रकार</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showRoadtoHouseGraph')"
-            :class="showRoadtoHouseGraph ? 'active' : ''"
-          >
-            <img
-              src="images/ic_graph.svg"
-              alt=""
-              width="16"
-              :class="!showRoadtoHouseGraph ? 'active' : ''"
-            />
-          </button>
-          <button
-            v-on:click="showTable('showRoadtoHouseGraph')"
-            class="table-view"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showRoadtoHouseGraph">
-          <BarChart :data="roadToHouseData" />
-        </div>
-        <div v-else>
-          <Table :data="roadToHouseData" />
-        </div>
-      </div>
-    </div>
-    <div class="charts">
-      <h3>घरसम्म पुग्ने बाटाे</h3>
-      <div class="card chart">
-        <div class="view-icons">
-          <button
-            v-on:click="showGraph('showRoadTypeGraph')"
-            :class="showRoadTypeGraph ? 'active' : ''"
-          >
-            <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-          </button>
-          <button
-            v-on:click="showTable('showRoadTypeGraph')"
-            :class="!showRoadTypeGraph ? 'active' : ''"
-          >
-            <img src="images/ic_table.svg" alt="" width="16" height="16" />
-          </button>
-        </div>
-        <div v-if="showRoadTypeGraph">
-          <BarChart :data="roadTypeData" />
-        </div>
-        <div v-else>
-          <Table :data="roadTypeData" />
-        </div>
-      </div>
-    </div>
+    <!-- <family-chart
+      :showLoader="showHouseCountLoader"
+      :data="houseCountData"
+      :title="'घरमुली'"
+      :showGraphText="'showHouseCountGraph'"
+      :showGraph="showHouseCountGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    /> -->
+    <family-chart
+      :showLoader="showMemberCountLoader"
+      :data="memberCountData"
+      :title="'परिवार संख्या'"
+      :showGraphText="'showMemberCountGraph'"
+      :showGraph="showMemberCountGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <!-- <family-chart
+      :showLoader="showPermanentResidentLoader"
+      :data="permanentResidentData"
+      :title="'जुगल गापाकै स्थायी बासिन्दा हाे हाेइन'"
+      :showGraphText="'showPermanentResidentGraph'"
+      :showGraph="showPermanentResidentGraph"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    /> -->
+    <family-chart
+      :showLoader="showHouseCountLoader"
+      :data="houseCountData"
+      :title="'परिवारकाे घरकाे संख्या'"
+      :showGraphText="'showHouseCountGraph'"
+      :showGraph="showHouseCountGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <family-chart
+      :showLoader="showSrcIncomeLoader"
+      :data="srcIncomeData"
+      :title="'परिवारकाे आम्दानीकाे मूख्य स्राेत'"
+      :showGraphText="'showSrcIncomeGraph'"
+      :showGraph="showSrcIncomeGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <family-chart
+      :showLoader="showAvgIncomeExpenseLoader"
+      :data="avgIncomeExpenseData"
+      :title="'परिवारकाे औसत आम्दानी'"
+      :showGraphText="'showAvgIncomeExpenseSavingGraph'"
+      :showGraph="showAvgIncomeExpenseSavingGraph"
+      :chartDetail="{
+        type: 'Column',
+        columnCategory: avgIncomeExpenseColumnCategory,
+      }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <family-chart
+      :showLoader="showSubsistenceIncomeLoader"
+      :data="subsistenceIncomeData"
+      :title="'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ'"
+      :showGraphText="'showSubsistenceIncomeGraph'"
+      :showGraph="showSubsistenceIncomeGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
   </div>
 </template>
 
 <script>
-import { filterObject } from "../../common/helper.js";
+import { filterObject, formatRouteUrl } from "../../common/helper.js";
 
 export default {
   name: "FamilyDetails",
   components: {
-    BarChart: () => import("../components/Chart/BarChart"),
-    LineChart: () => import("../components/Chart/LineChart"),
-    PieChart: () => import("../components/Chart/PieChart"),
-    DonutChart: () => import("../components/Chart/DonutChart"),
-    Table: () => import("../components/Table/Table"),
+    FamilyChart: () => import("./FamilyChart"),
   },
   data: function () {
     return {
-      showOwnerShipGraph: true,
-      ownershipData: [],
-      showHouseNumberGraph: true,
-      houseNumberData: [],
-      showFoundationGraph: true,
-      foundationData: [],
-      showRoofingGraph: true,
-      roofingData: [],
-      showRoadtoHouseGraph: true,
-      roadToHouseData: [],
-      showRoadTypeGraph: true,
-      roadTypeData: [],
+      showMemberCountGraph: true,
+      memberCountData: [],
+      showMemberCountLoader: false,
 
-      showBarChartGraph: true,
+      showPermanentResidentGraph: true,
+      permanentResidentData: [],
+      showPermanentResidentLoader: false,
 
-      barChartoptions: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996],
-        },
-      },
-      barChartSeries: [
-        {
-          name: "bar-chart",
-          data: [30, 40, 45, 50, 49, 60],
-        },
-      ],
+      showHouseCountGraph: true,
+      houseCountData: [],
+      showHouseCountLoader: false,
 
-      tableBarChartData: [
-        { category: 1991, total: 30 },
-        { category: 1992, total: 40 },
-        { category: 1993, total: 45 },
-        { category: 1994, total: 50 },
-        { category: 1995, total: 49 },
-        { category: 1996, total: 60 },
-      ],
+      showSrcIncomeGraph: true,
+      srcIncomeData: [],
+      showHouseListedLoader: false,
+
+      showAvgIncomeExpenseSavingGraph: true,
+      avgIncomeExpenseData: [],
+      avgIncomeExpenseColumnCategory: [],
+      showAvgIncomeExpenseLoader: false,
+
+      showSubsistenceIncomeGraph: true,
+      subsistenceIncomeData: [],
+      showSubsistenceIncomeLoader: false,
     };
   },
   methods: {
@@ -234,121 +119,124 @@ export default {
     showGraph: function (dataType) {
       this[dataType] = true;
     },
-    getOwnerShipData: function () {
-      const targetUrl = `household/ownership`;
-      let queryParams = { ward: this.ward };
-      queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.ownershipData = data.data;
-      });
-    },
-    getHouseNumberData: function () {
-      const targetUrl = `household/house-number`;
-      let queryParams = { ward: this.ward };
-      queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
 
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.houseNumberData = data.data;
-      });
-    },
-    getFoundationData: function () {
-      const targetUrl = `household/foundation`;
+    getMembersCountData: function () {
+      this.showMemberCountLoader = true;
+      const targetUrl = `family/house-count`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
-
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.foundationData = data.data;
-      });
+      let formattedParams = formatRouteUrl(queryParams);
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.memberCountData = data.data;
+          this.showMemberCountLoader = false;
+        })
+        .catch(() => {
+          this.showMemberCountLoader = false;
+        });
     },
-    getRoofingData: function () {
-      const targetUrl = `household/roofing`;
+
+    getPermanentResidentData: function () {
+      this.showPermanentResidentLoader = true;
+      const targetUrl = `family/house-count`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
-
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.roofingData = data.data;
-      });
+      let formattedParams = formatRouteUrl(queryParams);
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.permanentResidentData = data.data;
+          this.showPermanentResidentLoader = false;
+        })
+        .catch(() => {
+          this.showPermanentResidentLoader = false;
+        });
     },
-    getRoadTypeToHouseData: function () {
-      const targetUrl = `household/road-type-to-house`;
+
+    getHouseCount: function () {
+      this.showHouseCountLoader = true;
+      const targetUrl = `family/house-count`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
-
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.roadToHouseData = data.data;
-      });
+      let formattedParams = formatRouteUrl(queryParams);
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.houseCountData = data.data;
+          this.showHouseCountLoader = false;
+        })
+        .catch(() => {
+          this.showHouseCountLoader = false;
+        });
     },
-    getRoadTypeData: function () {
-      const targetUrl = `household/road-type`;
+
+    getSrcIncomeData: function () {
+      this.showSrcIncomeLoader = true;
+      const targetUrl = `family/source-income`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
-      axios.get(targetUrl, { params: formattedParams }).then(({ data }) => {
-        this.roadTypeData = data.data;
-      });
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.srcIncomeData = data.data;
+          this.showSrcIncomeLoader = false;
+        })
+        .catch(() => {
+          this.showSrcIncomeLoader = false;
+        });
+    },
+
+    getAvgIncomeExpenseData: function () {
+      this.showAvgIncomeExpenseLoader = true;
+      const targetUrl = `family/avg-income-expenses-saving`;
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
+      let formattedParams = formatRouteUrl(queryParams);
+
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.avgIncomeExpenseData = [
+            { name: "expenditure", data: data?.data?.expediture ?? [] },
+            { name: "income", data: data?.data?.income ?? [] },
+            { name: "saving", data: data?.data?.saving ?? [] },
+          ];
+          this.avgIncomeExpenseColumnCategory = data.data.xAxis;
+          this.showAvgIncomeExpenseLoader = false;
+        })
+        .catch(() => {
+          this.showAvgIncomeExpenseLoader = false;
+        });
+    },
+
+    getSubsistenceIincomeData: function () {
+      this.showSubsistenceIncomeLoader = true;
+      const targetUrl = `family/subsistence-income`;
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
+      let formattedParams = formatRouteUrl(queryParams);
+
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this.subsistenceIncomeData = data.data;
+          this.showSubsistenceIncomeLoader = false;
+        })
+        .catch(() => {
+          this.showSubsistenceIncomeLoader = false;
+        });
     },
   },
   mounted() {
-    this.getOwnerShipData();
-    this.getHouseNumberData();
-    this.getFoundationData();
-    this.getRoofingData();
-    this.getRoadTypeToHouseData();
-    this.getRoadTypeData();
+    this.getMembersCountData();
+    this.getPermanentResidentData();
+    this.getHouseCount();
+    this.getSrcIncomeData();
+    this.getAvgIncomeExpenseData();
+    this.getSubsistenceIincomeData();
   },
   computed: {
     ward() {
@@ -358,12 +246,12 @@ export default {
   watch: {
     ward: {
       handler() {
-        this.getOwnerShipData();
-        this.getHouseNumberData();
-        this.getFoundationData();
-        this.getRoofingData();
-        this.getRoadTypeToHouseData();
-        this.getRoadTypeData();
+        this.getMembersCountData();
+        this.getPermanentResidentData();
+        this.getHouseCount();
+        this.getSrcIncomeData();
+        this.getAvgIncomeExpenseData();
+        this.getSubsistenceIincomeData();
       },
       deep: true,
     },

@@ -35,4 +35,21 @@ export const apexChartYAxisNumericLabelFormatter = (value, decimalPoint = 1) => 
     }
     return +value;
 }
+/**
+ * 
+ * @param {Function} queryParameter
+ * formats the routes query parrams. 
+ */
+export const formatRouteUrl = ({...obj}) => {
+    let formattedParams = {};
+    Object.keys(obj).map((data) => {
+        if (obj[data].length > 0) {
+          formattedParams = {
+            ...formattedParams,
+            [data]: `${obj[data].join(",")}`,
+          };
+        }
+      });
+    return formattedParams;
+};
 
