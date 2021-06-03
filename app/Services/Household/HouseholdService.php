@@ -568,6 +568,177 @@ class HouseholdService
         return $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
+    /**
+     * Return data for household fish, honey, silk production data
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getFishHoneySilkData($params): array
+    {
+
+        $select_attr = [
+            'livestock.name_np as category',
+            DB::raw('sum(cast(household_bee_fish_silkworm.fish_production_kg as INT)) as fish'),
+            DB::raw('sum(cast(household_bee_fish_silkworm.honey_production_kg as INT)) as honey'),
+            DB::raw('sum(cast(household_bee_fish_silkworm.silk_production_kg as INT)) as silk'),
+        ];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['livestock.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->householdRepository->getWithFishHoneySilkData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+
+        $final = array_map(function ($val) {
+            if (trim($val['category']) == 'मौरी') {
+                return [
+                    "category" => $val['category'],
+                    "quantity" => $val['honey'],
+                    "unit" => 'Kg',
+                    "type" => 'honey_production'
+                ];
+            }
+
+            if (trim($val['category']) == 'माछा') {
+                return [
+                    "category" => $val['category'],
+                    "quantity" => $val['fish'],
+                    "unit" => 'Kg',
+                    "type" => 'fish_production'
+                ];
+            }
+
+            if (trim($val['category']) == 'रेशम') {
+                return [
+                    "category" => $val['category'],
+                    "quantity" => $val['silk'],
+                    "unit" => 'Kg',
+                    "type" => 'silk_production'
+                ];
+            }
+        }, $data);
+
+        return array_values(array_filter($final));
+    }
+
+    /**
+     * Return data for household livestocks production  data
+     * 
+     * @param $params
+     * @param $type
+     * 
+     * @return array
+     */
+    public function getProductionData($params, $type): array
+    {
+        $milk_items      = ["भेडा", "बाख्रा/खसी/बोका/च्याग्रा", "याक/चौरी", "राँगाभैसी/पाडापाडी", "गाइगोरु/बाच्छाबाच्छी"];
+        $meat_bone_items = ["भेडा", "बाख्रा/खसी/बोका/च्याग्रा", "याक/चौरी", "राँगाभैसी/पाडापाडी", "सुँगुर/वंगुर", "खरायो", "कुखुरा/हाँस"];
+        $egg_items       = ["कुखुरा/हाँस"];
+        $wool_items      = ["भेडा"];
+
+        $select_attr = [
+            'livestock.name_np as category',
+            DB::raw('sum(cast(household_livestock.milk_production_ltr as INT)) as milk'),
+            DB::raw('sum(cast(household_livestock.meat_production_kg as INT)) as meat'),
+            DB::raw('sum(cast(household_livestock.bone_skin_production_kg as INT)) as bone'),
+            DB::raw('sum(cast(household_livestock.egg_production_kg as INT)) as egg'),
+            DB::raw('sum(cast(household_livestock.wool_production_kg as INT)) as wool'),
+            DB::raw('sum(cast(household_livestock.total_revenue as INT)) as revenue'),
+        ];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['livestock.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+
+        switch ($type) {
+            case 'family.milkProd':
+                $final = array_map(function ($val) use ($milk_items) {
+                    if (in_array(trim($val['category']), $milk_items)) {
+                        return [
+                            "category" => $val['category'],
+                            "quantity" => $val['milk'],
+                            "unit" => 'Liter',
+                            "type" => 'milk_production'
+                        ];
+                    }
+                }, $data);
+                break;
+
+            case 'family.meatProd':
+                $final = array_map(function ($val) use ($meat_bone_items) {
+                    if (in_array(trim($val['category']), $meat_bone_items)) {
+                        return [
+                            "category" => $val['category'],
+                            "quantity" => $val['meat'],
+                            "unit" => 'Kg',
+                            "type" => 'meat_production'
+                        ];
+                    }
+                }, $data);
+                break;
+
+            case 'family.boneSkinProd':
+                $final = array_map(function ($val) use ($meat_bone_items) {
+                    if (in_array(trim($val['category']), $meat_bone_items)) {
+                        return [
+                            "category" => $val['category'],
+                            "quantity" => $val['meat'],
+                            "unit" => 'Kg',
+                            "type" => 'bone_skin_production'
+                        ];
+                    }
+                }, $data);
+                break;
+
+            case 'family.otherProd':
+                $final = array_map(function ($val) use ($wool_items, $egg_items) {
+                    if (in_array(trim($val['category']), $wool_items)) {
+                        return [
+                            "category" => $val['category'],
+                            "quantity" => $val['wool'],
+                            "unit" => 'Kg',
+                            "type" => 'wool_production'
+                        ];
+                    }
+
+                    if (in_array(trim($val['category']), $egg_items)) {
+                        return [
+                            "category" => $val['category'],
+                            "quantity" => $val['egg'],
+                            "unit" => 'Piece',
+                            "type" => 'egg_production'
+                        ];
+                    }
+                }, $data);
+                break;
+
+            case 'family.revenue':
+                $final = array_map(function ($val) {
+                    return [
+                        "category" => $val['category'],
+                        "quantity" => $val['revenue'],
+                        "unit" => 'NRs',
+                        "type" => 'annual_revenue'
+                    ];
+                }, $data);
+                break;
+        }
+
+        return array_values(array_filter($final));
+    }
+
 
     /**
      * Return data for household income vs expenditure vs saving

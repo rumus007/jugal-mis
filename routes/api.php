@@ -72,7 +72,13 @@ Route::prefix('family')->group(function () {
     Route::get('banking-details', [FamilyController::class, 'getBankingData'])->name('family.bank');
     Route::get('agricultural-products', [FamilyController::class, 'getAgriProducts'])->name('family.agriProucts');
     Route::get('has-livestocks', [FamilyController::class, 'getLivestocks'])->name('family.livestocks');
+
     Route::get('livestock-in-family', [FamilyController::class, 'getLivestockData'])->name('family.livestockData');
+    Route::get('milk-production', [FamilyController::class, 'getProductionData'])->name('family.milkProd');
+    Route::get('meat-production', [FamilyController::class, 'getProductionData'])->name('family.meatProd');
+    Route::get('bone-skin-production', [FamilyController::class, 'getProductionData'])->name('family.boneSkinProd');
+    Route::get('other-production', [FamilyController::class, 'getOtherProductionData'])->name('family.otherProd');
+    Route::get('livestock-revenue', [FamilyController::class, 'getProductionData'])->name('family.revenue');
     Route::get('has-fish-bee-silkworm', [FamilyController::class, 'getFishBeeSilk'])->name('family.fishBeeSilk');
 });
 
