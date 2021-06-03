@@ -86,14 +86,20 @@ Route::prefix('family')->group(function () {
 
 Route::prefix('individual')->group(function () {
     Route::get('population-by-gender',[IndividualController::class,'getGenderData'])->name('individual.byGender');
-    // Route::get('population-by-age-group',[IndividualController::class,'getAgeGroupData'])->name('individual.byGender');
+    Route::get('population-by-age-group',[IndividualController::class,'getAgeGroupData'])->name('individual.byGender');
     Route::get('population-by-ethnicity',[IndividualController::class,'getEthnicityData'])->name('individual.byEthnicity');
     Route::get('population-by-religion',[IndividualController::class,'getReligionData'])->name('individual.byReligion');
     Route::get('population-by-mother-tongue',[IndividualController::class,'getMotherTongueData'])->name('individual.byMotherTongue');
     Route::get('population-by-marital-status',[IndividualController::class,'getMaritalStatusData'])->name('individual.byMaritalStatus');
-    // Route::get('population-by-disability',[IndividualController::class,'getDisabilityData'])->name('individual.byDisability');
+    Route::get('population-by-disability',[IndividualController::class,'getDisabilityData'])->name('individual.byDisability');
+    Route::get('disability-types',[IndividualController::class,'getDisabilityTypesData'])->name('individual.byDisabilityType');
+    Route::get('disability-id',[IndividualController::class,'getDisabilityIdData'])->name('individual.byDisabilityId');
     Route::get('domicile-status',[IndividualController::class,'getDomicileStatusData'])->name('individual.byDomicileStatus');
     Route::get('education-level',[IndividualController::class,'getEducationData'])->name('individual.byEducation');
+    Route::get('population-by-literacy',[IndividualController::class,'getLiteracyData'])->name('individual.byLitercay');
+    Route::get('training-taken',[IndividualController::class,'getTrainingData'])->name('individual.byTraining');
+    Route::get('training-type',[IndividualController::class,'getTrainingTypeData'])->name('individual.byTrainingType');
+    Route::get('employment-status',[IndividualController::class,'getEmploymentStatusData'])->name('individual.byEmploymentStatus');
 
 });
 Route::prefix('home')->group(function () {

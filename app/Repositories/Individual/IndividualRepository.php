@@ -43,7 +43,9 @@ class IndividualRepository extends Repository
             ->select($select_attr);
 
         if ($where_attr) {
-            $data->where($where_attr);
+            foreach ($where_attr as $val) {
+                $data->where(...$val);
+            }
         }
 
         if ($where_in_attr) {
