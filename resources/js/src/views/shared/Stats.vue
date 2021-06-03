@@ -10,15 +10,15 @@
         </div>
         <div class="stats stats-female">
             <strong>३२५</strong>            
-            <span>महिला</span>
+            <span>कुल महिला</span>
         </div>
         <div class="stats stats-male">
             <strong>५००</strong>            
-            <span>पुरुष</span>
+            <span>कुल पुरुष</span>
         </div>
         <div class="stats stats-third-gender">
             <strong>३०</strong>            
-            <span>तेश्रो लिङ्गी</span>
+            <span>कुल तेश्रो लिङ्गी</span>
         </div>
     </div>
 </template>

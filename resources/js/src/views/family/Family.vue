@@ -1,23 +1,26 @@
 <template>
   <div class="house-wrapper">
     <TitleBar title="पारिवारिक विवरण" />
-    <div class="tabs">
-      <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange">
-        <tab name="परिवारकाे संयाेजन">
-          <h2>परिवारकाे संयाेजन</h2>
-          <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
-        </tab>
-        <tab name="परिवारले कृषि कार्यका लागि जग्गा प्रयोग">
-          <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
-          <family-agriculture
-            v-if="selectedTab === 'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
-          />
-        </tab>
-        <tab name="पशुधन">
-          <h2>पशुधन</h2>
-          <family-livestock v-if="selectedTab === 'पशुधन'" />
-        </tab>
-      </tabs>
+    <div class="main-content" id="main">     
+      <Stats/>
+      <div class="tabs">
+        <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange">
+          <tab name="परिवारकाे संयाेजन">
+            <h2>परिवारकाे संयाेजन</h2>
+            <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
+          </tab>
+          <tab name="परिवारले कृषि कार्यका लागि जग्गा प्रयोग">
+            <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
+            <family-agriculture
+              v-if="selectedTab === 'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
+            />
+          </tab>
+          <tab name="पशुधन">
+            <h2>पशुधन</h2>
+            <family-livestock v-if="selectedTab === 'पशुधन'" />
+          </tab>
+        </tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +35,7 @@ export default {
     FamilyAgriculture: () => import("./FamilyAgriculture"),
     FamilyLivestock: () => import("./FamilyLivestock"),
     TitleBar: () => import("../shared/TitleBar"),
+    Stats: () => import("../shared/Stats"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),

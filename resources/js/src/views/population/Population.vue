@@ -2,25 +2,28 @@
   <div class="house-wrapper">
     <!-- <button v-on:click="updateData">Update Data</button> -->
     <TitleBar title="जनसांख्यिकीय विवरण" />
-    <div class="tabs">
-      <tabs :options="{ useUrlFragment: false }">
-        <tab name="जनसंख्याकाे वितरण">
-          <h2>जनसंख्याकाे वितरण</h2>
-          <population-distribution />
-        </tab>
-        <tab name="शैक्षिक स्थिति">
-          <h2>शैक्षिक स्थिति</h2>
-          <education-status />
-        </tab>
-        <tab name="राेजगारीकाे अवस्था">
-          <h2>राेजगारीकाे अवस्था</h2>
-          <employment-status />
-        </tab>
-        <tab name="सेवा तथा सुविधाहरुकाे प्रयाेगकाे अवस्था">
-          <h2>सेवा तथा सुविधाहरुकाे प्रयाेगकाे अवस्था</h2>
-          <service-usage-status />
-        </tab>
-      </tabs>
+    <div class="main-content" id="main">     
+      <Stats/>
+      <div class="tabs">
+        <tabs :options="{ useUrlFragment: false }">
+          <tab name="जनसंख्याकाे वितरण">
+            <h2>जनसंख्याकाे वितरण</h2>
+            <population-distribution />
+          </tab>
+          <tab name="शैक्षिक स्थिति">
+            <h2>शैक्षिक स्थिति</h2>
+            <education-status />
+          </tab>
+          <tab name="राेजगारीकाे अवस्था">
+            <h2>राेजगारीकाे अवस्था</h2>
+            <employment-status />
+          </tab>
+          <tab name="सेवा तथा सुविधाहरुकाे प्रयाेगकाे अवस्था">
+            <h2>सेवा तथा सुविधाहरुकाे प्रयाेगकाे अवस्था</h2>
+            <service-usage-status />
+          </tab>
+        </tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +38,7 @@ export default {
     EmploymentStatus: () => import("./EmploymentStatus"),
     ServiceUsageStatus: () => import("./ServiceUsageStatus"),
     TitleBar: () => import("../shared/TitleBar"),
+    Stats: () => import("../shared/Stats"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),

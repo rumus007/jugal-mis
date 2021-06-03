@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     setupLeafletMap: function () {
-      this.map = L.map("mapContainer").setView(
+      this.map = L.map("mapContainer", { minZoom: 10 }).setView(
         [27.83732885694356, 85.77425191534314],
         10
       );
@@ -74,7 +74,7 @@ export default {
         L.marker(data.leaflet_geolocation, {
           icon: this.getMarkerType(data.resource_type),
         })
-          .bindPopup(`Name:<b>${data.local_name}</b>`)
+          .bindPopup(this.getToolTipContent(data))
           .addTo(this.layerGroup)
       );
     },
@@ -110,6 +110,257 @@ export default {
         iconAnchor: [11, 41],
         popupAnchor: [0, -41],
       });
+    },
+    getToolTipContent: function (data) {
+      const categories = {
+        cultural_heritage: () => this.displayCulturalHeritage(data),
+        educational_institute: () => this.displayEducational(data),
+        ngo_club_group: () => this.displayNgoClubGroup(data),
+        hotel_resort_homestay: () => this.displayHotelResortHomeStay(data),
+        building: () => this.displayBuilding(data),
+        natural_resource: () => this.displayNaturalResource(data),
+        bank_financial: () => this.displayFinance(data),
+        health_institute: () => this.displayHealthInstitute(data),
+        industry_hydro: () => this.displayIndustryHydro(data),
+        security_agency: () => this.displaySecurityAgency(data),
+        land_use: () => this.displayLandUse(data),
+        business_trade: () => this.displayBusiness(data),
+        bridge_culvert: () => this.displayBridgeCulvert(data),
+      };
+      if (Object.keys(categories).includes(data.resource_type)) {
+        return categories[data.resource_type]();
+      }
+      return `स्थानिय नाम: <b>${data.local_name}</b> Resource Type: ${data.resource_type}`;
+    },
+    displayBusiness: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>व्यवसाय सञ्चालनकर्ताको नाम: <b>${
+          data?.metadata?.owner_name ?? ""
+        }</b></p>
+        <p>व्यापार तथा व्यवसायको स्वामित्व: <b>${
+          data?.metadata?.ownership ?? ""
+        }</b></p>
+        <p>व्यवसाय दर्ता नं: <b>${
+          data?.metadata?.registration_number ?? ""
+        }</b></p>
+        <!-- <img src=${data.image} alt="business"/> -->
+        </div>
+        </div>`;
+    },
+    displayCulturalHeritage: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>संस्कृतिक सम्पदाको प्रकार: <b>${data?.metadata?.type ?? ""}</b></p>
+        <!--<img src=${data.image} alt="cultural_heritage"/> -->
+        </div>
+        </div>`;
+    },
+    displayEducational: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+         <p>शैक्षिक संस्थाकाे प्रकार: <b>${
+           data?.metadata?.type_np ?? ""
+         }</b></p>
+        <p>शैक्षिक संस्थाकाेे विवरण: <b>${
+          data?.metadata?.description ?? ""
+        }</b></p>
+        <p>स्वीकृत दरबन्दी (महिला): <span>Pre Primary: <b>${
+          data?.metadata?.approved_appointment_female?.pre_primary ?? ""
+        }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.approved_appointment_female?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.approved_appointment_female?.secondary ?? ""
+         }</b></span>
+        </p>
+        <p>स्वीकृत दरबन्दी (पुरुष): <span>Pre Primary: <b>${
+          data?.metadata?.approved_appointment_male?.pre_primary ?? ""
+        }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.approved_appointment_male?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.approved_appointment_male?.secondary ?? ""
+         }</b></span></p>
+        <p>कार्यरत शिक्षक (महिला): <span>Pre Primary: <b>${
+          data?.metadata?.appointed_teacher_female?.pre_primary ?? ""
+        }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.appointed_teacher_female?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.appointed_teacher_female?.secondary ?? ""
+         }</b></span></p>
+        <p>कार्यरत शिक्षक (पुरुष):<span>Pre Primary: <b>${
+          data?.metadata?.appointed_teacher_male?.pre_primary ?? ""
+        }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.appointed_teacher_male?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.appointed_teacher_male?.secondary ?? ""
+         }</b></span></p>
+        <p>विधार्थी संख्या (महिला): <span>Pre Primary: <b>${
+          data?.metadata?.approved_appointment_female?.pre_primary ?? ""
+        }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.approved_appointment_female?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.approved_appointment_female?.secondary ?? ""
+         }</b></span></p>
+         <p>  विधार्थी संख्या (पुरुष):<span>Pre Primary: <b>${
+           data?.metadata?.approved_appointment_female?.pre_primary ?? ""
+         }</b></span>
+         <span>Basic: <b>${
+           data?.metadata?.approved_appointment_female?.basic ?? ""
+         }</b></span>
+         <span>Secondary: <b>${
+           data?.metadata?.approved_appointment_female?.secondary ?? ""
+         }</b></span></p>
+       <!-- <img src=${data.photo} alt="educational"/> -->
+        </div>
+        </div>`;
+    },
+    displayNgoClubGroup: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>गैसस/क्लब/समूहको प्रकार: <b>${data?.metadata?.type}</b></p>
+        <!--<img src=${data.image} alt="club"/> -->
+        </div>
+        </div>`;
+    },
+    displayHotelResortHomeStay: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>होटल/रिसोर्टको प्रकार: <b>${data?.metadata?.type ?? ""}</b></p>
+        <!--<img src=${data.photo} alt="homestay"/> -->
+        </div>
+        </div>`;
+    },
+    displayBuilding: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>ठेगाना: <b>${data?.address}</b></p>
+        <p>वडा: <b>${data?.ward ?? ""}</b></p>
+        <p>भवनको प्रकार: <b>${data?.metadata?.category_np ?? ""}</b></p>
+        <p>भवनको स्तर: <b>${data?.metadata?.type_np ?? ""}</b></p>
+        <p>भवनको अवस्था: <b>${data?.metadata?.condition_np ?? ""}</b></p>
+        <p>सम्पर्क नं: <b>${data?.contact_number ?? ""}</b></p>
+        <p>वेबसाइट: <b>${data?.website ?? ""}</b></p>
+        <!--<img src=${data.photo} alt="building"/> -->
+        </div>
+        </div>`;
+    },
+    displayNaturalResource: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+      <div>
+      <p>प्राकृतिक श्रोतको प्रकार: <b>${data?.metadata?.type ?? ""}</b></p>
+      <!--<img src=${data?.photo} alt="natural_resource"/> -->
+      </div>
+      </div>`;
+    },
+    displayFinance: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+      <div>
+      <p>बैंक तथा वित्तिय संस्थाको प्रकार: <b>${
+        data?.metadata?.type ?? ""
+      }</b></p>
+      <!--<img src=${data?.photo} alt="finance"/> -->
+      </div>
+      </div>`;
+    },
+    displayHealthInstitute: function (data) {
+      let notHealthService = [
+        "doctors_alloted",
+        "doctors_appointed",
+        "type",
+        "type_np",
+        "health_workers_alloted",
+        "health_workers_appointed",
+      ];
+      let healthService = Object.keys(data?.metadata).filter(
+        (healthMetaData) =>
+          !notHealthService.includes(healthMetaData) && data?.metadata[healthMetaData]
+      );
+      // TODO here health service needed to show.
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+        <p>स्वास्थ्य संस्थाकाे प्रकार: <b>${
+          data?.metadata?.type_np ?? ""
+        }</b></p>
+        <p>चिकित्सक संख्या (दरवन्दी): <b>${
+          data?.metadata?.doctors_alloted ?? ""
+        }</b></p>
+        <p>चिकित्सक संख्या (कार्यरत) <b>${
+          data?.metadata?.doctors_appointed ?? ""
+        }</b></p>
+         <p>अन्य स्वास्थ्यकर्मीको संख्या (दरवन्दी) <b>${
+           data?.metadata?.health_workers_alloted ?? ""
+         }</b></p>
+        <p>अन्य स्वास्थ्यकर्मीको संख्या (कार्यरत)<b>${
+          data?.metadata?.health_workers_appointed ?? ""
+        }</b></p>
+        <p>स्वास्थ्य संस्थामा उपलब्ध सेवा तथा सुविधा <b>${
+          data?.metadata?.registration_number ?? ""
+        }</b></p>
+        <!--<img src=${data.image} alt="health"/> -->
+        </div>
+        </div>`;
+    },
+    displayIndustryHydro: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+        <div>
+         <p>स्वामित्व: <b>${data?.metadata?.ownership_np ?? ""}</b></p>
+        <p>उद्योगको प्रकार: <b>${data?.metadata?.industry_type_np ?? ""}</b></p>
+        <p>उत्पादन हुने वस्तु: <b>${data?.metadata?.product_np ?? ""}</b></p>
+        <p>उत्पादन क्षमता : <b>${
+          data?.metadata?.production_status ?? ""
+        }</b></p>
+        <p>राष्ट्रिय प्रसारण लाईनमा जोडिएको छ/छैन ?: <b>${
+          data?.metadata?.line ?? ""
+        }</b></p>
+        <p>रोजगारी विवरण/महिला संख्या: <b>${
+          data?.metadata?.employed_women ?? ""
+        }</b></p>
+        <p>रोजगारी विवरण/पुरुष संख्या: <b>${
+          data?.metadata?.employed_men ?? ""
+        }</b></p>
+        <!--<img src=${data.photo} alt="building"/> -->
+        </div>
+        </div>`;
+    },
+    displaySecurityAgency: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+      <div>
+      <p>सुरक्षा निकायको प्रकार: <b>${data?.metadata?.type ?? ""}</b></p>
+      <!--<img src=${data?.photo} alt="finance"/> -->
+      </div>
+      </div>`;
+    },
+    displayLandUse: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+      <div>
+       <p>वडा: <b>${data?.metadata?.type ?? ""}</b></p>
+       <p>भु-उपयोगको प्रकार: <b>${data?.metadata?.type ?? ""}</b></p>
+       <p>सार्वजनिक क्षेत्रको प्रकार : <b>${
+         data?.metadata?.type_of_land_np ?? ""
+       }</b></p>
+       <p>संवेदनशील क्षेत्र (बाढी, पहिरो, नदी कट्टान, ढुबान, सुख्खा): <b>${
+         data?.metadata?.type ?? ""
+       }</b></p>
+       <!--<img src=${data?.photo} alt="natural_resource"/> -->
+      </div></div>`;
+    },
+    displayBridgeCulvert: function (data) {
+      return `<div>स्थानिय नाम: <b>${data.local_name}</b>
+      <div>
+       <p>पुल/पुलेसाको प्रकार: <b>${data?.metadata?.condition_np ?? ""}</b></p>
+       <p>पुल/पुलेसाको अवस्था: <b>${data?.metadata?.type ?? ""}</b></p>
+       <!--<img src=${data?.photo} alt="bridge"/> -->
+      </div></div>`;
     },
   },
   async mounted() {

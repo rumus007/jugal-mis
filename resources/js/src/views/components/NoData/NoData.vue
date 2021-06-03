@@ -2,7 +2,7 @@
   <!-- <div class="no-data">No data</div> -->
   <div class="no-data">
     <img src="images/no_data.svg" alt="no data found" height="170" width="100%"/>
-    <p>No data found!</p>
+    <p>कुनै डाटा उपलब्ध छैन</p>
   </div>
 </template>
 
@@ -11,9 +11,16 @@ export default {
   name: "no-data",
 };
 </script>
-<style scoped>
-  p{
+<style scoped lang="scss">
+  .no-data{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: center;
     padding: 10px;
-    text-align: center;
+    img {
+      margin-bottom: 16px;
+    }
   }
 </style>
