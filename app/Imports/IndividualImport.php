@@ -21,9 +21,15 @@ class IndividualImport implements ToCollection, WithHeadingRow
         foreach ($grouped as $key => $row) {
             $parent_id = $key;
             $data = $row->toArray();
+            // dd($data);
             $toSave = [];
             if (Household::where('id', $parent_id)->first()) {
                 foreach ($data as $members) {
+
+                    $mobileNumber = $this->validateMobile($members['samaparaka_na']); 
+                    $hasMobile = $mobileNumber ? true : false;
+                    $telecom = $mobileNumber ? $this->telecomeData($mobileNumber) : null;
+
                     $trainings = [
                         'technology' => $members['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha_sacana_tatha_paravathha_ilkatarakal_ra_ilkataranakasa_kamapayatara_vathayata_mavaiil_radaya_ghada_aatha'] ? true : false,
                         'tailor_boutique' => $members['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha_salii_bnaii_btaka_sagara_paralra_aatha'] ? true : false,
@@ -108,6 +114,9 @@ class IndividualImport implements ToCollection, WithHeadingRow
                         "common_disease" => json_encode($common),
                         'common_disease_other' => $members['samanaya_raga_anaya_bhaema_ullkha_garanahasa'],
                         'chronic_disease_other' => $members['tharagha_raga_anaya_bhaema_ullkha_garanahasa'],
+                        "mobile_no" => $mobileNumber,
+                        "has_mobile" => $hasMobile,
+                        "telecom" => $telecom,
                         "created_at" => new DateTime,
                         "updated_at" => new DateTime,
                     ];
@@ -116,5 +125,62 @@ class IndividualImport implements ToCollection, WithHeadingRow
                 Individual::insert($toSave);
             }
         }
+    }
+
+    /**
+     * Validate mobile number
+     * 
+     * @param $number
+     * 
+     * @return mixed
+     */
+    private function validateMobile($number)
+    {
+        return strlen($number) == 10 ? $number : null;
+    } 
+
+    /**
+     * Get telecome provider from mobile number
+     * 
+     * @param $number
+     * 
+     * @return string
+     */
+    private function telecomeData($number): string
+    {
+        $firstThree = (int) substr($number, 0, 3);
+
+        $ntc = [984, 985, 986];
+        $ncell = [980, 981, 982];
+        $ntc_cdma = [974, 975];
+        $smart = [961, 962, 988];
+        $utl = [972];
+        $nepal_satellite = [963];
+
+        if (in_array($firstThree, $ntc)) {
+            return "NTC";
+        }
+
+        if (in_array($firstThree, $ncell)) {
+            return "Ncell";
+        }
+
+        if (in_array($firstThree, $ntc_cdma)) {
+            return "NTC CDMA";
+        }
+
+        if (in_array($firstThree, $smart)) {
+            return "Smart Cell";
+        }
+
+        if (in_array($firstThree, $utl)) {
+            return "UTL";
+        }
+
+        if (in_array($firstThree, $nepal_satellite)) {
+            return "Nepal Satellite Telecom";
+        }
+
+        return "Others";
     }
 }

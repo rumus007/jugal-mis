@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LandTitleSeeder::class);
         $this->call(AgriProductSeeder::class);
         $this->call(LivestockSeeder::class);
+        $this->call(VaccineSeeder::class);
     }
 }

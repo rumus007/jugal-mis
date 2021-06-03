@@ -14,6 +14,7 @@ use App\Models\Household\HouseholdHome;
 use App\Models\Household\HouseholdIncomeSrc;
 use App\Models\Household\HouseholdLandTitle;
 use App\Models\Household\HouseholdLivestock;
+use App\Models\Household\HouseholdVaccine;
 use App\Models\Household\HouseholdWasteMgmt;
 use App\Models\Household\HouseholdWaterDistance;
 use App\Models\Individual\Individual;
@@ -630,17 +631,20 @@ class HouseholdController extends Controller
                 dd(HouseholdLandTitle::count());
                 break;
             case 'livestock':
-                dd(HouseholdLivestock::count()); 
-                break;    
+                dd(HouseholdLivestock::count());
+                break;
             case 'bee':
                 dd(HouseholdFishBeeSilkworm::count());
-                break;    
+                break;
             case 'family':
                 dd(Individual::count());
-                break;    
+                break;
             case 'rooms':
                 dd(HouseholdHome::count());
-                break;   
+                break;
+            case 'vax':
+                dd(HouseholdVaccine::count());
+                break;
         }
         dd('here');
     }

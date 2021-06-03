@@ -21,6 +21,11 @@ class HouseheadImport implements ToCollection, WithHeadingRow
             // dd($data);
             if (Household::where('id', $data['index'])->first()) {
 
+                if (trim($data['utatarathata_gharamalka_ka_parana_hanachha']) == 'घरमुली आफै') {
+                    $mobileNumber = $this->validateMobile($data['utatarathataka_samaparaka_nautatarathatasaga_samaparaka_hana_na']);
+                    $hasMobile = $mobileNumber ? true : false;
+                    $telecom = $mobileNumber ? $this->telecomeData($mobileNumber) : null;
+                }
 
                 $trainings = [
                     'technology' => $data['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha_sacana_tatha_paravathha_ilkatarakal_ra_ilkataranakasa_kamapayatara_vathayata_mavaiil_radaya_ghada_aatha'] ? true : false,
@@ -106,10 +111,70 @@ class HouseheadImport implements ToCollection, WithHeadingRow
                     "common_disease" => json_encode($common),
                     'common_disease_other' => $data['samanaya_raga_anaya_bhaema_ullkha_garanahasa'],
                     'chronic_disease_other' => $data['tharagha_raga_anaya_bhaema_ullkha_garanahasa'],
+                    "mobile_no" => isset($mobileNumber) ? $mobileNumber : null,
+                    "has_mobile" => isset($hasMobile) ? $hasMobile : false,
+                    "telecom" => isset($telecom) ? $telecom : null,
                     "created_at" => new DateTime,
                     "updated_at" => new DateTime,
                 ]);
             }
         }
+    }
+
+    /**
+     * Validate mobile number
+     * 
+     * @param $number
+     * 
+     * @return mixed
+     */
+    private function validateMobile($number)
+    {
+        return strlen($number) == 10 ? $number : null;
+    }
+
+    /**
+     * Get telecome provider from mobile number
+     * 
+     * @param $number
+     * 
+     * @return string
+     */
+    private function telecomeData($number): string
+    {
+        $firstThree = (int) substr($number, 0, 3);
+
+        $ntc = [984, 985, 986];
+        $ncell = [980, 981, 982];
+        $ntc_cdma = [974, 975];
+        $smart = [961, 962, 988];
+        $utl = [972];
+        $nepal_satellite = [963];
+
+        if (in_array($firstThree, $ntc)) {
+            return "NTC";
+        }
+
+        if (in_array($firstThree, $ncell)) {
+            return "Ncell";
+        }
+
+        if (in_array($firstThree, $ntc_cdma)) {
+            return "NTC CDMA";
+        }
+
+        if (in_array($firstThree, $smart)) {
+            return "Smart Cell";
+        }
+
+        if (in_array($firstThree, $utl)) {
+            return "UTL";
+        }
+
+        if (in_array($firstThree, $nepal_satellite)) {
+            return "Nepal Satellite Telecom";
+        }
+
+        return "Others";
     }
 }

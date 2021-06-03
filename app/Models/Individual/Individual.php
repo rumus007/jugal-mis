@@ -53,6 +53,9 @@ class Individual extends Model
         "chronic_disease",
         "chronic_disease_other",
         "identifications",
+        "mobile_no",
+        "has_mobile",
+        "telecom",
     ];
 
     /**
