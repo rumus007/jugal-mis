@@ -37,15 +37,19 @@ class IndividualService
      * 
      * @return int
      */
-    public function getTotalPop($ward = []): int
+    public function getTotalPop($params): int
     {
         $select_attr = [DB::raw('count(*) as total')];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
 
-        if ($ward) {
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->individualRepository->getWithHousehold($select_attr)->first()?->total;
+        return $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->total;
     }
 
     /**
@@ -74,18 +78,115 @@ class IndividualService
     /**
      * Population Genderwise
      * 
-     * @param $ward
+     * @param $params
      * 
-     * 
+     * @return array
      */
-    public function getGenderWise($ward = [])
+    public function getGenderWise($params): array
     {
-        $select_attr = ['individual.gender',DB::raw('count(*) as total')];
-        $where_attr = [''];
-        $where_in_attr = [];
-        $group_by_attr = ['individual.gender'];
+        return $this->getSingleColumnData('gender', $params);
+    }
 
-        if ($ward) {
+    /**
+     * Population ethinicity-wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getEthnicityData($params): array
+    {
+        return $this->getSingleColumnData('caste', $params);
+    }
+
+    /**
+     * Population religion-wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getReligionData($params): array
+    {
+        return $this->getSingleColumnData('religion', $params);
+    }
+
+    /**
+     * Population mother tongue-wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getMotherTongueData($params): array
+    {
+        return $this->getSingleColumnData('mother_tongue', $params);
+    }
+
+    /**
+     * Population martial status-wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getMaritalStatusData($params): array
+    {
+        $data = $this->getSingleColumnData('martial_status', $params);
+
+        return array_map(function ($val) {
+            if (is_null($val['category']) || $val['category'] == '') {
+                return [
+                    'category' => 'N/A',
+                    'total' => $val['total']
+                ];
+            }
+
+            return $val;
+        }, $data);
+    }
+
+    /**
+     * Population domicile status-wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getDomicileStatusData($params): array
+    {
+        return $this->getSingleColumnData('domicile_status', $params);
+    }
+
+    /**
+     * Population education level data
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getEducationData($params): array
+    {
+        return $this->getSingleColumnData('education_level', $params);
+    }
+
+    /**
+     * Retrive count information grouped by single column
+     * 
+     * @param $column
+     * @param $params
+     * 
+     * @return array
+     */
+    private function getSingleColumnData($column, $params): array
+    {
+        $select_attr = ["individual.$column as category", DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ["individual.$column"];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 

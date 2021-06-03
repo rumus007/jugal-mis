@@ -32,6 +32,7 @@ class HouseholdController extends Controller
      * Household controller constructor
      * 
      * @param HouseholdService $householdService
+     * @param IndividualService $individualService
      */
     public function __construct(
         public HouseholdService $householdService,
@@ -53,8 +54,8 @@ class HouseholdController extends Controller
             $ward = $request->ward ? explode(',', $request->ward) : [];
 
             $data['total_household']        = $this->householdService->getTotalHouseholdCount($ward);
-            $data['total_population']       = $this->individualService->getTotalPop($ward);
-            $data['population_genderwise']  = $this->individualService->getGenderWise($ward);
+            $data['total_population']       = $this->individualService->getTotalPop($request->all());
+            $data['population_genderwise']  = $this->individualService->getGenderWise($request->all());
 
             return response()->json(prepareResponseFormat($data));
         } catch (\Exception $e) {

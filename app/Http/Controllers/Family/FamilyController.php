@@ -18,6 +18,9 @@ class FamilyController extends Controller
 {
     /**
      * FamilyController constructor
+     * 
+     * @param HouseholdService $householdService
+     * @param IndividualService $individualService
      */
     public function __construct(
         public HouseholdService $householdService,

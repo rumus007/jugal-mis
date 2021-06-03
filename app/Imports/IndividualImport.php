@@ -75,6 +75,8 @@ class IndividualImport implements ToCollection, WithHeadingRow
                         'other' => $members['tharagha_raga_bhae_raga_chhananahasaanaya'] ? true : false,
                     ];
 
+                    $train = $members['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha'];
+
                     $toSave[] = [
                         "household_id" => $members['parent_index'],
                         "full_name" => $members['sathasayaka_nama_thara'],
@@ -99,7 +101,7 @@ class IndividualImport implements ToCollection, WithHeadingRow
                         "disability_status" => $members['apanagataka_sathata'],
                         "health_status" => $members['savasathaya_avasatha'],
                         "relationship_to_family_head" => $members['span_stylecolorredhh_member_fnamespan_gharamalka_ka_parana_hanachha'],
-                        "training_taken" => $members['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha'],
+                        "training_taken" => is_null($train) ? null : ($train == 'कुनै पनि छैन' ? 'No' : 'Yes'),
                         "trainings" => json_encode($trainings),
                         "identifications" => json_encode($identifications),
                         "chronic_disease" => json_encode($chronic),
