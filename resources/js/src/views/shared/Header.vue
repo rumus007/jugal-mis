@@ -3,7 +3,7 @@
   <header class="header">
     <div class="logo">
       <router-link to="/" class="logo__link">
-        <img :src="logo" alt class="logo__img" width="77" height="65" />
+        <img :src="logo" alt class="logo__img" width="70" height="58" />
         <span class="logo__text">
           <span>जुगल गाउँपालिका</span>
           <span>
@@ -36,11 +36,12 @@ export default {
     background-color: var(--color-base);
     display: flex;
     justify-content: space-between;
-    padding: 26px 48px;
+    padding: 16px 48px;
   }
   .logo {
     width: 474px;
     &__link {
+      align-items: center;
       display: flex;
     }
     &__img {
@@ -50,7 +51,7 @@ export default {
       color: var(--color-primary-light);
       display: flex;
       flex-direction: column;
-      font-size: 14px;
+      font-size: 12px;
       span {
         &:first-child {
           font-size: 16px;

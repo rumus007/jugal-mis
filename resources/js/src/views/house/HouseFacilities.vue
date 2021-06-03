@@ -1,7 +1,5 @@
 <template>
   <div class="chart-wrapper flex">
-    <div class="charts">
-      <h3>भूकम्प प्रतिराेधी घर</h3>
       <div class="card chart">
         <div v-if="showFacilitiesData" class="loader-wrapper">
           <loader />
@@ -9,19 +7,22 @@
         <div v-else>
           <div v-if="facilitiesData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showFacilitiesGraph')"
-                :class="showFacilitiesGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showFacilitiesGraph')"
-                :class="!showFacilitiesGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
+            <div class="chart-title flex">
+              <h3>भूकम्प प्रतिराेधी घर</h3>
+              <div class="view-icons">
+                <button
+                  v-on:click="showGraph('showFacilitiesGraph')"
+                  :class="showFacilitiesGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+                </button>
+                <button
+                  v-on:click="showTable('showFacilitiesGraph')"
+                  :class="!showFacilitiesGraph ? 'active' : ''"
+                >
+                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
+                </button>
+              </div>              
             </div>
             <div v-if="showFacilitiesGraph">
               <BarChart :data="facilitiesData" :horizontalBar="true" />
@@ -33,7 +34,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
