@@ -38,7 +38,7 @@
             v-if="chartDetail.type === 'Column'"
           />
         </div>
-        <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
+         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
           <Table :data="data" />
         </simplebar>
       </div>
@@ -47,10 +47,10 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
-import 'simplebar/dist/simplebar.min.css';
+import simplebar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 export default {
-  name: "FamilyChart",
+  name: "Individual",
   components: {
     BarChart: () => import("../components/Chart/BarChart"),
     DonutChart: () => import("../components/Chart/DonutChart"),
@@ -58,7 +58,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
-    simplebar
+    simplebar,
   },
   props: {
     showLoader: { type: Boolean, required: true },
