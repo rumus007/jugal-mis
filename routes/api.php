@@ -3,6 +3,7 @@
 use App\Http\Controllers\Family\FamilyController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Household\HouseholdController;
+use App\Http\Controllers\Individual\IndividualController;
 use App\Http\Controllers\Resource\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,16 +45,16 @@ Route::prefix('household')->group(function () {
     Route::get('distance-basic-healthcare', [HouseholdController::class, 'getDistanceHealthData'])->name('household.distanceHealth');
     Route::get('distance-fetch-water', [HouseholdController::class, 'getDistanceWaterData'])->name('household.distanceWater');
     Route::get('newborn-birthplace', [HouseholdController::class, 'getBirthplaceData'])->name('household.birthplace');
-    
+
     Route::get('earthquake-resistant', [HouseholdController::class, 'getEarthquakeResistantData'])->name('household.eq');
     Route::get('vulnerable-types', [HouseholdController::class, 'getVulnerabilityData'])->name('household.vulnerable');
     Route::get('risk-mitigation', [HouseholdController::class, 'getRiskMitigationData'])->name('household.risk');
 
     Route::get('facilities', [HouseholdController::class, 'getFacilitiesData'])->name('household.facilities');
-    
+
     Route::get('toilet-availability', [HouseholdController::class, 'getToiletData'])->name('household.toilet');
     Route::get('toilet-types', [HouseholdController::class, 'getToiletTypeData'])->name('household.toiletType');
-    
+
     Route::get('waste-mgmt', [HouseholdController::class, 'getWasteMgmtData'])->name('household.waste');
 
     Route::get('test', [HouseholdController::class, 'test'])->name('household.test');
@@ -83,7 +84,18 @@ Route::prefix('family')->group(function () {
 });
 
 
+Route::prefix('individual')->group(function () {
+    Route::get('population-by-gender',[IndividualController::class,'getGenderData'])->name('individual.byGender');
+    // Route::get('population-by-age-group',[IndividualController::class,'getAgeGroupData'])->name('individual.byGender');
+    Route::get('population-by-ethnicity',[IndividualController::class,'getEthnicityData'])->name('individual.byEthnicity');
+    Route::get('population-by-religion',[IndividualController::class,'getReligionData'])->name('individual.byReligion');
+    Route::get('population-by-mother-tongue',[IndividualController::class,'getMotherTongueData'])->name('individual.byMotherTongue');
+    Route::get('population-by-marital-status',[IndividualController::class,'getMaritalStatusData'])->name('individual.byMaritalStatus');
+    // Route::get('population-by-disability',[IndividualController::class,'getDisabilityData'])->name('individual.byDisability');
+    Route::get('domicile-status',[IndividualController::class,'getDomicileStatusData'])->name('individual.byDomicileStatus');
+    Route::get('education-level',[IndividualController::class,'getEducationData'])->name('individual.byEducation');
 
+});
 Route::prefix('home')->group(function () {
     Route::get('summary-stats', [HomeController::class, 'getSummaryStats'])->name('home.stats');
 });

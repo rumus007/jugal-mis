@@ -72,6 +72,7 @@ class HouseheadImport implements ToCollection, WithHeadingRow
                     'brain_related' => $data['tharagha_raga_bhae_raga_chhananahasamasatashhaka'] ? true : false,
                     'other' => $data['tharagha_raga_bhae_raga_chhananahasaanaya'] ? true : false,
                 ];
+                $train = $data['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha'];
 
                 Individual::create([
                     "household_id" => $data['index'],
@@ -98,7 +99,7 @@ class HouseheadImport implements ToCollection, WithHeadingRow
                     "disability_identification" => $data['apanagataka_kana_paracayapatara_lnabhaeka_chha'],
                     "health_status" => $data['savasathaya_avasatha'],
                     "relationship_to_family_head" => "घरमुली",
-                    "training_taken" => $data['vagata_brashhama_ka_kasata_vayavasayaka_sapa_talma_parapata_garanabhaeka_chha'],
+                    "training_taken" => is_null($train) ? null : ($train == 'कुनै पनि छैन' ? 'No' : 'Yes'),
                     "trainings" => json_encode($trainings),
                     "identifications" => json_encode($identifications),
                     "chronic_disease" => json_encode($chronic),
