@@ -189,7 +189,7 @@ class HouseholdRepository extends Repository
     }
 
     /**
-     * Returns with household agricultural prodcus
+     * Returns with household livestock products
      * 
      * @param $selec_attr
      * @param $where_attr
@@ -213,6 +213,51 @@ class HouseholdRepository extends Repository
                 'livestock.id',
                 '=',
                 'household_livestock.livestock_id'
+            );
+
+        if ($where_attr) {
+            $data->where($where_attr);
+        }
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        if ($group_by_attr) {
+            $data->groupBy($group_by_attr);
+        }
+
+        return $data->get();
+    }
+
+
+    /**
+     * Returns with household fish, honey and silk products
+     * 
+     * @param $selec_attr
+     * @param $where_attr
+     * @param $where_in_attr
+     * @param $group_by_attr
+     * 
+     * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWithFishHoneySilkData($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    {
+        $data = $this->model
+            ->select($select_attr)
+            ->join(
+                'household_bee_fish_silkworm',
+                'household_bee_fish_silkworm.household_id',
+                '=',
+                'household.id'
+            )
+            ->join(
+                'livestock',
+                'livestock.id',
+                '=',
+                'household_bee_fish_silkworm.livestock_id'
             );
 
         if ($where_attr) {

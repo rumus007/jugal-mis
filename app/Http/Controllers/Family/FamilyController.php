@@ -22,8 +22,7 @@ class FamilyController extends Controller
     public function __construct(
         public HouseholdService $householdService,
         public IndividualService $individualService
-    )
-    {
+    ) {
     }
 
     /**
@@ -178,6 +177,67 @@ class FamilyController extends Controller
         try {
             $response = prepareResponseFormat($this->householdService->getLivestockData($request->all()));
             return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    /**
+     * Returns api response for production data (milk, meat, skin/bone) and revenueData
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getProductionData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat(
+                $this->householdService->getProductionData(
+                    $request->all(),
+                    $request->route()->getName()
+                )
+            );
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for production data (wool, egg, fish, honey, silk)
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getOtherProductionData(Request $request)
+    {
+        try {
+            $wool_egg = $this->householdService->getProductionData(
+                $request->all(),
+                $request->route()->getName()
+            );
+
+            $fish_honey_silk = $this->householdService->getFishHoneySilkData(
+                $request->all(),
+                $request->route()->getName()
+            );
+
+            $final = array_merge($wool_egg, $fish_honey_silk);
+            
+            return response()->json(prepareResponseFormat($final));
         } catch (\Exception $e) {
             logger()->error($e);
 
