@@ -153,11 +153,7 @@ class HouseholdService
     public function getRoadTypeData($ward = []): array
     {
         $data = $this->countBySingleColumnHousehold('type_of_road', $ward);
-
-        return array_map(function ($val) {
-            $val['category'] = $val['category'] ? $val['category'] : 'N/A';
-            return $val;
-        }, $data);
+        return nullDataFormat($data);
     }
 
 
@@ -265,18 +261,7 @@ class HouseholdService
     public function getDistanceHealthData($ward = []): array
     {
         $data = $this->countBySingleColumnHousehold('distance_to_basic_healthcare', $ward);
-
-        return array_map(function ($v) {
-
-            if (is_null($v['category'])) {
-                return [
-                    'category' => 'N/A',
-                    'total' => $v['total']
-                ];
-            }
-
-            return $v;
-        }, $data);
+        return nullDataFormat($data);
     }
 
     /**
@@ -289,18 +274,7 @@ class HouseholdService
     public function getAlternateEnergyData($ward = []): array
     {
         $data = $this->countBySingleColumnHousehold('alternative_electricity_source', $ward);
-
-        return array_map(function ($v) {
-
-            if (is_null($v['category'])) {
-                return [
-                    'category' => 'N/A',
-                    'total' => $v['total']
-                ];
-            }
-
-            return $v;
-        }, $data);
+        return nullDataFormat($data);
     }
 
     /**
@@ -763,22 +737,22 @@ class HouseholdService
 
         $select_expenses = [
             DB::raw('sum(case when cast(avg_family_expenditure as INT) <= 0 then 1 else 0 end) as range1'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 1 and cast(avg_family_expenditure as INT) <= 50000 then 1 else 0 end) as range2'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 50001 and cast(avg_family_expenditure as INT) <= 100000 then 1 else 0 end) as range3'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 100001 and cast(avg_family_expenditure as INT) <= 300000 then 1 else 0 end) as range4'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 300001 and cast(avg_family_expenditure as INT) <= 500000 then 1 else 0 end) as range5'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 500001 and cast(avg_family_expenditure as INT) <= 900000 then 1 else 0 end) as range6'),
-            DB::raw('sum(case when cast(avg_family_expenditure as INT) > 900001 then 1 else 0 end) as range7'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 1 and cast(avg_family_expenditure as INT) <= 50000 then 1 else 0 end) as range2'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 50001 and cast(avg_family_expenditure as INT) <= 100000 then 1 else 0 end) as range3'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 100001 and cast(avg_family_expenditure as INT) <= 300000 then 1 else 0 end) as range4'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 300001 and cast(avg_family_expenditure as INT) <= 500000 then 1 else 0 end) as range5'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 500001 and cast(avg_family_expenditure as INT) <= 900000 then 1 else 0 end) as range6'),
+            DB::raw('sum(case when cast(avg_family_expenditure as INT) >= 900001 then 1 else 0 end) as range7'),
         ];
 
         $select_saving = [
             DB::raw('sum(case when cast(avg_family_saving as INT) <= 0 then 1 else 0 end) as range1'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 1 and cast(avg_family_saving as INT) <= 50000 then 1 else 0 end) as range2'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 50001 and cast(avg_family_saving as INT) <= 100000 then 1 else 0 end) as range3'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 100001 and cast(avg_family_saving as INT) <= 300000 then 1 else 0 end) as range4'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 300001 and cast(avg_family_saving as INT) <= 500000 then 1 else 0 end) as range5'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 500001 and cast(avg_family_saving as INT) <= 900000 then 1 else 0 end) as range6'),
-            DB::raw('sum(case when cast(avg_family_saving as INT) > 900001 then 1 else 0 end) as range7'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 1 and cast(avg_family_saving as INT) <= 50000 then 1 else 0 end) as range2'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 50001 and cast(avg_family_saving as INT) <= 100000 then 1 else 0 end) as range3'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 100001 and cast(avg_family_saving as INT) <= 300000 then 1 else 0 end) as range4'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 300001 and cast(avg_family_saving as INT) <= 500000 then 1 else 0 end) as range5'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 500001 and cast(avg_family_saving as INT) <= 900000 then 1 else 0 end) as range6'),
+            DB::raw('sum(case when cast(avg_family_saving as INT) >= 900001 then 1 else 0 end) as range7'),
         ];
         $where_attr  = [];
         $where_in_attr = [];

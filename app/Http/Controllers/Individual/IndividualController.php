@@ -185,4 +185,165 @@ class IndividualController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Returns api response training taken data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getTrainingData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getTrainingData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response training types data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getTrainingTypeData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getTrainingTypeData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response employement status
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getEmploymentStatusData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getEmploymentStatusData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response age group data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getAgeGroupData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getAgeGroupData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response disability data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDisabilityData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getDisabilityData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response disability types
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDisabilityTypesData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getDisabilityTypesData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response disability types
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getLiteracyData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getLiteracyData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

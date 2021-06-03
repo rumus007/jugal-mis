@@ -68,3 +68,24 @@ function booleanDataFormat($data): array
 
     return $final;
 }
+
+/**
+ * Prepare data for data containg null category
+ * 
+ * @param $data
+ * 
+ * @return array
+ */
+function nullDataFormat($data): array
+{
+    return array_map(function ($val) {
+        if (is_null($val['category']) || $val['category'] == '') {
+            return [
+                'category' => 'N/A',
+                'total' => $val['total']
+            ];
+        }
+
+        return $val;
+    }, $data);
+}
