@@ -32,18 +32,29 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 table,
 th,
 td {
   border-collapse: collapse;
 }
+
+th {
+  color: var(--neutrals-60);
+}
+
 tr {
   border-bottom: 1px solid #d9dbdd;
 }
+
+td {
+  color: var(--neutrals-300);
+}
+
 th,
 td {
   padding: 8px 16px;
   text-align: left;
 }
+
 </style>

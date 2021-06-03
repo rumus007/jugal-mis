@@ -7,6 +7,8 @@
   --color-link: var(--orange-400);
   --color-btn: var(--orange-400);
   --neutrals-0: #FFFFFF;
+  --neutrals-10: ##D9DBDD;
+  --neutrals-60: ##999FA3;
   --neutrals-100: #666E76;
   --neutrals-300: #4C565E;
   --neutrals-700:#283947;
@@ -415,6 +417,10 @@ a {
   color: inherit;
 }
 
+th {
+  font-weight: normal;
+}
+
 body {
   font: 16px/1.5 "Noto Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -617,7 +623,7 @@ body {
 }
 
 .apexcharts-toolbar {
-  top: -48px !important;
+  top: -33px !important;
 }
 
 .apexcharts-zoom-icon,
@@ -649,14 +655,20 @@ body {
 }
 
 .chart {
-  min-height: 370px;
+  height: 390px;
   margin-bottom: 40px;
-  padding: 24px 24px 0;
+  padding: 24px 24px 18px;
   position: relative;
   width: 48%;
 }
 .chart .no-data {
   margin-top: 40px;
+}
+.chart > div {
+  height: 100%;
+}
+.chart > div > div {
+  height: 100%;
 }
 .chart-wrapper {
   flex-wrap: wrap;
@@ -666,10 +678,32 @@ body {
   margin-bottom: 24px;
 }
 .chart-title {
+  height: 30px;
   justify-content: space-between;
+}
+.chart-title h3 {
+  margin-bottom: 0;
 }
 .chart-full {
   width: 100%;
+}
+.chart-table {
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 20px;
+  margin-top: 12px;
+}
+.chart-table:after {
+  content: "";
+  width: 100%;
+  height: 26px;
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), rgba(240, 248, 255, 0.4);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .view-icons {
@@ -691,6 +725,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  height: unset !important;
 }
 
 .info-cards-section .double-bounce1, .info-cards-section .double-bounce2 {
@@ -709,4 +744,25 @@ body {
 .leaflet-container a.leaflet-popup-close-button {
   right: 4px !important;
   top: 4px !important;
+}
+
+.simplebar-track.simplebar-vertical {
+  width: 1px !important;
+  background-color: var(--blue-200) !important;
+  overflow: visible;
+}
+
+.simplebar-track {
+  right: 3px !important;
+}
+
+.simplebar-scrollbar:before {
+  width: 5px;
+  left: -2px !important;
+  background: var(--blue-400) !important;
+  opacity: 1 !important;
+}
+
+.simplebar-content {
+  margin-right: 16px;
 }

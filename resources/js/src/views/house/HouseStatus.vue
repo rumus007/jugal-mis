@@ -27,9 +27,9 @@
             <div v-if="showHouseCountGraph">
               <BarChart :data="houseCountData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
               <Table :data="houseCountData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -60,9 +60,9 @@
             <div v-if="showOwnerShipGraph">
               <BarChart :data="ownershipData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="ownershipData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -93,9 +93,9 @@
             <div v-if="showRoofingGraph">
               <BarChart :data="roofingData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="roofingData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -126,9 +126,9 @@
             <div v-if="showFoundationGraph">
               <BarChart :data="foundationData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="foundationData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -159,9 +159,9 @@
             <div v-if="showRoomGraph">
               <ColumnChart :data="roomData" :categoryData="columnCategory" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="columnChartData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -193,9 +193,9 @@
             <div v-if="showRoadTypeGraph">
               <BarChart :data="roadTypeData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="roadTypeData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -231,9 +231,9 @@
             <div v-if="showRoadtoHouseGraph">
               <BarChart :data="roadToHouseData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="roadToHouseData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -264,9 +264,9 @@
             <div v-if="showHouseNumberGraph">
               <DonutChart :data="houseNumberData" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="houseNumberData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -297,9 +297,9 @@
             <div v-if="showHouseListedGraph">
               <DonutChart :data="houseListedData" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
               <Table :data="houseListedData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -308,6 +308,8 @@
 
 <script>
 import { filterObject } from "../../common/helper.js";
+import simplebar from 'simplebar-vue';
+import 'simplebar/dist/simplebar.min.css';
 
 export default {
   name: "HouseStatus",
@@ -320,6 +322,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
+    simplebar
   },
   data: function () {
     return {

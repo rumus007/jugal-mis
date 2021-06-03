@@ -27,9 +27,9 @@
             <div v-if="showEqResistantGraph">
               <DonutChart :data="eqResistantData" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
               <Table :data="eqResistantData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -61,9 +61,9 @@
             <div v-if="showVulnerableGraph">
               <BarChart :data="vulnerableData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
               <Table :data="vulnerableData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -94,9 +94,9 @@
             <div v-if="showRiskMitigateGraph">
               <DonutChart :data="riskMitigateData" />
             </div>
-            <div v-else>
+            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
               <Table :data="riskMitigateData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -105,6 +105,8 @@
 
 <script>
 import { filterObject } from "../../common/helper.js";
+import simplebar from 'simplebar-vue';
+import 'simplebar/dist/simplebar.min.css';
 
 export default {
   name: "HouseDisasterPrepare",
@@ -114,6 +116,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
+    simplebar
   },
   data: function () {
     return {
