@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Individual;
 
+use App\Repositories\Household\HouseholdRepository;
 use App\Repositories\Individual\IndividualRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +17,13 @@ class IndividualService
 {
     /**
      * IndividualService Constructor
+     * 
+     * @param IndividualRepository $individualRepository
+     * @param HouseholdRepository $householdRepository
      */
     public function __construct(
-        public IndividualRepository $individualRepository
+        public IndividualRepository $individualRepository,
+        public HouseholdRepository $householdRepository
     ) {
     }
 
@@ -525,6 +530,200 @@ class IndividualService
                 return $v;
             }
         });
+    }
+
+    /**
+     * Population with government identification
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getGovernmentIdData($params): array
+    {
+        $final = [];
+
+        $types = [
+            "citizenship" => "नागरिकता",
+            "poverty_id" => "गरिब परिचयपत्र",
+            "senior_citizen_id" => "जेष्ठ नागरिक परिचयपत्र",
+            "single_female_id" => "एकल महिला परिचयपत्र",
+            "national_id" => "राष्ट्रिय परिचयपत्र",
+            "driver_license" => "सवारी चालक इजाजत पत्र",
+            "voter_id" => "मतदता परिचय पत्र",
+            "dont_know" => "थाहा छैन",
+            "none" => "छैन",
+        ];
+        $select_attr = [
+            DB::raw("sum(case when individual.identifications->>'citizenship' = 'true' then 1 else 0 end) as citizenship"),
+            DB::raw("sum(case when individual.identifications->>'poverty_id' = 'true' then 1 else 0 end) as poverty_id"),
+            DB::raw("sum(case when individual.identifications->>'senior_citizen_id' = 'true' then 1 else 0 end) as senior_citizen_id"),
+            DB::raw("sum(case when individual.identifications->>'single_female_id' = 'true' then 1 else 0 end) as single_female_id"),
+            DB::raw("sum(case when individual.identifications->>'national_id' = 'true' then 1 else 0 end) as national_id"),
+            DB::raw("sum(case when individual.identifications->>'driver_license' = 'true' then 1 else 0 end) as driver_license"),
+            DB::raw("sum(case when individual.identifications->>'voter_id' = 'true' then 1 else 0 end) as voter_id"),
+            DB::raw("sum(case when individual.identifications->>'dont_know' = 'true' then 1 else 0 end) as dont_know"),
+            DB::raw("sum(case when individual.identifications->>'none' = 'true' then 1 else 0 end) as none")
+        ];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+
+        foreach ($data as $k => $v) {
+            if (array_key_exists($k, $types)) {
+                $final[] = [
+                    "category" => $types[$k],
+                    "total" => $v
+                ];
+            }
+        }
+
+        return $final;
+    }
+
+
+    /**
+     * Citizenship status data
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getCitizenshipStatus($params): array
+    {
+        $select_attr = [
+            DB::raw("sum(case when individual.identifications->>'citizenship' = 'true' then 1 else 0 end) as yes"),
+            DB::raw("sum(case when individual.identifications->>'citizenship' = 'false' then 1 else 0 end) as no"),
+        ];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+
+        return array_map(function ($k, $v) {
+            return [
+                'category' => $k,
+                'total' => $v
+            ];
+        }, array_keys($data), $data);
+    }
+
+    /**
+     * Citizenship status data
+     * 
+     * @param $params
+     * @param $route
+     * 
+     * @return array
+     */
+    public function getDiseaseStatus($params, $route): array
+    {
+        $final = [];
+        $select_attr = [];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        if ($route == 'individual.byProlongedDisease') {
+            $types = [
+                "heart_related" => "मुटु सम्बन्धी रोग",
+                "cancer" => "क्यान्सर",
+                "tuberculosis" => "क्षयरोग",
+                "respiratory" => "श्वासप्रशास सम्बन्धी रोग",
+                "diabetes" => "मधुमेह",
+                "hiv_aids" => "एचआईभी एड्स",
+                "high_blood_pressure" => "उच्च रक्तचाप/ब्लड प्रेसर",
+                "kidney_related" => "मृगौला सम्बन्धी रोग",
+                "malnutrition" => "कुपोषण",
+                "brain_related" => "मस्तिष्क",
+                "other" => "अन्य"
+            ];
+
+            $select_attr = [
+                DB::raw("sum(case when individual.chronic_disease->>'heart_related' = 'true' then 1 else 0 end) as heart_related"),
+                DB::raw("sum(case when individual.chronic_disease->>'cancer' = 'true' then 1 else 0 end) as cancer"),
+                DB::raw("sum(case when individual.chronic_disease->>'tuberculosis' = 'true' then 1 else 0 end) as tuberculosis"),
+                DB::raw("sum(case when individual.chronic_disease->>'respiratory' = 'true' then 1 else 0 end) as respiratory"),
+                DB::raw("sum(case when individual.chronic_disease->>'diabetes' = 'true' then 1 else 0 end) as diabetes"),
+                DB::raw("sum(case when individual.chronic_disease->>'hiv_aids' = 'true' then 1 else 0 end) as hiv_aids"),
+                DB::raw("sum(case when individual.chronic_disease->>'high_blood_pressure' = 'true' then 1 else 0 end) as high_blood_pressure"),
+                DB::raw("sum(case when individual.chronic_disease->>'kidney_related' = 'true' then 1 else 0 end) as kidney_related"),
+                DB::raw("sum(case when individual.chronic_disease->>'malnutrition' = 'true' then 1 else 0 end) as malnutrition"),
+                DB::raw("sum(case when individual.chronic_disease->>'brain_related' = 'true' then 1 else 0 end) as brain_related"),
+                DB::raw("sum(case when individual.chronic_disease->>'other' = 'true' then 1 else 0 end) as other"),
+            ];
+        } elseif ($route == 'individual.byCommonDisease') {
+            $types = [
+                "typhoid" => 'ज्वरो/टाइफाइड',
+                "diarrhoea" => 'झाडापखाला/बान्ता',
+                "jaundice" => 'जन्डिस',
+                "limb_fall" => 'आंग खस्ने',
+                "pneumonia" => 'निमोनिया',
+                "other" => 'अन्य'
+            ];
+
+            $select_attr = [
+                DB::raw("sum(case when individual.common_disease->>'typhoid' = 'true' then 1 else 0 end) as typhoid"),
+                DB::raw("sum(case when individual.common_disease->>'diarrhoea' = 'true' then 1 else 0 end) as diarrhoea"),
+                DB::raw("sum(case when individual.common_disease->>'jaundice' = 'true' then 1 else 0 end) as jaundice"),
+                DB::raw("sum(case when individual.common_disease->>'limb_fall' = 'true' then 1 else 0 end) as limb_fall"),
+                DB::raw("sum(case when individual.common_disease->>'pneumonia' = 'true' then 1 else 0 end) as pneumonia"),
+                DB::raw("sum(case when individual.common_disease->>'other' = 'true' then 1 else 0 end) as other"),
+            ];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+
+        foreach ($data as $k => $v) {
+            if (array_key_exists($k, $types)) {
+                $final[] = [
+                    "category" => $types[$k],
+                    "total" => $v
+                ];
+            }
+        }
+
+        return $final;
+    }
+
+    /**
+     * Household vaccine status
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getVaccineStatus($params): array
+    {
+        $select_attr = ['vaccine.name_np as category', DB::raw('count(*) as total')];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = ['vaccine.name_np'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = explode(',', $params['ward']);
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        return $this->householdRepository->getWithVaccineData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
     }
 
     /**

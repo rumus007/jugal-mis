@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Individual;
 
 use App\Http\Controllers\Controller;
+use App\Services\Household\HouseholdService;
 use App\Services\Individual\IndividualService;
 use Illuminate\Http\Request;
 
@@ -440,7 +441,7 @@ class IndividualController extends Controller
         }
     }
 
-     /**
+    /**
      * Returns api response for mobile telecom data
      *
      * @param Request $request
@@ -452,6 +453,103 @@ class IndividualController extends Controller
     {
         try {
             $response = prepareResponseFormat($this->individualService->getMobileTelecomData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for government id data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getGovernmentIdData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getGovernmentIdData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for citizenship data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getCitizenshipStatus(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getCitizenshipStatus($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for prolonged or common disease status
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDiseaseStatus(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat(
+                $this->individualService->getDiseaseStatus(
+                    $request->all(),
+                    $request->route()->getName()
+                )
+            );
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for vaccine status
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getVaccineStatus(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getVaccineStatus($request->all()));
             return response()->json($response);
         } catch (\Exception $e) {
             logger()->error($e);

@@ -27,7 +27,7 @@ Route::get('/resource/stats', [ResourceController::class, 'getResourceStats'])->
 Route::get('/resource/mapdata', [ResourceController::class, 'getResourceMapData'])->name('resource.mapdata');
 
 Route::prefix('household')->group(function () {
-    Route::get('summary-stats', [HouseholdController::class, 'getSummaryStats'])->name('household.stats');
+    // Route::get('summary-stats', [HouseholdController::class, 'getSummaryStats'])->name('household.stats');
     Route::get('ownership', [HouseholdController::class, 'getHouseOwnershipData'])->name('household.ownership');
     Route::get('roofing', [HouseholdController::class, 'getRoofingData'])->name('household.roofing');
     Route::get('foundation', [HouseholdController::class, 'getFoundationData'])->name('household.foundation');
@@ -61,7 +61,7 @@ Route::prefix('household')->group(function () {
 });
 
 Route::prefix('family')->group(function () {
-    Route::get('summary-stats', [FamilyController::class, 'getSummaryStats'])->name('family.stats');
+    // Route::get('summary-stats', [FamilyController::class, 'getSummaryStats'])->name('family.stats');
     
     Route::get('house-count', [FamilyController::class, 'getHouseCount'])->name('family.houseCount');
     // Route::get('permanent-residency', [FamilyController::class, 'getPermanentResidency'])->name('family.pr');
@@ -105,6 +105,11 @@ Route::prefix('individual')->group(function () {
     
     Route::get('has-mobile',[IndividualController::class,'getMobileData'])->name('individual.byMobile');
     Route::get('mobile-telecom',[IndividualController::class,'getMobileTelecomData'])->name('individual.byMobileTelecom');
+    Route::get('government-id',[IndividualController::class,'getGovernmentIdData'])->name('individual.byGovernmentId');
+    Route::get('citizenship-status',[IndividualController::class,'getCitizenshipStatus'])->name('individual.byCitizenshipStatus');
+    Route::get('prolonged-diseases',[IndividualController::class,'getDiseaseStatus'])->name('individual.byProlongedDisease');
+    Route::get('common-diseases',[IndividualController::class,'getDiseaseStatus'])->name('individual.byCommonDisease');
+    Route::get('vaccination-immunization',[IndividualController::class,'getVaccineStatus'])->name('individual.byVaccineStatus');
 });
 Route::prefix('home')->group(function () {
     Route::get('summary-stats', [HomeController::class, 'getSummaryStats'])->name('home.stats');
