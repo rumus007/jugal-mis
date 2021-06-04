@@ -20,7 +20,7 @@
                 :class="!showGraph ? 'active' : ''"
               />
             </button>
-            <button v-on:click="changeTableDisplay()" :class="!showGraph ? 'active' : ''" class="table-view">
+            <button v-on:click="changeTableDisplay()" class="table-view">
               <img src="images/ic_table.svg" alt="" width="16" height="16" />
             </button>
           </div>
@@ -38,7 +38,7 @@
             v-if="chartDetail.type === 'Column'"
           />
         </div>
-         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
+        <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
           <Table :data="data" :title="title" />
         </simplebar>
       </div>
@@ -50,7 +50,7 @@
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 export default {
-  name: "Individual",
+  name: "HouseChart",
   components: {
     BarChart: () => import("../components/Chart/BarChart"),
     DonutChart: () => import("../components/Chart/DonutChart"),
@@ -67,6 +67,7 @@ export default {
     showGraph: { type: Boolean, required: true },
     showGraphText: { type: String, required: true },
     chartDetail: { type: Object, required: true },
+    className: { type: String },
   },
   methods: {
     changeGraphDisplay() {

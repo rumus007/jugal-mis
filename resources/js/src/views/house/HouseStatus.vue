@@ -1,319 +1,142 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart" :class="!showHouseCountGraph ? 'card-table' : ''">
-        <div v-if="showHouseCountLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="houseCountData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>वडागत रुपमा घरकाे संख्या</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showHouseCountGraph')"
-                  :class="showHouseCountGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showHouseCountGraph')"
-                  :class="!showHouseCountGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showHouseCountGraph">
-              <BarChart :data="houseCountData" :horizontalBar="true" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-              <Table :data="houseCountData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showOwnerShipGraph ? 'card-table' : ''">
-        <div v-if="showOwnerShipLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="ownershipData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरकाे स्वामित्व</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showOwnerShipGraph')"
-                  :class="showOwnerShipGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showOwnerShipGraph')"
-                  :class="!showOwnerShipGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showOwnerShipGraph">
-              <BarChart :data="ownershipData" :horizontalBar="true" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="ownershipData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showRoofingGraph ? 'card-table' : ''">
-        <div v-if="showRoofingLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="roofingData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>छानाकाे प्रकार</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showRoofingGraph')"
-                  :class="showRoofingGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showRoofingGraph')"
-                  :class="!showRoofingGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showRoofingGraph">
-              <BarChart :data="roofingData" :horizontalBar="false" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="roofingData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showFoundationGraph ? 'card-table' : ''">
-        <div v-if="showFoundationLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="foundationData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरकाेे जग</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showFoundationGraph')"
-                  :class="showFoundationGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showFoundationGraph')"
-                  :class="!showFoundationGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showFoundationGraph">
-              <BarChart :data="foundationData" :horizontalBar="false" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="foundationData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart chart-full">
-        <div v-if="showRoomLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="columnChartData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>काेठाकाे संख्या</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showRoomGraph')"
-                  :class="showRoomGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showRoomGraph')"
-                  :class="!showRoomGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showRoomGraph">
-              <ColumnChart :data="roomData" :categoryData="columnCategory" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="columnChartData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
+    <house-chart
+      :showLoader="showHouseCountLoader"
+      :data="houseCountData"
+      :title="'वडागत रुपमा घरकाे संख्या'"
+      :showGraphText="'showHouseCountGraph'"
+      :showGraph="showHouseCountGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
 
-      <div class="card chart" :class="!showRoadTypeGraph ? 'card-table' : ''">
-        <div v-if="showRoadTypeLoader" class="loader-wrapper">
-          <loader />
-        </div>
+    <house-chart
+      :showLoader="showOwnerShipLoader"
+      :data="ownershipData"
+      :title="'घरकाे स्वामित्व'"
+      :showGraphText="'showOwnerShipGraph'"
+      :showGraph="showOwnerShipGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showRoofingLoader"
+      :data="roofingData"
+      :title="'छानाकाे प्रकार'"
+      :showGraphText="'showRoofingGraph'"
+      :showGraph="showRoofingGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showFoundationLoader"
+      :data="foundationData"
+      :title="'घरकाेे जग'"
+      :showGraphText="'showFoundationGraph'"
+      :showGraph="showFoundationGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <div class="card chart chart-full">
+      <div v-if="showRoomLoader" class="loader-wrapper">
+        <loader />
+      </div>
+      <div v-else>
+        <div v-if="columnChartData.length === 0"><no-data /></div>
         <div v-else>
-          <div v-if="roadTypeData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरसम्म पुग्ने बाटाेकाे प्रकृति</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showRoadTypeGraph')"
-                  :class="showRoadTypeGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showRoadTypeGraph')"
-                  :class="!showRoadTypeGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
+          <div class="chart-title flex">
+            <h3>काेठाकाे संख्या</h3>
+            <div class="view-icons">
+              <button
+                v-on:click="showGraph('showRoomGraph')"
+                :class="showRoomGraph ? 'active' : ''"
+              >
+                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
+              </button>
+              <button
+                v-on:click="showTable('showRoomGraph')"
+                :class="!showRoomGraph ? 'active' : ''"
+              >
+                <img src="images/ic_table.svg" alt="" width="16" height="16" />
+              </button>
             </div>
-            <div v-if="showRoadTypeGraph">
-              <BarChart :data="roadTypeData" :horizontalBar="false" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="roadTypeData" />
-            </simplebar>
           </div>
+          <div v-if="showRoomGraph">
+            <ColumnChart :data="roomData" :categoryData="columnCategory" />
+          </div>
+          <simplebar
+            data-simplebar-auto-hide="false"
+            class="chart-table"
+            v-else
+          >
+            <Table :data="columnChartData" />
+          </simplebar>
         </div>
       </div>
-      <div class="card chart" :class="!showRoadtoHouseGraph ? 'card-table' : ''">
-        <div v-if="showRoadToHouseLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="roadToHouseData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरसम्म पुुग्ने बाटाेकाे प्रकार</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showRoadtoHouseGraph')"
-                  :class="showRoadtoHouseGraph ? 'active' : ''"
-                >
-                  <img
-                    src="images/ic_graph.svg"
-                    alt=""
-                    width="16"
-                    :class="!showRoadtoHouseGraph ? 'active' : ''"
-                  />
-                </button>
-                <button
-                  v-on:click="showTable('showRoadtoHouseGraph')"
-                  class="table-view"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showRoadtoHouseGraph">
-              <BarChart :data="roadToHouseData" :horizontalBar="true" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="roadToHouseData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showHouseNumberGraph ? 'card-table' : ''">
-        <div v-if="showHouseNumberLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="houseNumberData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घर नम्बर भएकाे वा नभएकाे</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showHouseNumberGraph')"
-                  :class="showHouseNumberGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showHouseNumberGraph')"
-                  :class="!showHouseNumberGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showHouseNumberGraph">
-              <DonutChart :data="houseNumberData" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="houseNumberData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showHouseListedGraph ? 'card-table' : ''">
-        <div v-if="showHouseListedLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="houseListedData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरनक्सा पास (अभिलेखिकरण)</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showHouseListedGraph')"
-                  :class="showHouseListedGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showHouseListedGraph')"
-                  :class="!showHouseListedGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showHouseListedGraph">
-              <DonutChart :data="houseListedData" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" class="chart-table" v-else>
-              <Table :data="houseListedData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
+    </div>
+
+    <house-chart
+      :showLoader="showRoadTypeLoader"
+      :data="roadTypeData"
+      :title="'घरसम्म पुग्ने बाटाेकाे प्रकृति'"
+      :showGraphText="'showRoadTypeGraph'"
+      :showGraph="showRoadTypeGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showRoadToHouseLoader"
+      :data="roadToHouseData"
+      :title="'घरसम्म पुुग्ने बाटाेकाे प्रकार'"
+      :showGraphText="'showRoadtoHouseGraph'"
+      :showGraph="showRoadtoHouseGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showHouseNumberLoader"
+      :data="houseNumberData"
+      :title="'घर नम्बर भएकाे वा नभएकाे'"
+      :showGraphText="'showHouseNumberGraph'"
+      :showGraph="showHouseNumberGraph"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showHouseListedLoader"
+      :data="houseListedData"
+      :title="'घरनक्सा पास (अभिलेखिकरण)'"
+      :showGraphText="'showHouseListedGraph'"
+      :showGraph="showHouseListedGraph"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
   </div>
 </template>
 
 <script>
 import { filterObject } from "../../common/helper.js";
-import simplebar from 'simplebar-vue';
-import 'simplebar/dist/simplebar.min.css';
+import simplebar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 
 export default {
   name: "HouseStatus",
   components: {
+    HouseChart: () => import("./HouseChart"),
     BarChart: () => import("../components/Chart/BarChart"),
     LineChart: () => import("../components/Chart/LineChart"),
     PieChart: () => import("../components/Chart/PieChart"),
@@ -322,7 +145,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
-    simplebar
+    simplebar,
   },
   data: function () {
     return {
