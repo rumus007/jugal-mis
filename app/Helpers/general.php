@@ -46,17 +46,17 @@ function prepareResponseFormat($data): array
 function booleanDataFormat($data): array
 {
     $format = [
-        'yes' => 0,
-        'no' => 0,
+        'छ' => 0,
+        'छैन' => 0,
     ];
 
     foreach ($data as $v) {
         if ($v['category']) {
-            $format['yes'] = $v['total'];
+            $format['छ'] = $v['total'];
             continue;
         }
 
-        $format['no'] = $v['total'];
+        $format['छैन'] = $v['total'];
     }
 
     $final = array_map(function ($val, $key) {

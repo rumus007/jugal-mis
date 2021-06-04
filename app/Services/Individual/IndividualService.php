@@ -162,7 +162,8 @@ class IndividualService
      */
     public function getMobileData($params): array
     {
-        return $this->getSingleColumnData('has_mobile', $params);
+        $data = $this->getSingleColumnData('has_mobile', $params);
+        return booleanDataFormat($data);
     }
 
     /**
@@ -231,18 +232,18 @@ class IndividualService
     public function getLiteracyData($params): array
     {
         $education = [
-            "Literate" => 0,
-            "Illiterate" => 0
+            "शिक्षित" => 0,
+            "अशिक्षित" => 0
         ];
         $data = $this->getSingleColumnData('education_level', $params);
 
         foreach ($data as $v) {
             if ($v['category'] == "पढाई शुरु नगरेको (नाबालक)" || $v['category'] == "लेखपढ गर्न नसक्ने (निरक्षर)") {
-                $education['Illiterate'] += $v['total'];
+                $education['अशिक्षित'] += $v['total'];
                 continue;
             }
 
-            $education['Literate'] += $v['total'];
+            $education['शिक्षित'] += $v['total'];
         }
 
         return array_map(function ($k, $v) {
@@ -344,6 +345,12 @@ class IndividualService
     public function getTrainingData($params): array
     {
         $data = $this->getSingleColumnData('training_taken', $params);
+        $data = array_map(function ($v) {
+            return [
+                "category" => $v['category'] ? ($v['category'] == "Yes" ? 'छ' : 'छैन') : null,
+                "total" => $v['total']
+            ];
+        }, $data);
         return nullDataFormat($data);
     }
 
@@ -491,19 +498,19 @@ class IndividualService
     public function getDisabilityData($params): array
     {
         $disability = [
-            'yes' => 0,
-            'no' => 0
+            'छ' => 0,
+            'छैन' => 0
         ];
 
         $data = $this->getSingleColumnData('disability_status', $params);
 
         foreach ($data as $v) {
             if ($v['category'] == "अपाङ्गता नभएको") {
-                $disability['no'] += $v['total'];
+                $disability['छैन'] += $v['total'];
                 continue;
             }
 
-            $disability['yes'] += $v['total'];
+            $disability['छ'] += $v['total'];
         }
 
         return array_map(function ($k, $v) {
@@ -615,7 +622,7 @@ class IndividualService
 
         return array_map(function ($k, $v) {
             return [
-                'category' => $k,
+                'category' => $k == 'yes' ? 'छ' : 'छैन',
                 'total' => $v
             ];
         }, array_keys($data), $data);

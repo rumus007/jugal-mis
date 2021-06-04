@@ -325,18 +325,18 @@ class HouseholdService
     public function getToiletData($ward = []): array
     {
         $tmp = [
-            'yes' => 0,
-            'no' => 0
+            'छ' => 0,
+            'छैन' => 0
         ];
         $data = $this->countBySingleColumnHousehold('toilet_facility', $ward);
 
         foreach ($data as $v) {
             if ($v['category'] == "शौचालय नभएको") {
-                $tmp['no'] += (int) $v['total'];
+                $tmp['छैन'] += (int) $v['total'];
                 continue;
             }
 
-            $tmp['yes'] += (int) $v['total'];
+            $tmp['छ'] += (int) $v['total'];
         }
 
 
