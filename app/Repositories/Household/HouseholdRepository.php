@@ -278,6 +278,50 @@ class HouseholdRepository extends Repository
     }
 
     /**
+     * Returns with vaccination data
+     * 
+     * @param $selec_attr
+     * @param $where_attr
+     * @param $where_in_attr
+     * @param $group_by_attr
+     * 
+     * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getWithVaccineData($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    {
+        $data = $this->model
+            ->select($select_attr)
+            ->join(
+                'household_vaccine',
+                'household_vaccine.household_id',
+                '=',
+                'household.id'
+            )
+            ->join(
+                'vaccine',
+                'vaccine.id',
+                '=',
+                'household_vaccine.vaccine_id'
+            );
+
+        if ($where_attr) {
+            $data->where($where_attr);
+        }
+
+        if ($where_in_attr) {
+            foreach ($where_in_attr as $val) {
+                $data->whereIn(...$val);
+            }
+        }
+
+        if ($group_by_attr) {
+            $data->groupBy($group_by_attr);
+        }
+
+        return $data->get();
+    }
+
+    /**
      * Returns household count
      * 
      * @param $where_attr
