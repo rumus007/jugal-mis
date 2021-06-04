@@ -1,0 +1,109 @@
+<template>
+  <div class="chart-wrapper flex">
+    <individual-chart
+      :showLoader="showManpowerTypeLoader"
+      :data="manpowerTypeData"
+      :title="'व्यवसायिक तालिम प्राप्त जनशक्ति प्रकार'"
+      :showGraphText="'showManpowerTypeGraph'"
+      :showGraph="showManpowerTypeGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <individual-chart
+      :showLoader="showTrainingTakenLoader"
+      :data="trainingTakenData"
+      :title="'व्यवसायिक तालिम प्राप्त जनशक्ति लिएको'"
+      :showGraphText="'showTrainingTaken'"
+      :showGraph="showTrainingTaken"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+  </div>
+</template>
+
+<script>
+import { filterObject, formatRouteUrl } from "../../common/helper.js";
+
+export default {
+  name: "Manpower",
+  components: {
+    IndividualChart: () => import("./IndividualChart"),
+  },
+  data: function () {
+    return {
+      showManpowerTypeGraph: true,
+      manpowerTypeData: [],
+      showManpowerTypeLoader: false,
+
+      showTrainingTaken: true,
+      trainingTakenData: [],
+      showTrainingTakenLoader: false,
+    };
+  },
+  methods: {
+    showTable: function (dataType) {
+      this[dataType] = false;
+    },
+    showGraph: function (dataType) {
+      this[dataType] = true;
+    },
+
+    getFromApi: function (loader, stateData, url) {
+      this[loader] = true;
+      const targetUrl = `individual/${url}`;
+      let queryParams = { ward: this.ward };
+      queryParams = filterObject(queryParams);
+      let formattedParams = formatRouteUrl(queryParams);
+      axios
+        .get(targetUrl, { params: formattedParams })
+        .then(({ data }) => {
+          this[stateData] = data?.data ?? [];
+          this[loader] = false;
+        })
+        .catch(() => {
+          this[loader] = false;
+        });
+    },
+  },
+  mounted() {
+    this.getFromApi(
+      "showManpowerTypeLoader",
+      "manpowerTypeData",
+      "training-type"
+    );
+    this.getFromApi(
+      "showTrainingTakenLoader",
+      "trainingTakenData",
+      "training-taken"
+    );
+  },
+  computed: {
+    ward() {
+      return this.$store.getters.ward;
+    },
+  },
+  watch: {
+    ward: {
+      handler() {
+        this.getFromApi(
+          "showManpowerTypeLoader",
+          "manpowerTypeData",
+          "training-type"
+        );
+        this.getFromApi(
+          "showTrainingTakenLoader",
+          "trainingTakenData",
+          "training-taken"
+        );
+      },
+      deep: true,
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+</style>

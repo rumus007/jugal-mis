@@ -5,7 +5,7 @@ const Home = () => import('./../views/home/Home.vue');
 const Institution = () => import('./../views/institution/Institution.vue');
 const House = () => import('./../views/house/House.vue');
 const Family = () => import('./../views/family/Family.vue');
-const Population = () => import('./../views/population/Population.vue');
+const Individual = () => import('./../views/individual/Individual.vue');
 
 Vue.use(Router);
 
@@ -33,9 +33,9 @@ const router = new Router({
             component: Family,
         },
         {
-            path: "/population",
-            name: "Population",
-            component: Population,
+            path: "/individual",
+            name: "Individual",
+            component: Individual,
         },
 
     ]

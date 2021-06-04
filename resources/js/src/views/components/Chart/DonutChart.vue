@@ -6,7 +6,7 @@
 
 <script>
 import VueApexCharts from "vue-apexcharts";
-import {englishToNepaliNumber} from "nepali-number";
+import { englishToNepaliNumber } from "nepali-number";
 export default {
   name: "DonutChart",
   props: {
@@ -41,42 +41,41 @@ export default {
           },
         },
         fill: {
-          colors: ['#995BE3', '#46C0B8'],
+          colors: this.getColorOptions,
         },
         legend: {
-          position: 'right',
-          horizontalAlign: 'center', 
+          position: "right",
+          horizontalAlign: "center",
           fontSize: "12px",
           fontFamily: "Noto Sans, sans-serif",
           markers: {
             width: 12,
             height: 12,
             strokeWidth: 0,
-            strokeColor: '#fff',
-            fillColors: ['#995BE3', '#46C0B8'],
+            strokeColor: "#fff",
+            fillColors: this.getColorOptions,
             radius: 2,
           },
-         
-      },
+        },
         tooltip: {
           enabled: true,
            marker: {
               show: true
           },
-           x: {
-              show: false,
-              formatter: function (value) {
-                return englishToNepaliNumber(value) ;
-            }
+          x: {
+            show: false,
+            formatter: function (value) {
+              return englishToNepaliNumber(value);
+            },
           },
           y: {
-              formatter: function (value) {
-                return englishToNepaliNumber(value) ;
+            formatter: function (value) {
+              return englishToNepaliNumber(value);
             },
-              title: {
-                  formatter: (seriesName) => '',
-              },
-          }
+            title: {
+              formatter: (seriesName) => "",
+            },
+          },
         },
         // states: {
         //   hover: {
@@ -100,6 +99,11 @@ export default {
         //   },
         // ],
       };
+    },
+    getColorOptions() {
+      return [...this.categories].length === 2
+        ? ["#995BE3", "#46C0B8"]
+        : ["#995BE3", "#46C0B8", "#F97D21"];
     },
   },
 };
