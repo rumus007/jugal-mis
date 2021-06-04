@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showDrinkWaterSrcGraph ? 'card-table' : ''">
         <div v-if="showDrinkWaterSrcLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showCookFuelGraph ? 'card-table' : ''">
         <div v-if="false" class="loader-wrapper">
           <loader />
         </div>
@@ -66,14 +66,14 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showElectricitySrcGraph ? 'card-table' : ''">
         <div v-if="showElectricitySrcLoader" class="loader-wrapper">
           <loader />
         </div>
         <div v-else>
           <div v-if="electrictySrcData.length === 0"><no-data /></div>
           <div v-else>
-            <div class="chart-title">
+            <div class="chart-title flex">
               <h3>विद्युतकाे प्रमुख इन्धन</h3>
               <div class="view-icons">
                 <button
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showAlternativeSrcGraph ? 'card-table' : ''">
         <div v-if="showAlternativeSrcLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -132,7 +132,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showTimeForHealthCareGraph ? 'card-table' : ''">
         <div v-if="showTimeForHealthCare" class="loader-wrapper">
           <loader />
         </div>
@@ -165,7 +165,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showTimeForWaterFetchGraph ? 'card-table' : ''">
         <div v-if="showTimeForWaterFetchLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -203,7 +203,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showNewBornLocationGraph ? 'card-table' : ''">
         <div v-if="showNewBornLocationLoader" class="loader-wrapper">
           <loader />
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card chart">
+  <div class="card chart" :class="!showGraph ? 'card-table' : ''">
     <div v-if="showLoader" class="loader-wrapper">
       <loader />
     </div>
@@ -20,7 +20,7 @@
                 :class="!showGraph ? 'active' : ''"
               />
             </button>
-            <button v-on:click="changeTableDisplay()" class="table-view">
+            <button v-on:click="changeTableDisplay()" :class="!showGraph ? 'active' : ''" class="table-view">
               <img src="images/ic_table.svg" alt="" width="16" height="16" />
             </button>
           </div>

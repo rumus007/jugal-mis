@@ -31,6 +31,9 @@ export default {
       return {
         chart: {
           type: "donut",
+          toolbar: {
+            show: true,
+          }
         },
         labels: [...this.categories],
         dataLabels: {

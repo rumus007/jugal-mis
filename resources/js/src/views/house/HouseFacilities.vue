@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showFacilitiesGraph ? 'card-table' : ''">
         <div v-if="showFacilitiesData" class="loader-wrapper">
           <loader />
         </div>
