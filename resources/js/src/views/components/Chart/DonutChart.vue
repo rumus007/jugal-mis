@@ -61,7 +61,7 @@ export default {
         tooltip: {
           enabled: true,
            marker: {
-              show: true,
+              show: true
           },
            x: {
               show: false,

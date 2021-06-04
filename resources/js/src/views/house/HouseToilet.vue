@@ -27,9 +27,9 @@
             <div v-if="showToiletAvailableGraph">
               <DonutChart :data="toiletAvailableStatusData" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="toiletAvailableStatusData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -61,9 +61,9 @@
             <div v-if="showToiletTypeGraph">
               <BarChart :data="toiletTypeData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="toiletTypeData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -72,6 +72,8 @@
 
 <script>
 import { filterObject } from "../../common/helper.js";
+import simplebar from 'simplebar-vue';
+import 'simplebar/dist/simplebar.min.css';
 
 export default {
   name: "HouseToilet",
@@ -82,6 +84,7 @@ export default {
     TitleBar: () => import("../shared/TitleBar"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
+    simplebar
   },
   data: function () {
     return {

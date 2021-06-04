@@ -27,9 +27,9 @@
             <div v-if="showFacilitiesGraph">
               <BarChart :data="facilitiesData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="facilitiesData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -38,6 +38,8 @@
 
 <script>
 import { filterObject } from "../../common/helper.js";
+import simplebar from 'simplebar-vue';
+import 'simplebar/dist/simplebar.min.css';
 
 export default {
   name: "HouseFacilities",
@@ -45,6 +47,7 @@ export default {
     BarChart: () => import("../components/Chart/BarChart"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
+    simplebar
   },
   data: function () {
     return {

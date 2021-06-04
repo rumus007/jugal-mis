@@ -162,7 +162,7 @@ body {
 }
 
 .apexcharts-toolbar {
-    top: -48px!important;
+    top: -33px!important;
 }
 
 .apexcharts-zoom-icon,
@@ -190,14 +190,23 @@ body {
   }
 
 .chart {
-    min-height: 370px;
+    height: 390px;
     margin-bottom: 40px;
-    padding: 24px 24px 0;
+    padding: 24px 24px 18px;
     position: relative;
     width: 48%;
     .no-data {
         margin-top: 40px;
     }
+
+    &>div {
+        height: 100%;
+
+        &>div {
+            height: 100%;
+        }
+    }
+
     &-wrapper {
         flex-wrap: wrap;
         justify-content: space-between;
@@ -207,10 +216,35 @@ body {
         margin-bottom: 24px;
     }
     &-title {
+        height: 30px;
         justify-content: space-between;
+
+        h3 {
+            margin-bottom: 0;
+        }
     }
     &-full {
         width: 100%;
+    }
+
+    &-table {
+        height: calc(100% - 30px);
+        overflow-y: auto;
+        position: relative;
+        padding-bottom: 20px;
+        margin-top: 12px;
+
+        &:after {
+            content: "";
+            width: 100%;
+            height: 26px;
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), rgba(240, 248, 255, 0.4);
+            border-radius: 8px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
     }
 }
 
@@ -233,6 +267,7 @@ body {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    height: unset !important;
 }
 
 .info-cards-section {
@@ -253,4 +288,24 @@ body {
 .leaflet-container a.leaflet-popup-close-button {
     right: 4px !important;
     top: 4px !important;
+}
+.simplebar-track.simplebar-vertical {
+    width: 1px !important;
+    background-color: var(--blue-200) !important;
+    overflow: visible;
+}
+
+.simplebar-track {
+    right: 3px !important;
+}
+
+.simplebar-scrollbar:before {
+    width: 5px;
+    left: -2px !important;
+    background: var(--blue-400) !important;
+    opacity: 1 !important;
+}
+
+.simplebar-content {
+    margin-right: 16px;
 }

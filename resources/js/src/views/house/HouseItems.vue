@@ -27,9 +27,9 @@
             <div v-if="showDrinkWaterSrcGraph">
               <BarChart :data="drinkWaterSrcData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="drinkWaterSrcData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -60,9 +60,9 @@
             <div v-if="showCookFuelGraph">
               <BarChart :data="cookFuelData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="cookFuelData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -93,9 +93,9 @@
             <div v-if="showElectricitySrcGraph">
               <BarChart :data="electrictySrcData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="electrictySrcData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -126,9 +126,9 @@
             <div v-if="showAlternativeSrcGraph">
               <BarChart :data="alternativeSrcData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="alternativeSrcData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -159,9 +159,9 @@
             <div v-if="showTimeForHealthCareGraph">
               <BarChart :data="timeForHealthCareData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="timeForHealthCareData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -197,9 +197,9 @@
             <div v-if="showTimeForWaterFetchGraph">
               <BarChart :data="timeForWaterFetchData" :horizontalBar="false" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="timeForWaterFetchData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -231,9 +231,9 @@
             <div v-if="showNewBornLocationGraph">
               <BarChart :data="newBornLocationData" :horizontalBar="true" />
             </div>
-            <div v-else>
+            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
               <Table :data="newBornLocationData" />
-            </div>
+            </simplebar>
           </div>
         </div>
       </div>
@@ -242,6 +242,8 @@
 
 <script>
 import { filterObject } from "../../common/helper.js";
+import simplebar from 'simplebar-vue';
+import 'simplebar/dist/simplebar.min.css';
 
 export default {
   name: "HouseItems",
@@ -250,6 +252,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
+    simplebar
   },
   data: function () {
     return {
