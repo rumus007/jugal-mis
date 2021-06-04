@@ -572,28 +572,28 @@ class HouseholdService
         $final = array_map(function ($val) {
             if (trim($val['category']) == 'मौरी') {
                 return [
-                    "category" => $val['category'],
+                    "category" => 'मौरीको मह',
                     "total" => $val['honey'],
-                    "unit" => 'Kg',
-                    "type" => 'honey_production'
+                    "unit" => 'के.जि',
+                    "type" => 'bee'
                 ];
             }
 
             if (trim($val['category']) == 'माछा') {
                 return [
-                    "category" => $val['category'],
+                    "category" => 'माछा',
                     "total" => $val['fish'],
-                    "unit" => 'Kg',
-                    "type" => 'fish_production'
+                    "unit" => 'के.जि',
+                    "type" => 'fish'
                 ];
             }
 
             if (trim($val['category']) == 'रेशम') {
                 return [
-                    "category" => $val['category'],
+                    "category" => 'रेसम कीराको रेशम',
                     "total" => $val['silk'],
-                    "unit" => 'Kg',
-                    "type" => 'silk_production'
+                    "unit" => 'के.जि',
+                    "type" => 'silk'
                 ];
             }
         }, $data);
@@ -643,7 +643,7 @@ class HouseholdService
                         return [
                             "category" => $val['category'],
                             "total" => $val['milk'],
-                            "unit" => 'Liter',
+                            "unit" => 'लिटर',
                             "type" => 'milk_production'
                         ];
                     }
@@ -656,7 +656,7 @@ class HouseholdService
                         return [
                             "category" => $val['category'],
                             "total" => $val['meat'],
-                            "unit" => 'Kg',
+                            "unit" => 'के.जि',
                             "type" => 'meat_production'
                         ];
                     }
@@ -669,7 +669,7 @@ class HouseholdService
                         return [
                             "category" => $val['category'],
                             "total" => $val['meat'],
-                            "unit" => 'Kg',
+                            "unit" => 'के.जि',
                             "type" => 'bone_skin_production'
                         ];
                     }
@@ -680,19 +680,19 @@ class HouseholdService
                 $final = array_map(function ($val) use ($wool_items, $egg_items) {
                     if (in_array(trim($val['category']), $wool_items)) {
                         return [
-                            "category" => $val['category'],
+                            "category" => 'भेडाको ऊन',
                             "total" => $val['wool'],
-                            "unit" => 'Kg',
-                            "type" => 'wool_production'
+                            "unit" => 'के.जि',
+                            "type" => 'sheep'
                         ];
                     }
 
                     if (in_array(trim($val['category']), $egg_items)) {
                         return [
-                            "category" => $val['category'],
+                            "category" => 'कुखुरा/हाँसको अन्डा',
                             "total" => $val['egg'],
-                            "unit" => 'Piece',
-                            "type" => 'egg_production'
+                            "unit" => 'ओटा',
+                            "type" => 'egg'
                         ];
                     }
                 }, $data);

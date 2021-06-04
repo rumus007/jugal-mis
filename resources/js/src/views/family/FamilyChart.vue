@@ -1,5 +1,5 @@
 <template>
-  <div class="card chart" :class="!showGraph ? 'card-table' : ''">
+  <div class="card chart" :class = "{className: className, 'card-table': !showGraph}">
     <div v-if="showLoader" class="loader-wrapper">
       <loader />
     </div>
@@ -39,7 +39,7 @@
           />
         </div>
         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-          <Table :data="data" />
+          <Table :data="data" :title="title"/>
         </simplebar>
       </div>
     </div>
@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
-import 'simplebar/dist/simplebar.min.css';
+import simplebar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 export default {
   name: "FamilyChart",
   components: {
@@ -58,7 +58,7 @@ export default {
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
     NoData: () => import("../components/NoData/NoData"),
-    simplebar
+    simplebar,
   },
   props: {
     showLoader: { type: Boolean, required: true },
@@ -67,6 +67,7 @@ export default {
     showGraph: { type: Boolean, required: true },
     showGraphText: { type: String, required: true },
     chartDetail: { type: Object, required: true },
+    className: { type: String },
   },
   methods: {
     changeGraphDisplay() {

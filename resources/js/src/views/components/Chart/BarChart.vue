@@ -25,6 +25,7 @@ export default {
   computed: {
     categories() {
       return this.data.map((barChartData) => barChartData.category);
+      // return this.data.map((barChartData) => barChartData.category.split(' ').length > 1 ? barChartData.category.split(' ') : barChartData.category);
     },
     stats() {
       return this.data.map((barChartData) => barChartData.total);

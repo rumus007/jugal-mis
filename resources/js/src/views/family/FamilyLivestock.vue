@@ -54,6 +54,58 @@
       @tableFunction="showTable"
     />
 
+    <div class="card chart">
+      <div v-if="showOtherProdLoader" class="loader-wrapper">
+        <loader />
+      </div>
+      <div v-else>
+        <div v-if="otherProdData.length === 0"><no-data /></div>
+        <div v-else>
+          <h3>अरु उत्पादन</h3>
+          <!-- <Table :data="otherProdData" /> -->
+          <div class="stats-livestock">
+            <ul class="flex">
+              <li
+                class="stats"
+                v-for="(otherProd, index) in otherProdData"
+                :key="index"
+                :class="[otherProd.type ? otherProd.type : '']"
+              >
+                <strong v-text="getFormattedCount(otherProd.total)"></strong>
+                {{ otherProd.unit }}
+                <span>{{ otherProd.category }}</span>
+              </li>
+
+              <!-- <li class="stats-sheep">
+                  <strong>otherProdData</strong> के. जि
+                  <span>भेडाको उल </span>
+                </li>
+                <li class="stats-egg">
+                  <strong>१४४३</strong>ओटा
+                  <span>कुखुराको अन्डा</span>
+                </li>
+                <li class="stats-bee">
+                  <strong>६५</strong> के. जि
+                  <span>मौरीको मह</span>
+                </li>
+                <li class="stats-fish">
+                  <strong>१४४३</strong>ओटा
+                  <span>माछा</span>
+                </li>
+                <li class="stats-silk">
+                  <strong>६५</strong> के. जि
+                  <span>रेसम कीराको रेशम</span>
+                </li>
+                <li class="stats-duck">
+                  <strong>१४४३</strong>ओटा
+                  <span>हाँस को अन्डा</span>
+                </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <family-chart
       :showLoader="showRevenueLoader"
       :data="revenueData"
@@ -63,9 +115,10 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :class="'chart-full'"
     />
 
-    <family-chart
+    <!-- <family-chart
       :showLoader="showHasFishBeeSilkLoader"
       :data="hasFishBeeSilkData"
       :title="'माछा रेशम मौरी'"
@@ -74,24 +127,13 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-    />
-    <div class="card chart">
-      <div v-if="showOtherProdLoader" class="loader-wrapper">
-        <loader />
-      </div>
-      <div v-else>
-        <div v-if="otherProdData.length === 0"><no-data /></div>
-        <div v-else>
-          <h3>Other Prod data</h3>
-          <Table :data="otherProdData" />
-        </div>
-      </div>
-    </div>
+    /> -->
   </div>
 </template>
 
 <script>
 import { filterObject, formatRouteUrl } from "../../common/helper.js";
+import { englishToNepaliNumber } from "nepali-number";
 
 export default {
   name: "FamilyLivestock",
@@ -278,6 +320,10 @@ export default {
           this.showHasFishBeeSilkLoader = false;
         });
     },
+
+    getFormattedCount(count) {
+      return englishToNepaliNumber(count);
+    },
   },
   mounted() {
     this.getHasLiveStockData();
@@ -314,4 +360,57 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.stats-livestock ul {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li {
+    color: var(--blue-400);
+    font-size: 12px;
+    margin-bottom: 48px;
+    padding-left: 76px;
+    position: relative;
+    width: 50%;
+    &:before {
+      background-color: rgb(249, 223, 204, 0.5);
+      background-image: url("../../../../../public/images/ic_sprite.svg");
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      content: "";
+      height: 60px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 60px;
+    }
+    strong {
+      font-size: 24px;
+      padding-right: 4px;
+    }
+    > span {
+      color: var(--color-primary-dark);
+      display: block;
+      font-size: 16px;
+    }
+  }
+}
+.stats {
+  &.sheep:before{
+    background-position:  -46px 12px;
+  }
+  &.egg:before {
+    background-position:  -127px 12px;
+  }
+  &.bee:before {
+      background-position:  -46px -38px;
+  }
+  &.fish:before {
+      background-position:  -125px -38px;
+  }
+  &.silk:before {
+      background-position:  -47px -91px;
+  }
+  &.duck:before {
+      background-position:  -126px -91px;
+  }
+}
 </style>

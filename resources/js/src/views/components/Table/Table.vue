@@ -2,12 +2,12 @@
   <div>
     <table style="width: 100%">
       <tr>
-        <th>SN</th>
-        <th>{{ tableHeader ? tableHeader : 'Category'}}</th>
+        <th>क्र.सं</th>
+        <th>{{ title ? title : 'Category'}}</th>
         <th>जम्मा</th>
       </tr>
       <tr v-for="(tableData, index) in data" :key="tableData.index">
-        <td>{{ index + 1 }}</td>
+        <td v-text="getFormattedCount(index + 1 )"></td>
         <td>{{ tableData.category }}</td>
         <td v-text="getFormattedCount(tableData.total)"></td>
       </tr>
@@ -21,7 +21,7 @@ export default {
   name: "Table",
   props: {
     data: { type: Array, required: true },
-    tableHeader: { type: String },
+    title: { type: String },
   },
   methods: {
     getFormattedCount(count) {
