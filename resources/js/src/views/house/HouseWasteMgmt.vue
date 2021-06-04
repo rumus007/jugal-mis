@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showWasteMgmtGraph ? 'card-table' : ''">
         <div v-if="showWateMgmtLoader" class="loader-wrapper">
           <loader />
         </div>

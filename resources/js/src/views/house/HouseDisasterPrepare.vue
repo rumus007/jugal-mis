@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showEqResistantGraph ? 'card-table' : ''">
         <div v-if="showEqResistantLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showVulnerableGraph ? 'card-table' : ''">
         <div v-if="showVulnerableLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showRiskMitigateGraph ? 'card-table' : ''">
         <div v-if="showRiskMitigateLoader" class="loader-wrapper">
           <loader />
         </div>

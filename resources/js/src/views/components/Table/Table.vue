@@ -41,6 +41,7 @@ td {
 
 th {
   color: var(--neutrals-60);
+  font-weight: bold;
 }
 
 tr {
@@ -53,6 +54,7 @@ td {
 
 th,
 td {
+  font-size: 14px;
   padding: 8px 16px;
   text-align: left;
 }

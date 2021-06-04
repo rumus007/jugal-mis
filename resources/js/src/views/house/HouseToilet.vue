@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showToiletAvailableGraph ? 'card-table' : ''">
         <div v-if="showToiletAvailableStatusLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="card chart">
+      <div class="card chart" :class="!showToiletTypeGraph ? 'card-table' : ''">
         <div v-if="showToiletTypeLoader" class="loader-wrapper">
           <loader />
         </div>

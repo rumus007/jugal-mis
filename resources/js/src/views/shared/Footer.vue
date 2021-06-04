@@ -16,6 +16,8 @@ export default {
     background-color: var(--color-base);
     padding: 50px 40px;
     width: 100%;
+    position: absolute;
+    bottom: 0;
   }
   .nav {
     justify-content: center;

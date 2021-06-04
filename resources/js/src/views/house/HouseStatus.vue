@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper flex">
-      <div class="card chart">
+      <div class="card chart" :class="!showHouseCountGraph ? 'card-table' : ''">
         <div v-if="showHouseCountLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showOwnerShipGraph ? 'card-table' : ''">
         <div v-if="showOwnerShipLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showRoofingGraph ? 'card-table' : ''">
         <div v-if="showRoofingLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showFoundationGraph ? 'card-table' : ''">
         <div v-if="showFoundationLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -166,7 +166,7 @@
         </div>
       </div>
 
-      <div class="card chart">
+      <div class="card chart" :class="!showRoadTypeGraph ? 'card-table' : ''">
         <div v-if="showRoadTypeLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -199,7 +199,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showRoadtoHouseGraph ? 'card-table' : ''">
         <div v-if="showRoadToHouseLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -237,7 +237,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showHouseNumberGraph ? 'card-table' : ''">
         <div v-if="showHouseNumberLoader" class="loader-wrapper">
           <loader />
         </div>
@@ -270,7 +270,7 @@
           </div>
         </div>
       </div>
-      <div class="card chart">
+      <div class="card chart" :class="!showHouseListedGraph ? 'card-table' : ''">
         <div v-if="showHouseListedLoader" class="loader-wrapper">
           <loader />
         </div>
