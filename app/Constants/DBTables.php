@@ -28,6 +28,7 @@ abstract class DBTables
     const LAND_TITLE        = 'land_title';
     const AGRI_PRODUCT      = 'agri_product';
     const LIVESTOCK         = 'livestock';
+    const VACCINE           = 'vaccine';
 
     /**
      * List of database table names related to household module
@@ -47,4 +48,5 @@ abstract class DBTables
     const HOUSEHOLD_INCOME_SRC      = 'household_income_src';
     const HOUSEHOLD_LAND_TITLE      = 'household_land_title';
     const HOUSEHOLD_AGRI_PRODUCT    = 'household_agri_product';
+    const HOUSEHOLD_VACCINE         = 'household_vaccine';
 }

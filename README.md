@@ -43,6 +43,7 @@ The following commands should be run one after another for populating the databa
 - `php artisan import:household --type=livestock` Import livestock data from excel and save into database
 - `php artisan import:individual` Import family member data from excel and save into database
 - `php artisan import:home` Import household home/room data from excel and save into database
+- `php artisan import:vaccine` Import vaccination data from excel and save into database
 - `php artisan import:household --type=agri` Import livestock data from excel and save into database
 
 ## Structure for Backend

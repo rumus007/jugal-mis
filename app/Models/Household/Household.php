@@ -170,4 +170,12 @@ class Household extends Model
     {
         return $this->hasMany(HouseholdHome::class,'household_id','id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function householdVaccine()
+    {
+        return $this->belongsToMany(Vaccine::class, DBTables::HOUSEHOLD_VACCINE);
+    }
 }
