@@ -100,7 +100,11 @@ Route::prefix('individual')->group(function () {
     Route::get('training-taken',[IndividualController::class,'getTrainingData'])->name('individual.byTraining');
     Route::get('training-type',[IndividualController::class,'getTrainingTypeData'])->name('individual.byTrainingType');
     Route::get('employment-status',[IndividualController::class,'getEmploymentStatusData'])->name('individual.byEmploymentStatus');
-
+    Route::get('foreign-employment',[IndividualController::class,'getForeignEmploymentData'])->name('individual.byForeignEmployment');
+    Route::get('private-business',[IndividualController::class,'getPrivateBusinessData'])->name('individual.byPrivateBusines');
+    
+    Route::get('has-mobile',[IndividualController::class,'getMobileData'])->name('individual.byMobile');
+    Route::get('mobile-telecom',[IndividualController::class,'getMobileTelecomData'])->name('individual.byMobileTelecom');
 });
 Route::prefix('home')->group(function () {
     Route::get('summary-stats', [HomeController::class, 'getSummaryStats'])->name('home.stats');

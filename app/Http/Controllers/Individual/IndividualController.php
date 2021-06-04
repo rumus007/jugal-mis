@@ -256,6 +256,53 @@ class IndividualController extends Controller
     }
 
     /**
+     * Returns api response foreign employment
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getForeignEmploymentData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getForeignEmploymentData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    /**
+     * Returns api response private business
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getPrivateBusinessData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getPrivateBusinessData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Returns api response age group data
      *
      * @param Request $request
@@ -325,6 +372,29 @@ class IndividualController extends Controller
     }
 
     /**
+     * Returns api response disability identification
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getDisabilityIdData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getDisabilityIdData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Returns api response disability types
      *
      * @param Request $request
@@ -336,6 +406,52 @@ class IndividualController extends Controller
     {
         try {
             $response = prepareResponseFormat($this->individualService->getLiteracyData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response for mobile phone holder data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getMobileData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getMobileData($request->all()));
+            return response()->json($response);
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+     /**
+     * Returns api response for mobile telecom data
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getMobileTelecomData(Request $request)
+    {
+        try {
+            $response = prepareResponseFormat($this->individualService->getMobileTelecomData($request->all()));
             return response()->json($response);
         } catch (\Exception $e) {
             logger()->error($e);

@@ -723,7 +723,7 @@ class HouseholdService
      */
     public function getAvgIncomeExpensesData($params): array
     {
-        $range = ["None", "1 to 50k", "50k to 100k", "100k to 300K", "300K to 500K", "500K to 900K", "more than 900k"];
+        $range = ["None", "1-50k", "50k-100k", "100k-300K", "300K-500K", "500K-900K", ">900k"];
 
         $select_income = [
             DB::raw('sum(case when cast(avg_family_income as INT) <= 0 then 1 else 0 end) as range1'),

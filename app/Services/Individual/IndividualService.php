@@ -7,8 +7,6 @@ namespace App\Services\Individual;
 use App\Repositories\Individual\IndividualRepository;
 use Illuminate\Support\Facades\DB;
 
-use function PHPSTORM_META\map;
-
 /**
  * Class IndividualService
  *
@@ -151,6 +149,74 @@ class IndividualService
     }
 
     /**
+     * Population by mobile phone holders
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getMobileData($params): array
+    {
+        return $this->getSingleColumnData('has_mobile', $params);
+    }
+
+    /**
+     * Population by disability identification
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getDisabilityIdData($params): array
+    {
+        $select_attr = ["individual.disability_identification as category", 'individual.disability_status'];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)
+            ->filter(function ($item) {
+                if ($item->disability_status != "अपाङ्गता नभएको") {
+                    return $item;
+                }
+            });
+
+        $count = $data->countBy(function ($item) {
+            return $item['category'];
+        })->toArray();
+
+        return array_map(function ($k, $v) {
+            return [
+                "category" => $k ? $k : "N/A",
+                "total" => $v
+            ];
+        }, array_keys($count), $count);
+    }
+
+    /**
+     * Population by mobile telecom data
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getMobileTelecomData($params): array
+    {
+        $data = $this->getSingleColumnData('telecom', $params);
+
+        return array_filter($data, function ($val) {
+            if (!is_null($val['category'])) {
+                return $val;
+            }
+        });
+    }
+
+    /**
      * Population education status (Literacy rate)
      * 
      * @param $params
@@ -192,6 +258,62 @@ class IndividualService
     public function getEducationData($params): array
     {
         return $this->getSingleColumnData('education_level', $params);
+    }
+
+    /**
+     * Population having private business
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getPrivateBusinessData($params): array
+    {
+        $data = $this->getSingleColumnData('employment_status', $params);
+
+        return array_values(array_filter($data, function ($v) {
+            if ($v['category'] == "उद्योग तथा व्यापार") {
+                return $v;
+            }
+        }));
+    }
+
+    /**
+     * Population foreign employment-status wise
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getForeignEmploymentData($params): array
+    {
+        $select_attr = ["individual.employment_status", 'individual.in_foreign_country', 'individual.foreign_country'];
+        $where_attr  = [];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)
+            ->filter(function ($item) {
+                if ($item->employment_status == "वैदेशिक रोजगारी") {
+                    return $item;
+                }
+            });
+
+        $count = $data->countBy(function ($item) {
+            return $item['foreign_country'];
+        })->toArray();
+
+        return array_map(function ($k, $v) {
+            return [
+                "category" => $k ? $k : "N/A",
+                "total" => $v
+            ];
+        }, array_keys($count), $count);
     }
 
     /**
