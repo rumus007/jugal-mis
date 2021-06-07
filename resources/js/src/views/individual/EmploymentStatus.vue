@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h2>राेजगारीकाे अवस्था</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showEmploymentStatsLoader"
@@ -34,6 +36,7 @@
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
+  </div>
   </div>
 </template>
 

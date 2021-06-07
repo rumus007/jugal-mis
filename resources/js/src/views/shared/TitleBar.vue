@@ -11,7 +11,7 @@
         selectLabel=""
         deselectLabel=""
         placeholder="वार्ड छनौट गर्नुहोस्"
-        :input="scroll('main')"
+        @input="scroll('main')"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->
       <a href="#" class="download-pdf">

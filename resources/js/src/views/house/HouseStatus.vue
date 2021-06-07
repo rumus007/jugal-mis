@@ -1,4 +1,6 @@
 <template>
+<div> 
+  <h2>घरकाे अवस्था</h2>
   <div class="chart-wrapper flex">
     <house-chart
       :showLoader="showHouseCountLoader"
@@ -44,44 +46,22 @@
       @tableFunction="showTable"
     />
 
-    <div class="card chart chart-full">
-      <div v-if="showRoomLoader" class="loader-wrapper">
-        <loader />
-      </div>
-      <div v-else>
-        <div v-if="columnChartData.length === 0"><no-data /></div>
-        <div v-else>
-          <div class="chart-title flex">
-            <h3>काेठाकाे संख्या</h3>
-            <div class="view-icons">
-              <button
-                v-on:click="showGraph('showRoomGraph')"
-                :class="showRoomGraph ? 'active' : ''"
-              >
-                <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-              </button>
-              <button
-                v-on:click="showTable('showRoomGraph')"
-                :class="!showRoomGraph ? 'active' : ''"
-              >
-                <img src="images/ic_table.svg" alt="" width="16" height="16" />
-              </button>
-            </div>
-          </div>
-          <div v-if="showRoomGraph">
-            <ColumnChart :data="roomData" :categoryData="columnCategory" />
-          </div>
-          <simplebar
-            data-simplebar-auto-hide="false"
-            class="chart-table"
-            v-else
-          >
-            <Table :data="columnChartData" />
-          </simplebar>
-        </div>
-      </div>
-    </div>
-
+    <house-chart
+      :showLoader="showRoomLoader"
+      :data="roomData"
+      :title="'काेठाकाे संख्या'"
+      :showGraphText="'showRoomGraph'"
+      :showGraph="showRoomGraph"
+      :chartDetail="{
+        type: 'Column',
+        columnCategory: roomColumnCategory,
+        columnTitle: 'वार्ड नं'
+      }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+      :showFullChartClass="true"
+    />
+    
     <house-chart
       :showLoader="showRoadTypeLoader"
       :data="roadTypeData"
@@ -126,10 +106,11 @@
       @tableFunction="showTable"
     />
   </div>
+</div>
 </template>
 
 <script>
-import { filterObject } from "../../common/helper.js";
+import { filterObject, formatRouteUrl } from "../../common/helper.js";
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
@@ -137,10 +118,6 @@ export default {
   name: "HouseStatus",
   components: {
     HouseChart: () => import("./HouseChart"),
-    BarChart: () => import("../components/Chart/BarChart"),
-    LineChart: () => import("../components/Chart/LineChart"),
-    PieChart: () => import("../components/Chart/PieChart"),
-    DonutChart: () => import("../components/Chart/DonutChart"),
     ColumnChart: () => import("../components/Chart/ColumnChart"),
     Table: () => import("../components/Table/Table"),
     Loader: () => import("../components/Loader/Loader"),
@@ -170,51 +147,13 @@ export default {
       roomData: [],
       showRoomGraph: true,
       showRoomLoader: false,
+      roomColumnCategory: [],
       showHouseListedGraph: true,
       houseListedData: [],
       showHouseListedLoader: false,
       showHouseCountGraph: true,
       houseCountData: [],
       showHouseCountLoader: false,
-
-      showBarChartGraph: true,
-
-      barChartoptions: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996],
-        },
-      },
-      barChartSeries: [
-        {
-          name: "bar-chart",
-          data: [30, 40, 45, 50, 49, 60],
-        },
-      ],
-
-      tableBarChartData: [
-        { category: 1991, total: 30 },
-        { category: 1992, total: 40 },
-        { category: 1993, total: 45 },
-        { category: 1994, total: 50 },
-        { category: 1995, total: 49 },
-        { category: 1996, total: 60 },
-      ],
-
-      columnChartData: [
-        {
-          name: "Total rooms",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: "Rented rooms",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-        },
-      ],
-
-      columnCategory: [],
     };
   },
   methods: {
@@ -229,15 +168,8 @@ export default {
       const targetUrl = `household/ownership`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
+
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
@@ -253,15 +185,7 @@ export default {
       const targetUrl = `household/house-number`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -278,15 +202,7 @@ export default {
       const targetUrl = `household/foundation`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -303,15 +219,7 @@ export default {
       const targetUrl = `household/roofing`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -328,15 +236,7 @@ export default {
       const targetUrl = `household/road-type-to-house`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -353,15 +253,7 @@ export default {
       const targetUrl = `household/road-type`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -379,15 +271,7 @@ export default {
       const targetUrl = `household/room-count`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -402,7 +286,7 @@ export default {
             { name: "काेठाकाे संख्या", data: data.data.total_rooms },
             { name: "भाडाकाे काेठाकाे संख्या", data: data.data.rented_rooms },
           ];
-          this.columnCategory = data.data.xAxis;
+          this.roomColumnCategory = data.data.xAxis;
           this.showRoomLoader = false;
         })
         .catch(() => {
@@ -415,15 +299,7 @@ export default {
       const targetUrl = `household/house-listed`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -441,15 +317,7 @@ export default {
       const targetUrl = `household/house-count`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })

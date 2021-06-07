@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from "../store/store";
 
 const Home = () => import('./../views/home/Home.vue');
 const Institution = () => import('./../views/institution/Institution.vue');
@@ -40,5 +41,10 @@ const router = new Router({
 
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    store.commit("changeLoader", true)
+    next();
+})
 
 export default router;

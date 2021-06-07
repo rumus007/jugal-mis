@@ -1,258 +1,93 @@
 <template>
+<div>
+  <h2>उपयाेग्य बस्तु</h2>
   <div class="chart-wrapper flex">
-      <div class="card chart" :class="!showDrinkWaterSrcGraph ? 'card-table' : ''">
-        <div v-if="showDrinkWaterSrcLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="drinkWaterSrcData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>परिवारका लागि खानेपानीकाे स्राेत</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showDrinkWaterSrcGraph')"
-                  :class="showDrinkWaterSrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showDrinkWaterSrcGraph')"
-                  :class="!showDrinkWaterSrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showDrinkWaterSrcGraph">
-              <BarChart :data="drinkWaterSrcData" :horizontalBar="false" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="drinkWaterSrcData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showCookFuelGraph ? 'card-table' : ''">
-        <div v-if="false" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="cookFuelData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>खाना पकाउने मुख्य इन्धन</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showCookFuelGraph')"
-                  :class="showCookFuelGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showCookFuelGraph')"
-                  :class="!showCookFuelGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showCookFuelGraph">
-              <BarChart :data="cookFuelData" :horizontalBar="false" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="cookFuelData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showElectricitySrcGraph ? 'card-table' : ''">
-        <div v-if="showElectricitySrcLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="electrictySrcData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>विद्युतकाे प्रमुख इन्धन</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showElectricitySrcGraph')"
-                  :class="showElectricitySrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showElectricitySrcGraph')"
-                  :class="!showElectricitySrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showElectricitySrcGraph">
-              <BarChart :data="electrictySrcData" :horizontalBar="true" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="electrictySrcData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showAlternativeSrcGraph ? 'card-table' : ''">
-        <div v-if="showAlternativeSrcLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="alternativeSrcData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>बैकल्पिक इन्धनकाे प्रयाेग</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showAlternativeSrcGraph')"
-                  :class="showAlternativeSrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showAlternativeSrcGraph')"
-                  :class="!showAlternativeSrcGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showAlternativeSrcGraph">
-              <BarChart :data="alternativeSrcData" :horizontalBar="false" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="alternativeSrcData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showTimeForHealthCareGraph ? 'card-table' : ''">
-        <div v-if="showTimeForHealthCare" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="timeForHealthCareData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showTimeForHealthCareGraph')"
-                  :class="showTimeForHealthCareGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showTimeForHealthCareGraph')"
-                  :class="!showTimeForHealthCareGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showTimeForHealthCareGraph">
-              <BarChart :data="timeForHealthCareData" :horizontalBar="false" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="timeForHealthCareData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showTimeForWaterFetchGraph ? 'card-table' : ''">
-        <div v-if="showTimeForWaterFetchLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="timeForWaterFetchData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>खानेपानी लिनका लागि जाँदा लाग्ने समय</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showTimeForWaterFetchGraph')"
-                  :class="showTimeForWaterFetchGraph ? 'active' : ''"
-                >
-                  <img
-                    src="images/ic_graph.svg"
-                    alt=""
-                    width="16"
-                    :class="!showTimeForWaterFetchGraph ? 'active' : ''"
-                  />
-                </button>
-                <button
-                  v-on:click="showTable('showTimeForWaterFetchGraph')"
-                  class="table-view"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showTimeForWaterFetchGraph">
-              <BarChart :data="timeForWaterFetchData" :horizontalBar="false" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="timeForWaterFetchData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showNewBornLocationGraph ? 'card-table' : ''">
-        <div v-if="showNewBornLocationLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="newBornLocationData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>शिशुकाे जन्म भएकाे स्थान</h3>
-                <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showNewBornLocationGraph')"
-                  :class="showNewBornLocationGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showNewBornLocationGraph')"
-                  :class="!showNewBornLocationGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-           
-            <div v-if="showNewBornLocationGraph">
-              <BarChart :data="newBornLocationData" :horizontalBar="true" />
-            </div>
-            <simplebar v-else data-simplebar-auto-hide="false" class="chart-table">
-              <Table :data="newBornLocationData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
+    <house-chart
+      :showLoader="showDrinkWaterSrcLoader"
+      :data="drinkWaterSrcData"
+      :title="'परिवारका लागि खानेपानीकाे स्राेत'"
+      :showGraphText="'showDrinkWaterSrcGraph'"
+      :showGraph="showDrinkWaterSrcGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showCookFuelLoader"
+      :data="cookFuelData"
+      :title="'खाना पकाउने मुख्य इन्धन'"
+      :showGraphText="'showCookFuelGraph'"
+      :showGraph="showCookFuelGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showElectricitySrcLoader"
+      :data="electrictySrcData"
+      :title="'विद्युतकाे प्रमुख इन्धन'"
+      :showGraphText="'showElectricitySrcGraph'"
+      :showGraph="showElectricitySrcGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showAlternativeSrcLoader"
+      :data="alternativeSrcData"
+      :title="'बैकल्पिक इन्धनकाे प्रयाेग'"
+      :showGraphText="'showAlternativeSrcGraph'"
+      :showGraph="showAlternativeSrcGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showTimeForHealthCare"
+      :data="timeForHealthCareData"
+      :title="'आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय'"
+      :showGraphText="'showTimeForHealthCareGraph'"
+      :showGraph="showTimeForHealthCareGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showTimeForWaterFetchLoader"
+      :data="timeForWaterFetchData"
+      :title="'खानेपानी लिनका लागि जाँदा लाग्ने समय'"
+      :showGraphText="'showTimeForWaterFetchGraph'"
+      :showGraph="showTimeForWaterFetchGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+    <house-chart
+      :showLoader="showNewBornLocationLoader"
+      :data="newBornLocationData"
+      :title="'शिशुकाे जन्म भएकाे स्थान'"
+      :showGraphText="'showNewBornLocationGraph'"
+      :showGraph="showNewBornLocationGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
   </div>
+</div>
 </template>
 
 <script>
-import { filterObject } from "../../common/helper.js";
-import simplebar from 'simplebar-vue';
-import 'simplebar/dist/simplebar.min.css';
-
+import { filterObject, formatRouteUrl } from "../../common/helper.js";
 export default {
   name: "HouseItems",
   components: {
-    BarChart: () => import("../components/Chart/BarChart"),
-    Table: () => import("../components/Table/Table"),
-    Loader: () => import("../components/Loader/Loader"),
-    NoData: () => import("../components/NoData/NoData"),
-    simplebar
+    HouseChart: () => import("./HouseChart"),
   },
   data: function () {
     return {
@@ -291,15 +126,8 @@ export default {
       const targetUrl = `household/source-drinking-water`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
+
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
@@ -315,15 +143,7 @@ export default {
       const targetUrl = `household/distance-basic-healthcare`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -340,15 +160,7 @@ export default {
       const targetUrl = `household/source-alternate-energy`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -365,15 +177,7 @@ export default {
       const targetUrl = `household/source-electricity`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -390,15 +194,7 @@ export default {
       const targetUrl = `household/distance-fetch-water`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -416,15 +212,7 @@ export default {
       const targetUrl = `household/source-fuel`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })
@@ -442,15 +230,7 @@ export default {
       const targetUrl = `household/newborn-birthplace`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
 
       axios
         .get(targetUrl, { params: formattedParams })

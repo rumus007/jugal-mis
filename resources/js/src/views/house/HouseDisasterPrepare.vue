@@ -1,133 +1,56 @@
 <template>
+<div>
+  <h2>विपद पूर्वतयारी</h2>
   <div class="chart-wrapper flex">
-      <div class="card chart" :class="!showEqResistantGraph ? 'card-table' : ''">
-        <div v-if="showEqResistantLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="eqResistantData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>भूकम्प प्रतिराेधी घर</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showEqResistantGraph')"
-                  :class="showEqResistantGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showEqResistantGraph')"
-                  :class="!showEqResistantGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showEqResistantGraph">
-              <DonutChart :data="eqResistantData" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-              <Table :data="eqResistantData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showVulnerableGraph ? 'card-table' : ''">
-        <div v-if="showVulnerableLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="vulnerableData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showVulnerableGraph')"
-                  :class="showVulnerableGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showVulnerableGraph')"
-                  :class="!showVulnerableGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-
-            </div>
-            <div v-if="showVulnerableGraph">
-              <BarChart :data="vulnerableData" :horizontalBar="false" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-              <Table :data="vulnerableData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
-      <div class="card chart" :class="!showRiskMitigateGraph ? 'card-table' : ''">
-        <div v-if="showRiskMitigateLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div v-else>
-          <div v-if="riskMitigateData.length === 0"><no-data /></div>
-          <div v-else>
-            <div class="chart-title flex">
-              <h3>घर परिवारको जोखिम पारिवारिक योजना</h3>
-              <div class="view-icons">
-                <button
-                  v-on:click="showGraph('showRiskMitigateGraph')"
-                  :class="showRiskMitigateGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_graph.svg" alt="" width="16" height="16" />
-                </button>
-                <button
-                  v-on:click="showTable('showRiskMitigateGraph')"
-                  :class="!showRiskMitigateGraph ? 'active' : ''"
-                >
-                  <img src="images/ic_table.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-            </div>
-            <div v-if="showRiskMitigateGraph">
-              <DonutChart :data="riskMitigateData" />
-            </div>
-            <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-              <Table :data="riskMitigateData" />
-            </simplebar>
-          </div>
-        </div>
-      </div>
+    <house-chart
+      :showLoader="showEqResistantLoader"
+      :data="eqResistantData"
+      :title="'भूकम्प प्रतिराेधी घर'"
+      :showGraphText="'showEqResistantGraph'"
+      :showGraph="showEqResistantGraph"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <house-chart
+      :showLoader="showVulnerableLoader"
+      :data="vulnerableData"
+      :title="'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार'"
+      :showGraphText="'showVulnerableGraph'"
+      :showGraph="showVulnerableGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <house-chart
+      :showLoader="showRiskMitigateLoader"
+      :data="riskMitigateData"
+      :title="'घर परिवारको जोखिम पारिवारिक योजना'"
+      :showGraphText="'showRiskMitigateGraph'"
+      :showGraph="showRiskMitigateGraph"
+      :chartDetail="{ type: 'Donut' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
   </div>
+</div>
 </template>
-
 <script>
-import { filterObject } from "../../common/helper.js";
-import simplebar from 'simplebar-vue';
-import 'simplebar/dist/simplebar.min.css';
+import { filterObject, formatRouteUrl } from "../../common/helper.js";
 
 export default {
   name: "HouseDisasterPrepare",
   components: {
-    BarChart: () => import("../components/Chart/BarChart"),
-    DonutChart: () => import("../components/Chart/DonutChart"),
-    Table: () => import("../components/Table/Table"),
-    Loader: () => import("../components/Loader/Loader"),
-    NoData: () => import("../components/NoData/NoData"),
-    simplebar
+    HouseChart: () => import("./HouseChart"),
   },
   data: function () {
     return {
       showEqResistantLoader: false,
       eqResistantData: [],
       showEqResistantGraph: true,
-
       showRiskMitigateLoader: false,
       riskMitigateData: [],
       showRiskMitigateGraph: true,
-
       showVulnerableLoader: false,
       vulnerableData: [],
       showVulnerableGraph: true,
@@ -140,21 +63,12 @@ export default {
     showGraph: function (dataType) {
       this[dataType] = true;
     },
-
     getEQResistantData: function () {
       this.showEqResistantLoader = true;
       const targetUrl = `household/earthquake-resistant`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
@@ -165,21 +79,12 @@ export default {
           this.showEqResistantLoader = false;
         });
     },
-
     getVulnerableData: function () {
       this.showVulnerableLoader = true;
       const targetUrl = `household/vulnerable-types`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
@@ -190,21 +95,12 @@ export default {
           this.showVulnerableLoader = false;
         });
     },
-
     getRiskMitigationData: function () {
       this.showRiskMitigateLoader = true;
       const targetUrl = `household/risk-mitigation`;
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
-      let formattedParams = {};
-      Object.keys(queryParams).map((data) => {
-        if (queryParams[data].length > 0) {
-          formattedParams = {
-            ...formattedParams,
-            [data]: `${queryParams[data].join(",")}`,
-          };
-        }
-      });
+      let formattedParams = formatRouteUrl(queryParams);
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
@@ -238,7 +134,5 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 </style>
-

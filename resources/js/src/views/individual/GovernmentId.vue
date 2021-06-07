@@ -1,15 +1,17 @@
 <template>
+<div><h2>नागरिकतासहितका परिचयपत्र</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showGovIdLoader"
       :data="govIdData"
-      :title="'बच्चालाई खाेपकाे अवस्था'"
+      :title="'नागरिकतासहितका परिचयपत्र'"
       :showGraphText="'showGovIdGraph'"
       :showGraph="showGovIdGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
+  </div>
   </div>
 </template>
 

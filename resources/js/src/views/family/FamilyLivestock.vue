@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h2>पशुधन</h2>
   <div class="chart-wrapper flex">
     <family-chart
       :showLoader="showHasLiveStockLoader"
@@ -115,7 +117,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass="true"
     />
 
     <!-- <family-chart
@@ -129,6 +131,7 @@
       @tableFunction="showTable"
     /> -->
   </div>
+</div>
 </template>
 
 <script>
