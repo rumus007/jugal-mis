@@ -60,17 +60,4 @@ export default {
       }
     }
   }
-  .nav {
-    display: flex;
-    &__item:not(:last-child) {
-        margin-right: 40px;
-    }
-    &__link {
-      color: var(--color-primary-light);
-      transition: all 0.32s ease-in-out;
-      &:hover {
-        color: var(--color-primary-dark);
-      }
-    }
-  }
 </style>

@@ -78,6 +78,9 @@ export default {
           },
           title: {
             text: this.xAxisTitle,
+            style: {
+              color: '#888',
+            }
           },
         },
         yaxis: {
@@ -92,6 +95,9 @@ export default {
           },
           title: {
             text: this.yAxisTitle,
+            style: {
+              color: '#888',
+            }
           },
         },
         tooltip: {

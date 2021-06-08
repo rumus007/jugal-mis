@@ -33,6 +33,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'छानाकाे प्रकार', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -44,6 +45,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'घरकाेे जग', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -62,6 +64,7 @@
       @graphFunction="showGraph"
       @tableFunction="showTable"
       :showFullChartClass="true"
+      :class="'chart-legend'"
     />
     
     <house-chart
@@ -73,6 +76,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'घरसम्म पुग्ने बाटाेकाे प्रकृति', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -95,6 +99,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
 
     <house-chart
@@ -106,6 +111,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
   </div>
 </div>

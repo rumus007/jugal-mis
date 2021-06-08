@@ -31,7 +31,8 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'जातिका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
 
     <individual-chart
@@ -43,7 +44,8 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'मातृभाषाका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
     <individual-chart
       :showLoader="showReligionLoader"
@@ -65,6 +67,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'वैवाहिक अवस्थाका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass= "true"
     />
 
     <!-- <individual-chart
@@ -87,17 +90,19 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass= "true"
     />
 
     <individual-chart
       :showLoader="showDisabilityTypeLoader"
       :data="disabilityTypeData"
-      :title="'अपांगताका types'"
+      :title="'अपांगताका प्रकारहरु'"
       :showGraphText="'showDisabilityTypeGraph'"
       :showGraph="showDisabilityTypeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'अपांगताका types', xAxisTitle: 'जम्मा' }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, yAxisTitle: 'अपांगताका प्रकारहरु', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass= "true"
     />
 
     <individual-chart
@@ -109,6 +114,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'अपांगता परिचयपत्रका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass= "true"
     />
 
 
@@ -132,7 +138,8 @@
      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'विशेष प्राविधिक सीपयुक्त मानवश्राेत', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
     
     <individual-chart
@@ -144,6 +151,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass= "true"
     />
 
     <individual-chart

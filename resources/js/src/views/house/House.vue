@@ -8,7 +8,7 @@
         <tabs :options="{ useUrlFragment: false }" @changed="houseTabChange">
           <tab name="घरकाे अवस्था">
             <!-- <h2>घरकाे अवस्था</h2> -->
-            <house-status v-if="selectedTab === 'घरकाे अवस्था'" />
+          <house-status v-if="selectedTab === 'घरकाे अवस्था'" />
           </tab>
           <tab name="उपयाेग्य बस्तु">
             <!-- <h2>उपयाेग्य बस्तु</h2> -->
@@ -80,6 +80,7 @@ export default {
 
     houseTabChange(selectedTab) {
       this.selectedTab = selectedTab.tab.name;
+      window.scrollTo(0,0);
     },
   },
 };

@@ -10,6 +10,8 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'व्यवसायिक तालिम प्राप्त जनशक्ति प्रकार', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
     <individual-chart
       :showLoader="showTrainingTakenLoader"
@@ -20,6 +22,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass= "true"
     />
   </div>
   </div>

@@ -14,21 +14,10 @@
         @input="scroll('main')"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->
-      <a href="#" class="download-pdf">
-        <svg
-          width="14"
-          height="15"
-          viewBox="0 0 14 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 13.4211H14V15H0V13.4211ZM7.77778 8.82L12.4997 4.02632L13.5994 5.14263L7 11.8421L0.400556 5.14342L1.50033 4.02632L6.22222 8.81842V0H7.77778V8.82Z"
-            fill="#fff"
-          />
-        </svg>
-        डाउनलोड गर्नुहोस्
-      </a>
+      <button class="download-pdf" @click="download">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="none" d="M0 0h24v24H0z"/><path d="M6 19H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-3v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm0-2v-1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h2V9H4v8h2zM8 4v3h8V4H8zm0 13v3h8v-3H8zm-3-7h3v2H5v-2z" fill="rgba(255,255,255,1)"/></svg>
+        प्रिन्ट गर्नुहोस्
+      </button>
     </div>
   </div>
 </template>
@@ -81,6 +70,9 @@ export default {
       } else if (window.scrollY < 194) {
          Tabs.classList.remove('fixed'); 
       }
+    },
+    download(){
+      window.print();
     }
   },
     created () {
@@ -127,12 +119,13 @@ export default {
   }
 
 .download-pdf {
+  background-color: transparent;
   color: var(--color-base);
+  cursor: pointer;
   margin-left: 24px;
   svg {
     float: left;
     margin-right: 8px;
-    margin-top: 5px;
   }
 }
 </style>

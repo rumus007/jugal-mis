@@ -1,59 +1,67 @@
 <template>
 <div>
-  <h2>पशुधन</h2>
+  <h2>पशुपालन</h2>
   <div class="chart-wrapper flex">
     <family-chart
       :showLoader="showHasLiveStockLoader"
       :data="hasLiveStockData"
-      :title="'परिवारहरूसँग पशुधन'"
+      :title="'पशुपालनमा संलग्न परिवारहरु'"
       :showGraphText="'showHasLiveStockGraph'"
       :showGraph="showHasLiveStockGraph"
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
+
     <family-chart
       :showLoader="showLiveStockLoader"
       :data="liveStockData"
-      :title="'परिवारहरूमा पशुधन'"
+      :title="'परिवारले पालेका पशुपन्छीहरु र तिनको सँख्या'"
       :showGraphText="'showLiveStockGraph'"
       :showGraph="showLiveStockGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'परिवारहरूमा पशुधन', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <family-chart
       :showLoader="showMilkProdLoader"
       :data="milkProdData"
-      :title="'संचयी दुध उत्पादन र राजस्व'"
+      :title="'विभिन्न पशुहरुबाट दुधको जम्मा उत्पादन'"
       :showGraphText="'showMilkProdGraph'"
       :showGraph="showMilkProdGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'संचयी दुध उत्पादन र राजस्व', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
+
 
     <family-chart
       :showLoader="showMeatProdLoader"
       :data="meatProdData"
-      :title="'संचयी मांस उत्पादन र आय'"
+      :title="'विभिन्न पशुपन्छीहरुबाट मासुको जम्मा उत्पादन'"
       :showGraphText="'showMeatProdGraph'"
       :showGraph="showMeatProdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'संचयी मांस उत्पादन र आय', xAxisTitle: 'जम्मा' }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, yAxisTitle: 'संचयी मांस उत्पादन र आय', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
+
 
     <family-chart
       :showLoader="showBoneProdLoader"
       :data="boneProdData"
-      :title="'संचयी हड्डीको छाला उत्पादन र आय'"
+      :title="'विभिन्न पशुहरुबाट हडि/छालाको जम्मा उत्पादन'"
       :showGraphText="'showBoneProdGraph'"
       :showGraph="showBoneProdGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false,  xAxisTitle: 'संचयी हड्डीको छाला उत्पादन र आय', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <div class="card chart">
@@ -63,7 +71,7 @@
       <div v-else>
         <div v-if="otherProdData.length === 0"><no-data /></div>
         <div v-else>
-          <h3>अरु उत्पादन</h3>
+          <h3>विभिन्न पशुपन्छीहरुबाट अरु प्रकारको उत्पादन</h3>
           <!-- <Table :data="otherProdData" /> -->
           <div class="stats-livestock">
             <ul class="flex">
@@ -111,7 +119,7 @@
     <family-chart
       :showLoader="showRevenueLoader"
       :data="revenueData"
-      :title="'पशुधन राजस्व'"
+      :title="'विभिन्न पशुहरुबाट जम्मा उत्पादनको कुल आय'"
       :showGraphText="'showRevenueGraph'"
       :showGraph="showRevenueGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false,  xAxisTitle: 'पशुधन राजस्व', yAxisTitle: 'जम्मा' }"

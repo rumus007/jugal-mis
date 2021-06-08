@@ -388,7 +388,7 @@ h2 {
 }
 
 h3 {
-  color: var(--color-primary-dark);
+  color: var(--neutrals-300);
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 24px;
@@ -529,32 +529,26 @@ body {
 .multiselect__select:before {
   border-color: var(--color-base) transparent transparent !important;
 }
-
 .multiselect__tag {
   background: #fff !important;
   color: var(--color-primary-dark) !important;
 }
-
 .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
   background: #fff !important;
 }
 .multiselect__tag-icon:focus:after, .multiselect__tag-icon:hover:after {
   color: var(--color-link) !important;
 }
-
 .multiselect__option--highlight {
   background-color: var(--blue-400) !important;
 }
-
 .multiselect__option--selected.multiselect__option--highlight {
   background: #f3f3f3 !important;
   color: #35495e !important;
 }
-
 .multiselect__element:not(:first-child) {
   border-top: 1px solid #e8e8e8;
 }
-
 .multiselect__placeholder {
   margin-bottom: 8px !important;
   margin-top: -1px;
@@ -570,11 +564,11 @@ body {
 }
 .tabs-component-tabs {
   background-color: var(--color-base);
+  border-right: 1px solid rgba(114, 115, 142, 0.2);
   min-width: 300px;
   width: 300px;
 }
 .tabs-component-panels {
-  border-left: 1px solid rgba(114, 115, 142, 0.2);
   width: calc(100vw - 300px);
   padding: 24px 40px;
 }
@@ -607,13 +601,12 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-
 .tabs.fixed .tabs-component-tabs {
   bottom: 0;
   left: 0;
   position: fixed;
   top: 74px;
-  height: 100%;
+  z-index: 1;
 }
 .tabs.fixed .tabs-component-panels {
   margin-left: 300px;
@@ -625,41 +618,42 @@ body {
 .apexcharts-canvas svg {
   width: 100%;
 }
-
 .apexcharts-toolbar {
   top: -30px !important;
 }
-
-.apexcharts-zoom-icon,
-.apexcharts-reset-icon,
-.apexcharts-menu-icon {
+.apexcharts-zoom-icon, .apexcharts-reset-icon, .apexcharts-menu-icon {
   transform: none !important;
 }
-.apexcharts-zoom-icon svg,
-.apexcharts-reset-icon svg,
-.apexcharts-menu-icon svg {
+.apexcharts-zoom-icon svg, .apexcharts-reset-icon svg, .apexcharts-menu-icon svg {
   fill: var(--blue-400) !important;
   opacity: 0.3;
 }
-.apexcharts-zoom-icon:hover svg,
-.apexcharts-reset-icon:hover svg,
-.apexcharts-menu-icon:hover svg {
+.apexcharts-zoom-icon:hover svg, .apexcharts-reset-icon:hover svg, .apexcharts-menu-icon:hover svg {
   opacity: 1;
 }
-
-.apexcharts-tooltip,
-.apexcharts-tooltip-series-group {
+.apexcharts-tooltip, .apexcharts-tooltip-series-group {
   background-color: var(--color-base) !important;
   border: 1px solid #e3e3e3;
   color: var(--color-primary-dark);
 }
-
 .apexcharts-tooltip-series-group {
   border: 0;
 }
+.apexcharts-legend-text {
+  top: -2px;
+}
+.apexcharts-legend-marker {
+  margin-right: 6px !important;
+}
+.apexcharts-annotations {
+  display: none;
+}
+.apexcharts-xaxis-label, .apexcharts-yaxis-label {
+  fill: #888;
+}
 
 .chart {
-  height: 390px;
+  height: 350px;
   margin-bottom: 40px;
   padding: 24px 24px 18px;
   position: relative;
@@ -677,9 +671,6 @@ body {
 .chart-wrapper {
   flex-wrap: wrap;
   justify-content: space-between;
-}
-.chart button {
-  margin-bottom: 24px;
 }
 .chart-title {
   height: 30px;
@@ -699,6 +690,33 @@ body {
   position: relative;
   padding-bottom: 24px;
   margin-top: 12px;
+}
+.chart-vertical .apexcharts-yaxis-title {
+  transform: translateX(-14px);
+}
+.chart-vertical .apexcharts-xaxis-title {
+  transform: translateY(-12px);
+}
+.chart-vertical .apexcharts-xaxis-texts-g {
+  transform: translate(0, -8px);
+}
+.chart-donut .chart-title {
+  margin-bottom: 10px;
+}
+.chart-donut .apexcharts-toolbar {
+  top: -40px !important;
+}
+.chart-legend .chart-title + div {
+  margin-top: -35px;
+}
+.chart-legend .apexcharts-legend {
+  right: 100px !important;
+}
+.chart-legend .apexcharts-toolbar {
+  top: 4px !important;
+}
+.chart-legend .apexcharts-legend-series {
+  margin-right: 16px !important;
 }
 
 .card-table:after {
@@ -739,15 +757,12 @@ body {
   background-color: white;
 }
 
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
   padding: 8px 8px 8px 0 !important;
 }
-
 .leaflet-popup-content p {
   margin: 7px 0 !important;
 }
-
 .leaflet-container a.leaflet-popup-close-button {
   right: 4px !important;
   top: 4px !important;
@@ -758,18 +773,74 @@ body {
   background-color: var(--blue-200) !important;
   overflow: visible;
 }
-
 .simplebar-track {
   right: 3px !important;
 }
-
 .simplebar-scrollbar:before {
   width: 5px;
   left: -2px !important;
   background: var(--blue-400) !important;
   opacity: 1 !important;
 }
-
 .simplebar-content {
   margin-right: 16px;
+}
+.simplebar-track.simplebar-vertical {
+  width: 1px !important;
+  background-color: var(--blue-200) !important;
+  overflow: visible;
+}
+
+@media print {
+  @page {
+    margin: 20px 0;
+  }
+  body {
+    color: #283947 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .title-bar {
+    background-color: transparent !important;
+    border-top: 1px solid #eee;
+  }
+
+  h1 {
+    color: #283947 !important;
+  }
+
+  .stats {
+    padding-left: 0 !important;
+    padding-right: 0;
+  }
+
+  .nav,
+.tabs-component-tabs,
+.stats:before,
+.ward-options {
+    display: none !important;
+  }
+
+  .stats-section {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .tabs-component-panels {
+    border: 0;
+    width: 100%;
+  }
+
+  .chart-wrapper {
+    display: block;
+  }
+
+  .card {
+    background-color: #fafafa;
+    clear: both;
+    width: 100%;
+    page-break-inside: avoid;
+  }
 }

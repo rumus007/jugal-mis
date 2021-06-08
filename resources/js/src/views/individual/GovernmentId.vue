@@ -10,6 +10,8 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'बच्चालाई खाेपकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
   </div>
   </div>

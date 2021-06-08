@@ -10,6 +10,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass= "true"
     />
     <individual-chart
       :showLoader="showByEducationLoader"
@@ -17,9 +18,10 @@
       :title="'शैैक्षिक तह'"
       :showGraphText="'showByEducationGraph'"
       :showGraph="showByEducationGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'शैैक्षिक तह', xAxisTitle: 'जम्मा' }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, yAxisTitle: 'शैैक्षिक तह', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass= "true"
     />
   </div>
 </div>
