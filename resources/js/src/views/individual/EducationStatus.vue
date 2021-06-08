@@ -17,7 +17,7 @@
       :title="'शैैक्षिक तह'"
       :showGraphText="'showByEducationGraph'"
       :showGraph="showByEducationGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'शैैक्षिक तह', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

@@ -11,14 +11,19 @@
       :chartDetail="{ type: 'Bar', horizontalBar: true }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-    /> -->
+    />-->
     <family-chart
       :showLoader="showMemberCountLoader"
       :data="memberCountData"
       :title="'परिवार संख्या'"
       :showGraphText="'showMemberCountGraph'"
       :showGraph="showMemberCountGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ 
+        type: 'Bar', 
+        horizontalBar: false, 
+        xAxisTitle: 'परिवार संख्या', 
+        yAxisTitle: 'जम्मा' 
+      }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -31,14 +36,14 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-    /> -->
+    />-->
     <family-chart
       :showLoader="showHouseCountLoader"
       :data="houseCountData"
       :title="'परिवारकाे घरकाे संख्या'"
       :showGraphText="'showHouseCountGraph'"
       :showGraph="showHouseCountGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'परिवारकाे घरकाे संख्या', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -48,7 +53,17 @@
       :title="'परिवारकाे आम्दानीकाे मूख्य स्राेत'"
       :showGraphText="'showSrcIncomeGraph'"
       :showGraph="showSrcIncomeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'परिवारकाे आम्दानीकाे मूख्य स्राेत', yAxisTitle: 'जम्मा' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+    <family-chart
+      :showLoader="showSubsistenceIncomeLoader"
+      :data="subsistenceIncomeData"
+      :title="'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ'"
+      :showGraphText="'showSubsistenceIncomeGraph'"
+      :showGraph="showSubsistenceIncomeGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -62,19 +77,11 @@
         type: 'Column',
         columnCategory: avgIncomeExpenseColumnCategory,
         columnTitle: 'औसत आम्दानी',
+        xAxisTitle: 'परिवारकाे औसत आम्दानी', yAxisTitle: 'जम्मा'
       }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-    />
-    <family-chart
-      :showLoader="showSubsistenceIncomeLoader"
-      :data="subsistenceIncomeData"
-      :title="'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ'"
-      :showGraphText="'showSubsistenceIncomeGraph'"
-      :showGraph="showSubsistenceIncomeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
+      :class="'chart-full'"
     />
   </div>
   </div>
@@ -204,9 +211,9 @@ export default {
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {
           this.avgIncomeExpenseData = [
-            { name: "expenditure", data: data?.data?.expediture ?? [] },
-            { name: "income", data: data?.data?.income ?? [] },
-            { name: "saving", data: data?.data?.saving ?? [] },
+            { name: "खर्च", data: data?.data?.expediture ?? [] },
+            { name: "खर्च", data: data?.data?.income ?? [] },
+            { name: "बचत", data: data?.data?.saving ?? [] },
           ];
           this.avgIncomeExpenseColumnCategory = data.data.xAxis;
           this.showAvgIncomeExpenseLoader = false;

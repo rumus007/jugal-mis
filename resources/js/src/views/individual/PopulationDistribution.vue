@@ -7,7 +7,7 @@
       :title="'लिंगका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showGenderGraph'"
       :showGraph="showGenderGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'लिंगका आधारमा जनसंख्याकाे वितरण', xAxisTitle: 'जम्मा'}"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -18,7 +18,7 @@
       :title="'उमेर समूहका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showAgeGroupGraph'"
       :showGraph="showAgeGroupGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'उमेर समूहका आधारमा जनसंख्याकाे वितरण', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -28,9 +28,22 @@
       :title="'जातिका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showEthnicityGraph'"
       :showGraph="showEthnicityGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'जातिका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :class="'chart-full'"
+    />
+
+    <individual-chart
+      :showLoader="showMotherTongueLoader"
+      :data="byMotherTongueData"
+      :title="'मातृभाषाका आधारमा जनसंख्याकाे वितरण'"
+      :showGraphText="'showMotherTongueGraph'"
+      :showGraph="showMotherTongueGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'मातृभाषाका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+      :class="'chart-full'"
     />
     <individual-chart
       :showLoader="showReligionLoader"
@@ -38,17 +51,7 @@
       :title="'धर्मका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showReligionGraph'"
       :showGraph="showReligionGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />
-    <individual-chart
-      :showLoader="showMotherTongueLoader"
-      :data="byMotherTongueData"
-      :title="'मातृभाषाका आधारमा जनसंख्याकाे वितरण'"
-      :showGraphText="'showMotherTongueGraph'"
-      :showGraph="showMotherTongueGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'धर्मका आधारमा जनसंख्याकाे वितरण', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -59,7 +62,7 @@
       :title="'वैवाहिक अवस्थाका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showMaritalStatusGraph'"
       :showGraph="showMaritalStatusGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'वैवाहिक अवस्थाका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -92,7 +95,7 @@
       :title="'अपांगताका types'"
       :showGraphText="'showDisabilityTypeGraph'"
       :showGraph="showDisabilityTypeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'अपांगताका types', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -103,7 +106,19 @@
       :title="'अपांगता परिचयपत्रका आधारमा जनसंख्याकाे वितरण'"
       :showGraphText="'showDisabilityIdGraph'"
       :showGraph="showDisabilityIdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'अपांगता परिचयपत्रका आधारमा जनसंख्याकाे वितरण', yAxisTitle: 'जम्मा' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+    />
+
+
+    <individual-chart
+      :showLoader="showDomicileLoader"
+      :data="byDomicileData"
+      :title="'बसाेबासकाे प्रकृति'"
+      :showGraphText="'showDomicileGraph'"
+      :showGraph="showDomicileGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'बसाेबासकाे प्रकृति', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -114,21 +129,12 @@
       :title="'विशेष प्राविधिक सीपयुक्त मानवश्राेत'"
       :showGraphText="'showTechHumanSrcGraph'"
       :showGraph="showTechHumanSrcGraph"
-     :chartDetail="{ type: 'Bar', horizontalBar: false }"
+     :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'विशेष प्राविधिक सीपयुक्त मानवश्राेत', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :class="'chart-full'"
     />
-
-    <individual-chart
-      :showLoader="showDomicileLoader"
-      :data="byDomicileData"
-      :title="'बसाेबासकाे प्रकृति'"
-      :showGraphText="'showDomicileGraph'"
-      :showGraph="showDomicileGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />
+    
     <individual-chart
       :showLoader="showMobileHolderLoader"
       :data="byMobileHolderData"
@@ -146,7 +152,7 @@
       :title="'माेबाईल फाेन सेवाप्रदायकहरु'"
       :showGraphText="'showMobileTelecomGraph'"
       :showGraph="showMobileTelecomGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'माेबाईल फाेन सेवाप्रदायकहरु', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

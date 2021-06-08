@@ -18,7 +18,7 @@
       :title="'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार'"
       :showGraphText="'showVulnerableGraph'"
       :showGraph="showVulnerableGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

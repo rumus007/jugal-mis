@@ -8,7 +8,7 @@
       :title="'राेजगारीकाे अवस्था'"
       :showGraphText="'showEmploymentStatsGraph'"
       :showGraph="showEmploymentStatsGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'राेजगारीकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -32,7 +32,7 @@
       :title="'वैदेशिक राेजगारीकाे अवस्था'"
       :showGraphText="'foreignEmploymentGraph'"
       :showGraph="foreignEmploymentGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'वैदेशिक राेजगारीकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

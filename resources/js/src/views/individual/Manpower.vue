@@ -7,7 +7,7 @@
       :title="'व्यवसायिक तालिम प्राप्त जनशक्ति प्रकार'"
       :showGraphText="'showManpowerTypeGraph'"
       :showGraph="showManpowerTypeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'व्यवसायिक तालिम प्राप्त जनशक्ति प्रकार', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

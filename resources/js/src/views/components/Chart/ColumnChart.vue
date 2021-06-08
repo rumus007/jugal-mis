@@ -1,29 +1,26 @@
 <template>
   <div>
-    <apexchart
-      type="bar"
-      height="300"
-      :options="chartOptions"
-      :series="series"
-    ></apexchart>
+    <apexchart type="bar" height="300" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
 <script>
 import VueApexCharts from "vue-apexcharts";
-import {englishToNepaliNumber} from "nepali-number"
+import { englishToNepaliNumber } from "nepali-number";
 export default {
   name: "ColumnChart",
   props: {
     data: { type: Array, required: true },
     categoryData: { type: Array, required: true },
+    xAxisTitle: { type: String, required: false },
+    yAxisTitle: { type: String, required: false },
   },
   components: {
     apexchart: VueApexCharts,
   },
   computed: {
     categories() {
-      return this.categoryData
+      return this.categoryData;
     },
     stats() {
       return this.data;
@@ -39,16 +36,31 @@ export default {
           height: 350,
           zoom: false,
         },
-        colors: ['#995BE3', '#46C0B8'],
+        grid: {
+          padding: {
+            left: 0,
+          }
+        },
+        colors: ["#995BE3", "#46C0B8"],
         plotOptions: {
           bar: {
             horizontal: false,
             columnWidth: "55%",
             endingShape: "rounded",
+            dataLabels: {
+              position: "top",
+            },
           },
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
+          style: {
+            colors: ["#666E76"],
+          },
+          offsetY: -25,
+          formatter: function (value) {
+            return englishToNepaliNumber(value);
+          },
         },
         xaxis: {
           categories: [...this.categories],
@@ -58,8 +70,14 @@ export default {
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-                  return englishToNepaliNumber(value) ;
-            }
+              return englishToNepaliNumber(value);
+            },
+          },
+          axisTicks: {
+            show: false,
+          },
+          title: {
+            text: this.xAxisTitle,
           },
         },
         yaxis: {
@@ -69,27 +87,35 @@ export default {
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-                  return englishToNepaliNumber(value) ;
-            }
+              return englishToNepaliNumber(value);
+            },
+          },
+          title: {
+            text: this.yAxisTitle,
           },
         },
         tooltip: {
           enabled: true,
-           x: {
-              show: false,
-              formatter: function (value) {
-                return englishToNepaliNumber(value) ;
-            }
+          x: {
+            show: false,
+            formatter: function (value) {
+              return englishToNepaliNumber(value);
+            },
           },
           y: {
-              formatter: function (value) {
-                return englishToNepaliNumber(value) ;
+            formatter: function (value) {
+              return englishToNepaliNumber(value);
             },
-              title: {
-                  formatter: (seriesName) => '',
-              },
-          }
+            title: {
+              formatter: (seriesName) => "",
+            },
+          },
         },
+        legend: {
+          show: true,
+          position: 'top',
+          horizontalAlign: 'right',
+        }
         // // stroke: {
         // //   show: true,
         // //   width: 2,

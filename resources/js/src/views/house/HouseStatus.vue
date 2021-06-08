@@ -8,7 +8,7 @@
       :title="'वडागत रुपमा घरकाे संख्या'"
       :showGraphText="'showHouseCountGraph'"
       :showGraph="showHouseCountGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'वडागत रुपमा घरकाे संख्या', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -19,7 +19,7 @@
       :title="'घरकाे स्वामित्व'"
       :showGraphText="'showOwnerShipGraph'"
       :showGraph="showOwnerShipGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'घरकाे स्वामित्व', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -30,7 +30,7 @@
       :title="'छानाकाे प्रकार'"
       :showGraphText="'showRoofingGraph'"
       :showGraph="showRoofingGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'छानाकाे प्रकार', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -41,7 +41,7 @@
       :title="'घरकाेे जग'"
       :showGraphText="'showFoundationGraph'"
       :showGraph="showFoundationGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'घरकाेे जग', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -55,7 +55,9 @@
       :chartDetail="{
         type: 'Column',
         columnCategory: roomColumnCategory,
-        columnTitle: 'वार्ड नं'
+        columnTitle: 'वार्ड नं',
+        xAxisTitle:'काेठाकाे संख्या', 
+        yAxisTitle:'जम्मा'
       }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
@@ -68,7 +70,7 @@
       :title="'घरसम्म पुग्ने बाटाेकाे प्रकृति'"
       :showGraphText="'showRoadTypeGraph'"
       :showGraph="showRoadTypeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'घरसम्म पुग्ने बाटाेकाे प्रकृति', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -79,7 +81,7 @@
       :title="'घरसम्म पुुग्ने बाटाेकाे प्रकार'"
       :showGraphText="'showRoadtoHouseGraph'"
       :showGraph="showRoadtoHouseGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'घरसम्म पुुग्ने बाटाेकाे प्रकार', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

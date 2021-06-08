@@ -8,7 +8,7 @@
       :title="'बच्चालाई खाेपकाे अवस्था'"
       :showGraphText="'showVaccineGraph'"
       :showGraph="showVaccineGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'बच्चालाई खाेपकाे अवस्था', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -18,7 +18,7 @@
       :title="'दीर्घराेगबाट पीडित जनसंख्या'"
       :showGraphText="'showProlongDiseaseGraph'"
       :showGraph="showProlongDiseaseGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'दीर्घराेगबाट पीडित जनसंख्या', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -29,7 +29,7 @@
       :title="'राेगबाट पीडित जनसंख्या'"
       :showGraphText="'showCommonDiseaseGraph'"
       :showGraph="showCommonDiseaseGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'राेगबाट पीडित जनसंख्या', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

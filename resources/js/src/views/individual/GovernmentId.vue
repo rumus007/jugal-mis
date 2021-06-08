@@ -7,7 +7,7 @@
       :title="'नागरिकतासहितका परिचयपत्र'"
       :showGraphText="'showGovIdGraph'"
       :showGraph="showGovIdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'बच्चालाई खाेपकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
