@@ -1,4 +1,5 @@
 <template>
+<div><h2>व्यवसायिक तालिम प्राप्त जनशक्ति</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showManpowerTypeLoader"
@@ -20,6 +21,7 @@
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
+  </div>
   </div>
 </template>
 

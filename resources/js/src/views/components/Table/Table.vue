@@ -1,15 +1,35 @@
 <template>
   <div>
-    <table style="width: 100%">
+    <table style="width: 100%" v-if="!isColumn">
       <tr>
         <th>क्र.सं</th>
-        <th>{{ title ? title : 'Category'}}</th>
+        <th>{{ title ? title : "Category" }}</th>
         <th>जम्मा</th>
       </tr>
-      <tr v-for="(tableData, index) in data" :key="tableData.index">
-        <td v-text="getFormattedCount(index + 1 )"></td>
+      <tr v-for="(tableData, index) in data" :key="index">
+        <td v-text="getFormattedCount(index + 1)"></td>
         <td>{{ tableData.category }}</td>
         <td v-text="getFormattedCount(tableData.total)"></td>
+      </tr>
+    </table>
+    <table style="width: 100%" v-else>
+      <tr>
+        <th>क्र.सं</th>
+        <th v-text="title ? title : 'Category'"></th>
+        <th
+          v-for="(colData, index) in data"
+          :key="index"
+          v-text="colData.name"
+        ></th>
+      </tr>
+      <tr v-for="(colData, index) in categoryData" :key="index">
+        <td v-text="getFormattedCount(index + 1)"></td>
+        <td v-text="getFormattedCount(colData)"></td>
+        <td
+          v-for="(realData, indexData) in data"
+          :key="indexData"
+          v-text="getFormattedCount(realData.data[index])"
+        ></td>
       </tr>
     </table>
   </div>
@@ -22,6 +42,8 @@ export default {
   props: {
     data: { type: Array, required: true },
     title: { type: String },
+    isColumn: { type: Boolean },
+    categoryData: { type: Array },
   },
   methods: {
     getFormattedCount(count) {
@@ -58,5 +80,4 @@ td {
   padding: 8px 16px;
   text-align: left;
 }
-
 </style>

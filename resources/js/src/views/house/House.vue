@@ -7,29 +7,29 @@
       <div class="tabs">
         <tabs :options="{ useUrlFragment: false }" @changed="houseTabChange">
           <tab name="घरकाे अवस्था">
-            <h2>घरकाे अवस्था</h2>
+            <!-- <h2>घरकाे अवस्था</h2> -->
             <house-status v-if="selectedTab === 'घरकाे अवस्था'" />
           </tab>
           <tab name="उपयाेग्य बस्तु">
-            <h2>उपयाेग्य बस्तु</h2>
+            <!-- <h2>उपयाेग्य बस्तु</h2> -->
             <house-items v-if="selectedTab === 'उपयाेग्य बस्तु'" />
           </tab>
           <tab name="विपद पूर्वतयारी">
-            <h2>विपद पूर्वतयारी</h2>
+            <!-- <h2>विपद पूर्वतयारी</h2> -->
             <house-disaster-prepare v-if="selectedTab === 'विपद पूर्वतयारी'" />
           </tab>
           <tab name="भाैतिक पूर्वाधारकाे अवस्था">
-            <h2>भाैतिक पूर्वाधारकाे अवस्था</h2>
+            <!-- <h2>भाैतिक पूर्वाधारकाे अवस्था</h2> -->
             <house-facilities
               v-if="selectedTab === 'भाैतिक पूर्वाधारकाे अवस्था'"
             />
           </tab>
           <tab name="शाैचालयकाे अवस्था">
-            <h2>शाैचालयकाे अवस्था</h2>
+            <!-- <h2>शाैचालयकाे अवस्था</h2> -->
             <house-toilet v-if="selectedTab === 'शाैचालयकाे अवस्था'" />
           </tab>
           <tab name="घरकाे फाेहरमैला व्यवस्थापन">
-            <h2>घरकाे फाेहरमैला व्यवस्थापन</h2>
+            <!-- <h2>घरकाे फाेहरमैला व्यवस्थापन</h2> -->
             <house-waste-mgmt
               v-if="selectedTab === 'घरकाे फाेहरमैला व्यवस्थापन'"
             />

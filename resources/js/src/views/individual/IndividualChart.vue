@@ -1,5 +1,8 @@
 <template>
-    <div class="card chart" :class = "{className: className, 'card-table': !showGraph}">
+  <div
+    class="card chart"
+    :class="{ 'chart-full': showFullChartClass, 'card-table': !showGraph }"
+  >
     <div v-if="showLoader" class="loader-wrapper">
       <loader />
     </div>
@@ -20,7 +23,11 @@
                 :class="!showGraph ? 'active' : ''"
               />
             </button>
-            <button v-on:click="changeTableDisplay()" :class="!showGraph ? 'active' : ''" class="table-view">
+            <button
+              v-on:click="changeTableDisplay()"
+              :class="!showGraph ? 'active' : ''"
+              class="table-view"
+            >
               <img src="images/ic_table.svg" alt="" width="16" height="16" />
             </button>
           </div>
@@ -38,8 +45,12 @@
             v-if="chartDetail.type === 'Column'"
           />
         </div>
-         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
-          <Table :data="data" :title="title" />
+        <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
+          <Table
+            :data="data"
+            :title="title"
+            :isColumn="chartDetail.type === 'Column' ? true : false"
+          />
         </simplebar>
       </div>
     </div>
@@ -67,6 +78,7 @@ export default {
     showGraph: { type: Boolean, required: true },
     showGraphText: { type: String, required: true },
     chartDetail: { type: Object, required: true },
+    showFullChartClass: { type: Boolean },
   },
   methods: {
     changeGraphDisplay() {

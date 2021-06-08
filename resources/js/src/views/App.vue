@@ -1,6 +1,7 @@
 <template>
   <div class="main-container">
     <Header></Header>
+    <GlobalLoader :is-visible="this.$store.getters.isLoading"></GlobalLoader>
     <router-view></router-view>
     <Footer></Footer>
   </div>
@@ -11,6 +12,7 @@ export default {
   components: {
     Header: () => import("./shared/Header.vue"),
     Footer: () => import("./shared/Footer.vue"),
+    GlobalLoader : () => import("./components/Loader/GlobalLoader.vue")
   },
   created() {
     // axios.defaults.headers['Access-Control-Allow-Origin'] = `*`

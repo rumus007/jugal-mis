@@ -1,4 +1,5 @@
 <template>
+<div><h2>जनसंख्याकाे वितरण</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showGenderLoader"
@@ -150,6 +151,7 @@
       @tableFunction="showTable"
     />
   </div>
+  </div>
 </template>
 
 <script>
@@ -176,7 +178,7 @@ export default {
 
       showReligionGraph: true,
       byReligionData: [],
-      showHouseListedLoader: false,
+      showReligionLoader: false,
 
       showMotherTongueGraph: true,
       byMotherTongueData: [],

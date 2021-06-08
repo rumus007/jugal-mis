@@ -6,17 +6,17 @@
       <div class="tabs">
         <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange">
           <tab name="परिवारकाे संयाेजन">
-            <h2>परिवारकाे संयाेजन</h2>
+            <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारकाे संयाेजन</h2> -->
             <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
           </tab>
           <tab name="परिवारले कृषि कार्यका लागि जग्गा प्रयोग">
-            <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
+            <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2> -->
             <family-agriculture
               v-if="selectedTab === 'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
             />
           </tab>
           <tab name="पशुधन">
-            <h2>पशुधन</h2>
+            <!-- <h2  v-if="!this.$store.getters.isLoading">पशुधन</h2> -->
             <family-livestock v-if="selectedTab === 'पशुधन'" />
           </tab>
         </tabs>
@@ -48,6 +48,7 @@ export default {
   methods: {
     familyTabChange(selectedTab) {
       this.selectedTab = selectedTab.tab.name;
+      this.$store.commit("changeLoader", true);
     },
   },
 };

@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h2>सेवा तथा सुविधाहरुकाे प्रयाेगकाे अवस्था</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showVaccineLoder"
@@ -42,6 +44,7 @@
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
+  </div>
   </div>
 </template>
 

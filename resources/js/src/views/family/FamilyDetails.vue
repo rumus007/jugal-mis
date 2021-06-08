@@ -1,4 +1,6 @@
-<template>
+<template>            
+<div>
+  <h2>परिवारकाे संयाेजन</h2>
   <div class="chart-wrapper flex">
     <!-- <family-chart
       :showLoader="showHouseCountLoader"
@@ -59,6 +61,7 @@
       :chartDetail="{
         type: 'Column',
         columnCategory: avgIncomeExpenseColumnCategory,
+        columnTitle: 'औसत आम्दानी',
       }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
@@ -73,6 +76,7 @@
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
+  </div>
   </div>
 </template>
 
@@ -100,7 +104,7 @@ export default {
 
       showSrcIncomeGraph: true,
       srcIncomeData: [],
-      showHouseListedLoader: false,
+      showSrcIncomeLoader: false,
 
       showAvgIncomeExpenseSavingGraph: true,
       avgIncomeExpenseData: [],

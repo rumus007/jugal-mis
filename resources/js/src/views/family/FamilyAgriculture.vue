@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
   <div class="chart-wrapper flex">
     <family-chart
       :showLoader="showLandInAgriLoader"
@@ -43,6 +45,7 @@
       @tableFunction="showTable"
     />
   </div>
+</div>
 </template>
 
 <script>

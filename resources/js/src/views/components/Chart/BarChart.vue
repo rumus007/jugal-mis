@@ -11,12 +11,12 @@
 
 <script>
 import VueApexCharts from "vue-apexcharts";
-import {englishToNepaliNumber} from "nepali-number";
+import { englishToNepaliNumber } from "nepali-number";
 export default {
   name: "BarChart",
   props: {
     data: { type: Array, required: true },
-    horizontalBar : {type: Boolean, required: true}
+    horizontalBar: { type: Boolean, required: true },
     // options: { type: Object, required: true },
   },
   components: {
@@ -24,8 +24,11 @@ export default {
   },
   computed: {
     categories() {
-      return this.data.map((barChartData) => barChartData.category);
-      // return this.data.map((barChartData) => barChartData.category.split(' ').length > 1 ? barChartData.category.split(' ') : barChartData.category);
+      // return this.data.map((barChartData) => barChartData.category);
+      return this.data.map((barChartData) => {
+        let categoryData = barChartData.category.split(" ");
+        return categoryData.length > 1 ? categoryData : barChartData.category;
+      });
     },
     stats() {
       return this.data.map((barChartData) => barChartData.total);
@@ -45,9 +48,9 @@ export default {
         },
         colors: "#028EFF",
         plotOptions: {
-            bar: {
-                horizontal: this.horizontalBar,
-            }
+          bar: {
+            horizontal: this.horizontalBar,
+          },
         },
         dataLabels: {
           enabled: false,
@@ -55,13 +58,25 @@ export default {
         xaxis: {
           categories: [...this.categories],
           labels: {
+            show: true,
+            rotate: 0,
+            trim: true,
+            maxHeight: 59,
             style: {
               fontSize: "12px",
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-                return englishToNepaliNumber(value) ;
-            }
+              // let formattedMultiline =
+              //   typeof value === "object" ? [...value] : value;
+              // if (typeof value === "object" && value.length > 3) {
+              //   formattedMultiline[2] = value[2] + "...";
+              // }
+              if (typeof value === "number") {
+                return englishToNepaliNumber(value);
+              }
+              return value;
+            },
           },
           axisTicks: {
             show: false,
@@ -74,8 +89,11 @@ export default {
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-                  return englishToNepaliNumber(value) ;
-            }
+              if (typeof value === "number") {
+                return englishToNepaliNumber(value);
+              }
+              return value;
+            },
           },
         },
         //  todo add local check
@@ -89,7 +107,7 @@ export default {
           },
           y: {
             formatter: function (value) {
-              return englishToNepaliNumber(value)
+              return englishToNepaliNumber(value);
             },
             title: {
               formatter: (seriesName) => "",

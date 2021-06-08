@@ -1,4 +1,5 @@
 <template>
+<div><h2>शैक्षिक स्थिति</h2>
   <div class="chart-wrapper flex">
     <individual-chart
       :showLoader="showEducationStatusLoader"
@@ -21,6 +22,7 @@
       @tableFunction="showTable"
     />
   </div>
+</div>
 </template>
 
 <script>
