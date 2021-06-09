@@ -18,7 +18,7 @@
       :title="'कृषिमा प्रयोग भइरहेको भूमि'"
       :showGraphText="'showAgriLandTitleGraph'"
       :showGraph="showAgriLandTitleGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'कृषिमा प्रयोग भइरहेको भूमि', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -40,9 +40,10 @@
       :title="'कृषि उत्पादनहरूको बिक्रीको प्रकृति'"
       :showGraphText="'showAgriProdGraph'"
       :showGraph="showAgriProdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'कृषि उत्पादनहरूको बिक्रीको प्रकृति', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :class="'chart-full'"
     />
   </div>
 </div>

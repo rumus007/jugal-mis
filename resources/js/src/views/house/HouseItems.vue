@@ -8,7 +8,7 @@
       :title="'परिवारका लागि खानेपानीकाे स्राेत'"
       :showGraphText="'showDrinkWaterSrcGraph'"
       :showGraph="showDrinkWaterSrcGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'परिवारका लागि खानेपानीकाे स्राेत', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -19,7 +19,7 @@
       :title="'खाना पकाउने मुख्य इन्धन'"
       :showGraphText="'showCookFuelGraph'"
       :showGraph="showCookFuelGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'खाना पकाउने मुख्य इन्धन', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -30,7 +30,7 @@
       :title="'विद्युतकाे प्रमुख इन्धन'"
       :showGraphText="'showElectricitySrcGraph'"
       :showGraph="showElectricitySrcGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle:'विद्युतकाे प्रमुख इन्धन', xAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -41,7 +41,7 @@
       :title="'बैकल्पिक इन्धनकाे प्रयाेग'"
       :showGraphText="'showAlternativeSrcGraph'"
       :showGraph="showAlternativeSrcGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'बैकल्पिक इन्धनकाे प्रयाेग', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -52,7 +52,7 @@
       :title="'आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय'"
       :showGraphText="'showTimeForHealthCareGraph'"
       :showGraph="showTimeForHealthCareGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -63,7 +63,7 @@
       :title="'खानेपानी लिनका लागि जाँदा लाग्ने समय'"
       :showGraphText="'showTimeForWaterFetchGraph'"
       :showGraph="showTimeForWaterFetchGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'खानेपानी लिनका लागि जाँदा लाग्ने समय', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -74,7 +74,7 @@
       :title="'शिशुकाे जन्म भएकाे स्थान'"
       :showGraphText="'showNewBornLocationGraph'"
       :showGraph="showNewBornLocationGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle:'शिशुकाे जन्म भएकाे स्थान', xAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

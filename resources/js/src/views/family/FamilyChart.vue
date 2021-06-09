@@ -34,12 +34,16 @@
         </div>
         <div v-if="showGraph">
           <BarChart
+            :xAxisTitle="chartDetail.xAxisTitle"
+            :yAxisTitle="chartDetail.yAxisTitle"
             :data="data"
             :horizontalBar="chartDetail.horizontalBar"
             v-if="chartDetail.type === 'Bar'"
           />
           <DonutChart :data="data" v-if="chartDetail.type === 'Donut'" />
           <ColumnChart
+            :xAxisTitle="chartDetail.xAxisTitle"
+            :yAxisTitle="chartDetail.yAxisTitle"
             :data="data"
             :categoryData="chartDetail.columnCategory"
             v-if="chartDetail.type === 'Column'"

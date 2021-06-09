@@ -18,7 +18,7 @@
       :title="'परिवारहरूमा पशुधन'"
       :showGraphText="'showLiveStockGraph'"
       :showGraph="showLiveStockGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'परिवारहरूमा पशुधन', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -29,7 +29,7 @@
       :title="'संचयी दुध उत्पादन र राजस्व'"
       :showGraphText="'showMilkProdGraph'"
       :showGraph="showMilkProdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'संचयी दुध उत्पादन र राजस्व', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -40,7 +40,7 @@
       :title="'संचयी मांस उत्पादन र आय'"
       :showGraphText="'showMeatProdGraph'"
       :showGraph="showMeatProdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'संचयी मांस उत्पादन र आय', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -51,7 +51,7 @@
       :title="'संचयी हड्डीको छाला उत्पादन र आय'"
       :showGraphText="'showBoneProdGraph'"
       :showGraph="showBoneProdGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false,  xAxisTitle: 'संचयी हड्डीको छाला उत्पादन र आय', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -114,7 +114,7 @@
       :title="'पशुधन राजस्व'"
       :showGraphText="'showRevenueGraph'"
       :showGraph="showRevenueGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false,  xAxisTitle: 'पशुधन राजस्व', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
       :showFullChartClass="true"

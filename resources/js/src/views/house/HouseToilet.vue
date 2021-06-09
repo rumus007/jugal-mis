@@ -19,7 +19,7 @@
       :title="'शाैचालयकाे प्रकार'"
       :showGraphText="'showToiletTypeGraph'"
       :showGraph="showToiletTypeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'शाैचालयकाे प्रकार', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />

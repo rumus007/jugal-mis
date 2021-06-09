@@ -1,19 +1,19 @@
 <template>
-<div>
-  <h2>घरकाे फाेहरमैला व्यवस्थापन</h2>
-  <div class="chart-wrapper flex">
-    <house-chart
-      :showLoader="showWateMgmtLoader"
-      :data="wasteMgmtData"
-      :title="'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन'"
-      :showGraphText="'showWasteMgmtGraph'"
-      :showGraph="showWasteMgmtGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />
+  <div>
+    <h2>घरकाे फाेहरमैला व्यवस्थापन</h2>
+    <div class="chart-wrapper flex">
+      <house-chart
+        :showLoader="showWateMgmtLoader"
+        :data="wasteMgmtData"
+        :title="'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन'"
+        :showGraphText="'showWasteMgmtGraph'"
+        :showGraph="showWasteMgmtGraph"
+        :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन', yAxisTitle:'जम्मा' }"
+        @graphFunction="showGraph"
+        @tableFunction="showTable"
+      />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
       let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
-      
+
       axios
         .get(targetUrl, { params: formattedParams })
         .then(({ data }) => {

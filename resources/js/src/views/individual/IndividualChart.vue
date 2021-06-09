@@ -7,21 +7,15 @@
       <loader />
     </div>
     <div v-else>
-      <div v-if="data.length === 0"><no-data /></div>
+      <div v-if="data.length === 0">
+        <no-data />
+      </div>
       <div v-else>
         <div class="chart-title flex">
           <h3>{{ title }}</h3>
           <div class="view-icons">
-            <button
-              v-on:click="changeGraphDisplay()"
-              :class="showGraph ? 'active' : ''"
-            >
-              <img
-                src="images/ic_graph.svg"
-                alt=""
-                width="16"
-                :class="!showGraph ? 'active' : ''"
-              />
+            <button v-on:click="changeGraphDisplay()" :class="showGraph ? 'active' : ''">
+              <img src="images/ic_graph.svg" alt width="16" :class="!showGraph ? 'active' : ''" />
             </button>
             <button
               v-on:click="changeTableDisplay()"
@@ -34,6 +28,8 @@
         </div>
         <div v-if="showGraph">
           <BarChart
+            :xAxisTitle="chartDetail.xAxisTitle"
+            :yAxisTitle="chartDetail.yAxisTitle"
             :data="data"
             :horizontalBar="chartDetail.horizontalBar"
             v-if="chartDetail.type === 'Bar'"

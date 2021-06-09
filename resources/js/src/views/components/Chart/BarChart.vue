@@ -1,8 +1,8 @@
 <template>
   <div>
     <apexchart
-      width="450"
       type="bar"
+      height="300"
       :options="chartOptions"
       :series="series"
     ></apexchart>
@@ -16,7 +16,9 @@ export default {
   name: "BarChart",
   props: {
     data: { type: Array, required: true },
-    horizontalBar: { type: Boolean, required: true },
+    horizontalBar : {type: Boolean, required: true},
+    xAxisTitle: {type: String, required: false},
+    yAxisTitle: {type: String, required: false}
     // options: { type: Object, required: true },
   },
   components: {
@@ -46,14 +48,33 @@ export default {
         chart: {
           type: "bar",
         },
+        grid: {
+          padding: {
+            right: 0,
+            bottom: 0,
+            left: 0,
+          }
+        },
         colors: "#028EFF",
         plotOptions: {
-          bar: {
-            horizontal: this.horizontalBar,
-          },
+            bar: {
+                horizontal: this.horizontalBar,
+                dataLabels: {
+                position: 'top'
+              }
+            }
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
+          style: {
+            colors: ['#666E76']
+          },
+          offsetY: (this.horizontalBar ? 0 : -25),
+          offsetX: (this.horizontalBar ? 25 : 0),
+          textAnchor: (this.horizontalBar ? 'start' : 'middle'),
+          formatter: function (value) {
+             return englishToNepaliNumber(value) ;
+          }
         },
         xaxis: {
           categories: [...this.categories],
@@ -81,6 +102,11 @@ export default {
           axisTicks: {
             show: false,
           },
+          title: {
+            text: this.xAxisTitle,
+            offsetX: 0,
+            offsetY: 0
+          }
         },
         yaxis: {
           labels: {
@@ -95,6 +121,11 @@ export default {
               return value;
             },
           },
+          title: {
+            text: this.yAxisTitle,
+            offsetX: 0,
+            offsetY: 0
+          }
         },
         //  todo add local check
         tooltip: {

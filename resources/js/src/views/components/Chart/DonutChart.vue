@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart width="360" :options="chartOptions" :series="series"></apexchart>
+    <apexchart height="300" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
       return this.data.map((pieChartData) => pieChartData.total);
     },
     series() {
+      // console.log([...this.stats])
       return [...this.stats];
     },
 
@@ -33,14 +34,20 @@ export default {
           type: "donut",
           toolbar: {
             show: true,
-          }
+          },
         },
         labels: [...this.categories],
         dataLabels: {
-          enabled: false,
+          enabled: true,
           style: {
-            fontSize: "12px",
-            fontFamily: "Mukta, sans-serif",
+            // colors: ["#666E76"],
+          },
+          formatter: function (value, { seriesIndex, w }) {
+            // this return percentage if you need it
+            // let newVal = Math.round(value * 100) / 100 + '%';
+            // return englishToNepaliNumber(newVal);
+
+            return englishToNepaliNumber(w.config.series[seriesIndex]);
           },
         },
         fill: {
@@ -62,8 +69,8 @@ export default {
         },
         tooltip: {
           enabled: true,
-           marker: {
-              show: true
+          marker: {
+            show: true,
           },
           x: {
             show: false,
