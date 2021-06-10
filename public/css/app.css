@@ -4,7 +4,7 @@
   --color-primary-dark: var(--neutrals-700);
   --color-primary-light: var(--neutrals-100);
   --color-secondary-light: var(--blue-100);
-  --color-link: var(--orange-400);
+  --color-link: var(--blue-400);
   --color-btn: var(--orange-400);
   --neutrals-0: #FFFFFF;
   --neutrals-10: ##D9DBDD;
@@ -567,9 +567,9 @@ body {
   width: 300px;
 }
 .tabs-component-panels {
+  border-left: 1px solid rgba(114, 115, 142, 0.2);
   width: calc(100vw - 300px);
   padding: 24px 40px;
-  border-left: 1px solid rgba(114, 115, 142, 0.2);
 }
 .tabs-component-panels h2 {
   font-weight: 700;
