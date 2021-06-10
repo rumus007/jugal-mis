@@ -5,22 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Household;
 
 use App\Http\Controllers\Controller;
-use App\Models\Household\HouseholdAgriProduct;
-use App\Models\Household\HouseholdBirthplace;
-use App\Models\Household\HouseholdDisastor;
-use App\Models\Household\HouseholdFacilities;
-use App\Models\Household\HouseholdFishBeeSilkworm;
-use App\Models\Household\HouseholdHome;
-use App\Models\Household\HouseholdIncomeSrc;
-use App\Models\Household\HouseholdLandTitle;
-use App\Models\Household\HouseholdLivestock;
-use App\Models\Household\HouseholdVaccine;
-use App\Models\Household\HouseholdWasteMgmt;
-use App\Models\Household\HouseholdWaterDistance;
-use App\Models\Individual\Individual;
 use App\Services\Household\HouseholdService;
 use App\Services\Individual\IndividualService;
 use Illuminate\Http\Request;
+
 
 /**
  * Class HouseholdController
@@ -80,8 +68,8 @@ class HouseholdController extends Controller
     public function getHouseOwnershipData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getHouseOwnershipData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getHouseOwnershipData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -103,8 +91,8 @@ class HouseholdController extends Controller
     public function getRoofingData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getRoofingData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getRoofingData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -126,8 +114,8 @@ class HouseholdController extends Controller
     public function getFoundationData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getFoundationData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getFoundationData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -149,8 +137,8 @@ class HouseholdController extends Controller
     public function getHouseNumberData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getHouseNumberData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getHouseNumberData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -172,8 +160,8 @@ class HouseholdController extends Controller
     public function getRoadToHouseData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getRoadToHouseData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getRoadToHouseData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -195,8 +183,8 @@ class HouseholdController extends Controller
     public function getRoadTypeData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getRoadTypeData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getRoadTypeData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -218,8 +206,8 @@ class HouseholdController extends Controller
     public function getHouseCount(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getHouseCount($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getHouseCount($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -241,8 +229,8 @@ class HouseholdController extends Controller
     public function getRoomData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getRoomData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getRoomData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -265,8 +253,8 @@ class HouseholdController extends Controller
     public function getHouseListedData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -288,8 +276,8 @@ class HouseholdController extends Controller
     public function getWaterSourceData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getWaterSourceData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getWaterSourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -311,8 +299,8 @@ class HouseholdController extends Controller
     public function getFuelSourceData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getFuelSourceData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getFuelSourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -334,8 +322,8 @@ class HouseholdController extends Controller
     public function getElectricitySourceData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getElectricitySourceData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getElectricitySourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -357,8 +345,8 @@ class HouseholdController extends Controller
     public function getAlternateEnergyData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getAlternateEnergyData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getAlternateEnergyData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -380,8 +368,8 @@ class HouseholdController extends Controller
     public function getDistanceHealthData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getDistanceHealthData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getDistanceHealthData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -403,8 +391,8 @@ class HouseholdController extends Controller
     public function getEarthquakeResistantData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getEarthquakeResistantData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getEarthquakeResistantData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -426,8 +414,8 @@ class HouseholdController extends Controller
     public function getRiskMitigationData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getRiskMitigationData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getRiskMitigationData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -449,8 +437,8 @@ class HouseholdController extends Controller
     public function getToiletTypeData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getToiletTypeData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getToiletTypeData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -472,8 +460,8 @@ class HouseholdController extends Controller
     public function getToiletData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getToiletData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getToiletData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -495,8 +483,8 @@ class HouseholdController extends Controller
     public function getDistanceWaterData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getDistanceWaterData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getDistanceWaterData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -518,8 +506,8 @@ class HouseholdController extends Controller
     public function getBirthplaceData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getBirthplaceData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getBirthplaceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -541,8 +529,8 @@ class HouseholdController extends Controller
     public function getVulnerabilityData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getVulnerabilityData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getVulnerabilityData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -564,8 +552,8 @@ class HouseholdController extends Controller
     public function getFacilitiesData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getFacilitiesData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getFacilitiesData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -587,8 +575,8 @@ class HouseholdController extends Controller
     public function getWasteMgmtData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getWasteMgmtData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getWasteMgmtData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -597,55 +585,5 @@ class HouseholdController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
-    }
-
-    public function test(Request $request)
-    {
-        $data = [];
-        $type = $request->type;
-
-
-        switch ($type) {
-            case 'agri':
-                dd(HouseholdAgriProduct::count());
-                break;
-            case 'facility':
-                dd(HouseholdFacilities::count());
-                break;
-            case 'waste':
-                dd(HouseholdWasteMgmt::count());
-                break;
-            case 'birthplace':
-                dd(HouseholdBirthplace::count());
-                break;
-            case 'disastor':
-                dd(HouseholdDisastor::count());
-                break;
-            case 'water':
-                dd(HouseholdWaterDistance::count());
-                break;
-            case 'income':
-                dd(HouseholdIncomeSrc::count());
-                break;
-            case 'land':
-                dd(HouseholdLandTitle::count());
-                break;
-            case 'livestock':
-                dd(HouseholdLivestock::count());
-                break;
-            case 'bee':
-                dd(HouseholdFishBeeSilkworm::count());
-                break;
-            case 'family':
-                dd(Individual::count());
-                break;
-            case 'rooms':
-                dd(HouseholdHome::count());
-                break;
-            case 'vax':
-                dd(HouseholdVaccine::count());
-                break;
-        }
-        dd('here');
     }
 }

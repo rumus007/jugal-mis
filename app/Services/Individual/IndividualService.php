@@ -433,7 +433,7 @@ class IndividualService
             "16-50" => 0,
             "50+" => 0,
         ];
-
+        
         $select_attr = [
             DB::raw('sum(case when cast(individual.age as FLOAT) >= 0 and cast(individual.age as FLOAT) <= 5 then 1 else 0 end) as infant'),
             DB::raw('sum(case when cast(individual.age as FLOAT) >= 6 and cast(individual.age as FLOAT) <= 16 then 1 else 0 end) as children'),
@@ -450,6 +450,7 @@ class IndividualService
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
+        //#endregion
 
         $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
 

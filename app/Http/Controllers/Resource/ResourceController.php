@@ -33,8 +33,8 @@ class ResourceController extends Controller
     public function getResourceStats(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
-            return response()->json($this->resourceService->getResourceStats($ward));
+            $params = $request->all();
+            return response()->json($this->resourceService->getResourceStats($params));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -56,9 +56,8 @@ class ResourceController extends Controller
     public function getResourceMapData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',',$request->ward) : [];
-            $resource_type_id = $request->resource_type_id ? explode(',',$request->resource_type_id) : [];
-            return response()->json($this->resourceService->getResourceMapData($resource_type_id, $ward));
+            $params = $request->all();
+            return response()->json($this->resourceService->getResourceMapData($params));
         } catch (\Exception $e) {
             logger()->error($e);
 

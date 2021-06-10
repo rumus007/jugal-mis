@@ -66,8 +66,8 @@ class FamilyController extends Controller
     public function getHouseCount(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            $response = prepareResponseFormat($this->householdService->getHouseholdHouseCount($ward));
+            $params = $request->all();
+            $response = prepareResponseFormat($this->householdService->getHouseholdHouseCount($params));
             return response()->json($response);
         } catch (\Exception $e) {
             logger()->error($e);
@@ -262,8 +262,8 @@ class FamilyController extends Controller
     public function getIncomeSubsistence(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getIncomeSubsistence($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getIncomeSubsistence($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -285,8 +285,8 @@ class FamilyController extends Controller
     public function getAgriLandData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getAgriLandData($ward)));
+            $params = $request->all();
+            return response()->json(prepareResponseFormat($this->householdService->getAgriLandData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -308,8 +308,7 @@ class FamilyController extends Controller
     public function getBankingData(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getBankingData($ward)));
+            return response()->json(prepareResponseFormat($this->householdService->getBankingData($request->all())));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -331,8 +330,7 @@ class FamilyController extends Controller
     public function getLivestocks(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getLivestocks($ward)));
+            return response()->json(prepareResponseFormat($this->householdService->getLivestocks($request->all())));
         } catch (\Exception $e) {
             logger()->error($e);
 
@@ -354,8 +352,7 @@ class FamilyController extends Controller
     public function getFishBeeSilk(Request $request)
     {
         try {
-            $ward = $request->ward ? explode(',', $request->ward) : [];
-            return response()->json(prepareResponseFormat($this->householdService->getFishBeeSilk($ward)));
+            return response()->json(prepareResponseFormat($this->householdService->getFishBeeSilk($request->all())));
         } catch (\Exception $e) {
             logger()->error($e);
 

@@ -85,74 +85,74 @@ class HouseholdService
     /**
      * Return data for household ownership
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseOwnershipData($ward = []): array
+    public function getHouseOwnershipData($params): array
     {
-        return $this->countBySingleColumnHousehold('house_ownership', $ward);
+        return $this->countBySingleColumnHousehold('house_ownership', $params);
     }
 
     /**
      * Return data for household roofing
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getRoofingData($ward = []): array
+    public function getRoofingData($params): array
     {
-        return $this->countBySingleColumnHousehold('roofing', $ward);
+        return $this->countBySingleColumnHousehold('roofing', $params);
     }
 
     /**
      * Return data for household foundation
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getFoundationData($ward = []): array
+    public function getFoundationData($params): array
     {
-        return $this->countBySingleColumnHousehold('foundation', $ward);
+        return $this->countBySingleColumnHousehold('foundation', $params);
     }
 
     /**
      * Return data for house number
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseNumberData($ward = []): array
+    public function getHouseNumberData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('has_house_number', $ward);
+        $data = $this->countBySingleColumnHousehold('has_house_number', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for road type to household data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getRoadToHouseData($ward = []): array
+    public function getRoadToHouseData($params): array
     {
-        return $this->countBySingleColumnHousehold('type_of_access_to_road', $ward);
+        return $this->countBySingleColumnHousehold('type_of_access_to_road', $params);
     }
 
     /**
      * Return data for road type data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getRoadTypeData($ward = []): array
+    public function getRoadTypeData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('type_of_road', $ward);
+        $data = $this->countBySingleColumnHousehold('type_of_road', $params);
         return nullDataFormat($data);
     }
 
@@ -160,25 +160,26 @@ class HouseholdService
     /**
      * Return data for ward wise houses
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseCount($ward = []): array
+    public function getHouseCount($params): array
     {
-        return $this->countBySingleColumnHome('ward', $ward);
+        return $this->countBySingleColumnHome('ward', $params);
     }
 
 
     /**
      * Return data for ward wise room data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getRoomData($ward = []): array
+    public function getRoomData($params): array
     {
+        $ward = isset($params['ward']) ? explode(',', $params['ward']) : [];
         $select_attr = ['ward', DB::raw('SUM(cast(no_of_rooms as INT)) as total_rooms, SUM(cast(no_of_rented_rooms as INT)) as rented_rooms')];
         $where_in_attr = [];
         $where_attr    = [];
@@ -205,130 +206,130 @@ class HouseholdService
     /**
      * Return data for house listed (naksa pass)
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseListedData($ward = []): array
+    public function getHouseListedData($params): array
     {
-        $data = $this->countBySingleColumnHome('naksa_pass', $ward);
+        $data = $this->countBySingleColumnHome('naksa_pass', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for water source
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getWaterSourceData($ward = []): array
+    public function getWaterSourceData($params): array
     {
-        return $this->countBySingleColumnHousehold('drinking_water', $ward);
+        return $this->countBySingleColumnHousehold('drinking_water', $params);
     }
 
     /**
      * Return data for main cooking fuel source
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getFuelSourceData($ward = []): array
+    public function getFuelSourceData($params): array
     {
-        return $this->countBySingleColumnHousehold('cooking_fuel', $ward);
+        return $this->countBySingleColumnHousehold('cooking_fuel', $params);
     }
 
     /**
      * Return data for main electricity source
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getElectricitySourceData($ward = []): array
+    public function getElectricitySourceData($params): array
     {
-        return $this->countBySingleColumnHousehold('main_electricity_source', $ward);
+        return $this->countBySingleColumnHousehold('main_electricity_source', $params);
     }
 
     /**
      * Return data for distance basic healthcare
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getDistanceHealthData($ward = []): array
+    public function getDistanceHealthData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('distance_to_basic_healthcare', $ward);
+        $data = $this->countBySingleColumnHousehold('distance_to_basic_healthcare', $params);
         return nullDataFormat($data);
     }
 
     /**
      * Return data for alternate energy source
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getAlternateEnergyData($ward = []): array
+    public function getAlternateEnergyData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('alternative_electricity_source', $ward);
+        $data = $this->countBySingleColumnHousehold('alternative_electricity_source', $params);
         return nullDataFormat($data);
     }
 
     /**
      * Return data for earthquake resistant
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getEarthquakeResistantData($ward = []): array
+    public function getEarthquakeResistantData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('is_earthquake_resistant', $ward);
+        $data = $this->countBySingleColumnHousehold('is_earthquake_resistant', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for risk mitigation
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getRiskMitigationData($ward = []): array
+    public function getRiskMitigationData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('has_risk_mitigation_plans', $ward);
+        $data = $this->countBySingleColumnHousehold('has_risk_mitigation_plans', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for toilet type
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getToiletTypeData($ward = []): array
+    public function getToiletTypeData($params): array
     {
-        return $this->countBySingleColumnHousehold('toilet_facility', $ward);
+        return $this->countBySingleColumnHousehold('toilet_facility', $params);
     }
 
     /**
      * Return data for toilet availability
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getToiletData($ward = []): array
+    public function getToiletData($params): array
     {
         $tmp = [
             'छ' => 0,
             'छैन' => 0
         ];
-        $data = $this->countBySingleColumnHousehold('toilet_facility', $ward);
+        $data = $this->countBySingleColumnHousehold('toilet_facility', $params);
 
         foreach ($data as $v) {
             if ($v['category'] == "शौचालय नभएको") {
@@ -351,16 +352,17 @@ class HouseholdService
     /**
      * Return data water distance data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getDistanceWaterData($ward = []): array
+    public function getDistanceWaterData($params): array
     {
-        $select_attr = ['water_distance.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['water_distance.name_np'];
+        $select_attr    = ['water_distance.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['water_distance.name_np'];
+        $ward           = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -372,16 +374,17 @@ class HouseholdService
     /**
      * Return data birthplace
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getBirthplaceData($ward = []): array
+    public function getBirthplaceData($params): array
     {
-        $select_attr = ['birthplace.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['birthplace.name_np'];
+        $select_attr    = ['birthplace.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['birthplace.name_np'];
+        $ward           = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -393,16 +396,17 @@ class HouseholdService
     /**
      * Return data for househol vulnerabilities
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getVulnerabilityData($ward = []): array
+    public function getVulnerabilityData($params): array
     {
-        $select_attr = ['disastor.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['disastor.name_np'];
+        $select_attr    = ['disastor.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['disastor.name_np'];
+        $ward           = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -414,16 +418,17 @@ class HouseholdService
     /**
      * Return data for household facilities
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getFacilitiesData($ward = []): array
+    public function getFacilitiesData($params): array
     {
-        $select_attr = ['facilities.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['facilities.name_np'];
+        $select_attr    = ['facilities.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['facilities.name_np'];
+        $ward           = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -435,16 +440,17 @@ class HouseholdService
     /**
      * Return data for household waste mgmt data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getWasteMgmtData($ward = []): array
+    public function getWasteMgmtData($params): array
     {
-        $select_attr = ['waste_mgmt.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['waste_mgmt.name_np'];
+        $select_attr    = ['waste_mgmt.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['waste_mgmt.name_np'];
+        $ward           = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -462,10 +468,10 @@ class HouseholdService
      */
     public function getIncomeSource($params): array
     {
-        $select_attr = ['income_src.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['income_src.name_np'];
+        $select_attr    = ['income_src.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['income_src.name_np'];
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = explode(',', $params['ward']);
@@ -484,10 +490,10 @@ class HouseholdService
      */
     public function getAgriLandTitleData($params): array
     {
-        $select_attr = ['land_title.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['land_title.name_np'];
+        $select_attr    = ['land_title.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['land_title.name_np'];
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = explode(',', $params['ward']);
@@ -506,10 +512,10 @@ class HouseholdService
      */
     public function getAgriProducts($params): array
     {
-        $select_attr = ['agri_product.name as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['agri_product.name'];
+        $select_attr    = ['agri_product.name as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['agri_product.name'];
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = explode(',', $params['ward']);
@@ -529,10 +535,10 @@ class HouseholdService
      */
     public function getLivestockData($params): array
     {
-        $select_attr = ['livestock.name_np as category', DB::raw('count(*) as total')];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['livestock.name_np'];
+        $select_attr    = ['livestock.name_np as category', DB::raw('count(*) as total')];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['livestock.name_np'];
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = explode(',', $params['ward']);
@@ -558,9 +564,9 @@ class HouseholdService
             DB::raw('sum(cast(household_bee_fish_silkworm.honey_production_kg as INT)) as honey'),
             DB::raw('sum(cast(household_bee_fish_silkworm.silk_production_kg as INT)) as silk'),
         ];
-        $where_attr  = [];
-        $where_in_attr = [];
-        $group_by_attr = ['livestock.name_np'];
+        $where_attr     = [];
+        $where_in_attr  = [];
+        $group_by_attr  = ['livestock.name_np'];
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = explode(',', $params['ward']);
@@ -778,88 +784,88 @@ class HouseholdService
     /**
      * Return data for income subsistence
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getIncomeSubsistence($ward = []): array
+    public function getIncomeSubsistence($params): array
     {
-        return $this->countBySingleColumnHousehold('subsistence_of_income', $ward);
+        return $this->countBySingleColumnHousehold('subsistence_of_income', $params);
     }
 
     /**
      * Return data for house head gener
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseHeadGender($ward = []): array
+    public function getHouseHeadGender($params): array
     {
-        return $this->countBySingleColumnHousehold('family_head_gender', $ward);
+        return $this->countBySingleColumnHousehold('family_head_gender', $params);
     }
 
     /**
      * Return data for household no of houses owned data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getHouseholdHouseCount($ward = []): array
+    public function getHouseholdHouseCount($params): array
     {
-        return $this->countBySingleColumnHousehold('house_count', $ward);
+        return $this->countBySingleColumnHousehold('house_count', $params);
     }
 
     /**
      * Return data for land use for agriculture
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getAgriLandData($ward = []): array
+    public function getAgriLandData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('use_of_family_lang_agriculture', $ward);
+        $data = $this->countBySingleColumnHousehold('use_of_family_lang_agriculture', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for family livestock data
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getLivestocks($ward = []): array
+    public function getLivestocks($params): array
     {
-        $data = $this->countBySingleColumnHousehold('livestock', $ward);
+        $data = $this->countBySingleColumnHousehold('livestock', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for family fish bee 
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getFishBeeSilk($ward = []): array
+    public function getFishBeeSilk($params): array
     {
-        $data = $this->countBySingleColumnHousehold('fish_honeybee_silkworm', $ward);
+        $data = $this->countBySingleColumnHousehold('fish_honeybee_silkworm', $params);
         return booleanDataFormat($data);
     }
 
     /**
      * Return data for land use for agriculture
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getBankingData($ward = []): array
+    public function getBankingData($params): array
     {
-        $data = $this->countBySingleColumnHousehold('has_bank_account', $ward);
+        $data = $this->countBySingleColumnHousehold('has_bank_account', $params);
         return booleanDataFormat($data);
     }
 
@@ -867,16 +873,17 @@ class HouseholdService
      * Query for single source of data for Household model;
      * 
      * @param $column
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    private function countBySingleColumnHousehold($column, $ward = []): array
+    private function countBySingleColumnHousehold($column, $params): array
     {
         $select_attr   = ["$column as category", DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = [$column];
+        $ward          = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
@@ -893,12 +900,13 @@ class HouseholdService
      * 
      * @return array
      */
-    private function countBySingleColumnHome($column, $ward = []): array
+    private function countBySingleColumnHome($column, $params): array
     {
         $select_attr   = ["$column as category", DB::raw('count(*) as total')];
         $where_in_attr = [];
         $where_attr    = [];
         $group_by_attr = [$column];
+        $ward          = isset($params['ward']) ? explode(',', $params['ward']) : [];
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
