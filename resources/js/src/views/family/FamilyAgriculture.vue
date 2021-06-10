@@ -1,49 +1,53 @@
 <template>
 <div>
-  <h2>परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2>
+  <h2>कृषि</h2>
   <div class="chart-wrapper flex">
     <family-chart
       :showLoader="showLandInAgriLoader"
       :data="landInAgriData"
-      :title="'परिवारले कृषि कार्यका लागि भूमि  प्रयोग'"
+      :title="'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
       :showGraphText="'showLandInAgriGraph'"
       :showGraph="showLandInAgriGraph"
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
-    <family-chart
-      :showLoader="showAgriLandTitleLoader"
-      :data="agriLandTitleData"
-      :title="'कृषिमा प्रयोग भइरहेको भूमि'"
-      :showGraphText="'showAgriLandTitleGraph'"
-      :showGraph="showAgriLandTitleGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'कृषिमा प्रयोग भइरहेको भूमि', yAxisTitle: 'जम्मा' }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />
-
     <family-chart
       :showLoader="showBankLoader"
       :data="bankData"
-      :title="'कम्तिमा परिवारका एक सदस्यको बैंक खाताको उपलब्धता'"
+      :title="'परिवारमा एक वा एक भन्दा बढिको बैँक खातामा पहुँच'"
       :showGraphText="'showBankGraph'"
       :showGraph="showBankGraph"
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
+    />
+    <family-chart
+      :showLoader="showAgriLandTitleLoader"
+      :data="agriLandTitleData"
+      :title="'कृषिमा प्रयोग भइरहेको जग्गा कस्को नाममा छ?'"
+      :showGraphText="'showAgriLandTitleGraph'"
+      :showGraph="showAgriLandTitleGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'कृषिमा प्रयोग भइरहेको भूमि', yAxisTitle: 'जम्मा' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+      :showFullChartClass="true"
+      :showVerticalChartClass="true"
     />
 
     <family-chart
       :showLoader="showAgriProdLoader"
       :data="agriProdData"
-      :title="'कृषि उत्पादनहरूको बिक्रीको प्रकृति'"
+      :title="'कृषि उत्पादनको बिक्रीको प्रकृति'"
       :showGraphText="'showAgriProdGraph'"
       :showGraph="showAgriProdGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'कृषि उत्पादनहरूको बिक्रीको प्रकृति', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass="true"
+      :showVerticalChartClass="true"
     />
   </div>
 </div>

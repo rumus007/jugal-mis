@@ -2,16 +2,6 @@
 <div>
   <h2>परिवारकाे संयाेजन</h2>
   <div class="chart-wrapper flex">
-    <!-- <family-chart
-      :showLoader="showHouseCountLoader"
-      :data="houseCountData"
-      :title="'घरमुली'"
-      :showGraphText="'showHouseCountGraph'"
-      :showGraph="showHouseCountGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />-->
     <family-chart
       :showLoader="showMemberCountLoader"
       :data="memberCountData"
@@ -26,17 +16,8 @@
       }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
-    <!-- <family-chart
-      :showLoader="showPermanentResidentLoader"
-      :data="permanentResidentData"
-      :title="'जुगल गापाकै स्थायी बासिन्दा हाे हाेइन'"
-      :showGraphText="'showPermanentResidentGraph'"
-      :showGraph="showPermanentResidentGraph"
-      :chartDetail="{ type: 'Donut' }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-    />-->
     <family-chart
       :showLoader="showHouseCountLoader"
       :data="houseCountData"
@@ -56,6 +37,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'परिवारकाे आम्दानीकाे मूख्य स्राेत', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
     <family-chart
       :showLoader="showSubsistenceIncomeLoader"
@@ -63,7 +45,7 @@
       :title="'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ'"
       :showGraphText="'showSubsistenceIncomeGraph'"
       :showGraph="showSubsistenceIncomeGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'आफ्नो उत्पादन/आम्दानीले तपाईको परिवारलाई कति महिना खान पुग्छ', xAxisTitle: 'जम्मा' }"
+      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle: 'महिना', xAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
     />
@@ -81,7 +63,8 @@
       }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-      :class="'chart-full'"
+      :showFullChartClass="true"
+      :class="'chart-legend'"
     />
   </div>
   </div>
@@ -212,7 +195,7 @@ export default {
         .then(({ data }) => {
           this.avgIncomeExpenseData = [
             { name: "खर्च", data: data?.data?.expediture ?? [] },
-            { name: "खर्च", data: data?.data?.income ?? [] },
+            { name: "आय", data: data?.data?.income ?? [] },
             { name: "बचत", data: data?.data?.saving ?? [] },
           ];
           this.avgIncomeExpenseColumnCategory = data.data.xAxis;

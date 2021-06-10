@@ -11,6 +11,8 @@
         :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन', yAxisTitle:'जम्मा' }"
         @graphFunction="showGraph"
         @tableFunction="showTable"
+        :showFullChartClass="true"
+        :showVerticalChartClass="true"
       />
     </div>
   </div>

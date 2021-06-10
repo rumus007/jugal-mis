@@ -11,9 +11,11 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'राेजगारीकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
 
-    <div class="card chart">
+    <!-- <div class="card chart">
       <div v-if="showPrivateBusinessLoader" class="loader-wrapper">
         <loader />
       </div>
@@ -24,7 +26,7 @@
           <Table :data="privateBusinessData" />
         </div>
       </div>
-    </div>
+    </div> -->
 
     <individual-chart
       :showLoader="showForeignEmploymentLoader"
@@ -35,6 +37,8 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'वैदेशिक राेजगारीकाे अवस्था', yAxisTitle: 'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showFullChartClass= "true"
+      :showVerticalChartClass= "true"
     />
   </div>
   </div>

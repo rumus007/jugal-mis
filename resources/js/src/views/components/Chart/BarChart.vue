@@ -17,8 +17,8 @@ export default {
   props: {
     data: { type: Array, required: true },
     horizontalBar : {type: Boolean, required: true},
-    xAxisTitle: {type: String, required: false},
-    yAxisTitle: {type: String, required: false}
+    xAxisTitle: {type: String, required: true},
+    yAxisTitle: {type: String, required: true}
     // options: { type: Object, required: true },
   },
   components: {
@@ -26,11 +26,11 @@ export default {
   },
   computed: {
     categories() {
-      // return this.data.map((barChartData) => barChartData.category);
-      return this.data.map((barChartData) => {
-        let categoryData = barChartData.category.split(" ");
-        return categoryData.length > 1 ? categoryData : barChartData.category;
-      });
+      return this.data.map((barChartData) => barChartData.category);
+      // return this.data.map((barChartData) => {
+      //   let categoryData = barChartData.category.split(" ");
+      //   return categoryData.length > 1 ? categoryData : barChartData.category;
+      // });
     },
     stats() {
       return this.data.map((barChartData) => barChartData.total);
@@ -51,8 +51,8 @@ export default {
         grid: {
           padding: {
             right: 0,
-            bottom: 0,
-            left: 0,
+            bottom: 12,
+            left: 12,
           }
         },
         colors: "#028EFF",
@@ -81,18 +81,14 @@ export default {
           labels: {
             show: true,
             rotate: 0,
+            hideOverlappingLabels: false,
             trim: true,
-            maxHeight: 59,
+            // maxHeight: 40,
             style: {
               fontSize: "12px",
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-              // let formattedMultiline =
-              //   typeof value === "object" ? [...value] : value;
-              // if (typeof value === "object" && value.length > 3) {
-              //   formattedMultiline[2] = value[2] + "...";
-              // }
               if (typeof value === "number") {
                 return englishToNepaliNumber(value);
               }
@@ -105,7 +101,10 @@ export default {
           title: {
             text: this.xAxisTitle,
             offsetX: 0,
-            offsetY: 0
+            offsetY: 2,
+            style: {
+              color: '#666E76',
+            }
           }
         },
         yaxis: {
@@ -115,16 +114,16 @@ export default {
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-              if (typeof value === "number") {
-                return englishToNepaliNumber(value);
-              }
-              return value;
+              return englishToNepaliNumber(value);
             },
           },
           title: {
             text: this.yAxisTitle,
-            offsetX: 0,
-            offsetY: 0
+            offsetX: 8,
+            offsetY: 0,
+            style: {
+              color: '#666E76',
+            }
           }
         },
         //  todo add local check

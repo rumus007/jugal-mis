@@ -1,7 +1,7 @@
 <template>
   <div
     class="card chart"
-    :class="{ 'chart-full': showFullChartClass, 'card-table': !showGraph }"
+    :class="{ 'chart-full': showFullChartClass, 'card-table': !showGraph , 'chart-vertical': showVerticalChartClass, 'chart-donut': showDonutChartClass}"
   >
     <div v-if="showLoader" class="loader-wrapper">
       <loader />
@@ -44,7 +44,7 @@
         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
           <Table
             :data="data"
-            :title="title"
+            :title="chartDetail.columnTitle ? chartDetail.columnTitle : title" 
             :isColumn="chartDetail.type === 'Column' ? true : false"
           />
         </simplebar>
@@ -75,6 +75,8 @@ export default {
     showGraphText: { type: String, required: true },
     chartDetail: { type: Object, required: true },
     showFullChartClass: { type: Boolean },
+    showVerticalChartClass: { type: Boolean },
+    showDonutChartClass: {type: Boolean},
   },
   methods: {
     changeGraphDisplay() {

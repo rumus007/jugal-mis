@@ -9,15 +9,15 @@
             <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारकाे संयाेजन</h2> -->
             <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
           </tab>
-          <tab name="परिवारले कृषि कार्यका लागि जग्गा प्रयोग">
+          <tab name="कृषि">
             <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2> -->
             <family-agriculture
-              v-if="selectedTab === 'परिवारले कृषि कार्यका लागि जग्गा प्रयोग'"
+              v-if="selectedTab === 'कृषि'"
             />
           </tab>
-          <tab name="पशुधन">
-            <!-- <h2  v-if="!this.$store.getters.isLoading">पशुधन</h2> -->
-            <family-livestock v-if="selectedTab === 'पशुधन'" />
+          <tab name="पशुपालन">
+            <!-- <h2  v-if="!this.$store.getters.isLoading">पशुपालन</h2> -->
+            <family-livestock v-if="selectedTab === 'पशुपालन'" />
           </tab>
         </tabs>
       </div>
@@ -49,6 +49,7 @@ export default {
     familyTabChange(selectedTab) {
       this.selectedTab = selectedTab.tab.name;
       this.$store.commit("changeLoader", true);
+      window.scrollTo(0,0);
     },
   },
 };

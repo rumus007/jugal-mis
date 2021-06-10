@@ -11,6 +11,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'परिवारका लागि खानेपानीकाे स्राेत', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -22,6 +23,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'खाना पकाउने मुख्य इन्धन', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -44,6 +46,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'बैकल्पिक इन्धनकाे प्रयाेग', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -55,6 +58,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'आधारभुत स्वास्थ्य सेवाका लागि जाँदा लाग्ने समय', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart
@@ -66,6 +70,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'खानेपानी लिनका लागि जाँदा लाग्ने समय', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
 
     <house-chart

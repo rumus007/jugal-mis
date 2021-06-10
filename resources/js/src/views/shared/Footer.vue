@@ -20,6 +20,6 @@ export default {
     bottom: 0;
   }
   .nav {
-    justify-content: center;
+    padding-left: 300px;
   }
 </style>

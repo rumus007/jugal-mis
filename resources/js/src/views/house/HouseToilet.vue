@@ -11,6 +11,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
 
     <house-chart
@@ -22,6 +23,7 @@
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'शाैचालयकाे प्रकार', yAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showVerticalChartClass="true"
     />
   </div>
 </div>

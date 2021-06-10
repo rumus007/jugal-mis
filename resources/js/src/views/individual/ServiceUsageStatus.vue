@@ -43,6 +43,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass= "true"
     />
   </div>
   </div>

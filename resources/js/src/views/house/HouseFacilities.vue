@@ -8,9 +8,11 @@
       :title="'परिवारमा उपलब्ध सुविधा'"
       :showGraphText="'showFacilitiesGraph'"
       :showGraph="showFacilitiesGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: true, yAxisTitle:'भूकम्प प्रतिराेधी घर', xAxisTitle:'जम्मा' }"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, yAxisTitle:'भूकम्प प्रतिराेधी घर', xAxisTitle:'जम्मा' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showFullChartClass="true"
+      :showVerticalChartClass="true"
     />
   </div>
 </div>

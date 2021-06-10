@@ -8,7 +8,7 @@
       </tr>
       <tr v-for="(tableData, index) in data" :key="index">
         <td v-text="getFormattedCount(index + 1)"></td>
-        <td>{{ tableData.category }}</td>
+        <td v-text="getFormattedCount(tableData.category)"></td>
         <td v-text="getFormattedCount(tableData.total)"></td>
       </tr>
     </table>

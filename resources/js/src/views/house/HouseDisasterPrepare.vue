@@ -11,16 +11,7 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
-    />
-    <house-chart
-      :showLoader="showVulnerableLoader"
-      :data="vulnerableData"
-      :title="'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार'"
-      :showGraphText="'showVulnerableGraph'"
-      :showGraph="showVulnerableGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार', yAxisTitle:'जम्मा' }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
+      :showDonutChartClass="true"
     />
     <house-chart
       :showLoader="showRiskMitigateLoader"
@@ -31,6 +22,19 @@
       :chartDetail="{ type: 'Donut' }"
       @graphFunction="showGraph"
       @tableFunction="showTable"
+      :showDonutChartClass="true"
+    />
+    <house-chart
+      :showLoader="showVulnerableLoader"
+      :data="vulnerableData"
+      :title="'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार'"
+      :showGraphText="'showVulnerableGraph'"
+      :showGraph="showVulnerableGraph"
+      :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरलाइ प्राकृतिक प्रकोपको जोखिम र जाेखिमकाे प्रकार', yAxisTitle:'जम्मा' }"
+      @graphFunction="showGraph"
+      @tableFunction="showTable"
+      :showFullChartClass="true"
+      :showVerticalChartClass="true"
     />
   </div>
 </div>

@@ -3,7 +3,7 @@
     <Header></Header>
     <GlobalLoader :is-visible="this.$store.getters.isLoading"></GlobalLoader>
     <router-view></router-view>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
   components: {
     Header: () => import("./shared/Header.vue"),
-    Footer: () => import("./shared/Footer.vue"),
+    // Footer: () => import("./shared/Footer.vue"),
     GlobalLoader : () => import("./components/Loader/GlobalLoader.vue")
   },
   created() {
