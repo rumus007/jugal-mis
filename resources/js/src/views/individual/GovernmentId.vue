@@ -5,6 +5,7 @@
       :showLoader="showGovIdLoader"
       :data="govIdData"
       :title="'नागरिकतासहितका परिचयपत्र'"
+      :tableTitle="'नागरिकतासहितका परिचयपत्र'"
       :showGraphText="'showGovIdGraph'"
       :showGraph="showGovIdGraph"
       :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle: 'बच्चालाई खाेपकाे अवस्था', yAxisTitle: 'जम्मा' }"

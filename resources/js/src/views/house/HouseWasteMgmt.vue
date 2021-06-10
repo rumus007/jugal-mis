@@ -6,6 +6,7 @@
         :showLoader="showWateMgmtLoader"
         :data="wasteMgmtData"
         :title="'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन'"
+        :tableTitle="'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन'"
         :showGraphText="'showWasteMgmtGraph'"
         :showGraph="showWasteMgmtGraph"
         :chartDetail="{ type: 'Bar', horizontalBar: false, xAxisTitle:'घरबाट निस्कने फाेहाेरकाे व्यवस्थापन', yAxisTitle:'जम्मा' }"

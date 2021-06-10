@@ -4,7 +4,7 @@
   --color-primary-dark: var(--neutrals-700);
   --color-primary-light: var(--neutrals-100);
   --color-secondary-light: var(--blue-100);
-  --color-link: var(--orange-400);
+  --color-link: var(--blue-400);
   --color-btn: var(--orange-400);
   --neutrals-0: #FFFFFF;
   --neutrals-10: ##D9DBDD;
@@ -498,7 +498,6 @@ body {
   display: block;
   overflow: hidden;
   min-height: 100vh;
-  padding-bottom: 124px;
 }
 
 .flex {
@@ -564,11 +563,11 @@ body {
 }
 .tabs-component-tabs {
   background-color: var(--color-base);
-  border-right: 1px solid rgba(114, 115, 142, 0.2);
   min-width: 300px;
   width: 300px;
 }
 .tabs-component-panels {
+  border-left: 1px solid rgba(114, 115, 142, 0.2);
   width: calc(100vw - 300px);
   padding: 24px 40px;
 }

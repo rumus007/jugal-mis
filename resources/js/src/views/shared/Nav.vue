@@ -34,6 +34,6 @@ export default {
   }
   .router-link-active,.router-link-active:hover {
     font-weight: 500;
-    color: var(--orange-500);
+    color: var(--color-link);
   }
 </style>

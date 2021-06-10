@@ -92,6 +92,7 @@ export default {
 .title-bar {
   align-items: center;
   background-color: #028eff;
+  box-shadow: 0px 4px 15px rgb(0 0 0 / 10%);
   justify-content: space-between;
   padding: 16px 48px;
  
