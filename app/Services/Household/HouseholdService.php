@@ -261,8 +261,21 @@ class HouseholdService
      */
     public function getDistanceHealthData($params): array
     {
+        $map = [
+            "एक घण्टा भन्दा बढी" => '>एक घण्टा',
+            "एक घण्टा भन्दा कम" => '<एक घण्टा',
+            "आधा घण्टा भन्दा कम" => '<आधा घण्टा'
+        ];
+
         $data = $this->countBySingleColumnHousehold('distance_to_basic_healthcare', $params);
-        return nullDataFormat($data);
+        $formatted = nullDataFormat($data);
+
+        return array_map(function ($v) use ($map) {
+            return [
+                'category' => isset($map[$v['category']]) ? $map[$v['category']] : $v['category'],
+                'total' => $v['total']
+            ];
+        }, $formatted);
     }
 
     /**
@@ -358,6 +371,12 @@ class HouseholdService
      */
     public function getDistanceWaterData($params): array
     {
+        $map = [
+            "आधा घण्टाभन्दा बढी" => ">आधा घण्टा",
+            "आधा घण्टाभन्दा कम" => "<आधा घण्टा",
+            "पाँच मिनेटभन्दा कम"  => "<पाँच मिनेट",
+            "दस मिनेटभन्दा कम"  => "<दस मिनेट",
+        ];
         $select_attr    = ['water_distance.name_np as category', DB::raw('count(*) as total')];
         $where_attr     = [];
         $where_in_attr  = [];
@@ -368,7 +387,14 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->waterDistanceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        $data = $this->waterDistanceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        
+        return array_map(function ($v) use ($map) {
+            return [
+                'category' => isset($map[$v['category']]) ? $map[$v['category']] : $v['category'],
+                'total' => $v['total']
+            ];
+        }, $data);
     }
 
     /**
@@ -790,7 +816,20 @@ class HouseholdService
      */
     public function getIncomeSubsistence($params): array
     {
-        return $this->countBySingleColumnHousehold('subsistence_of_income', $params);
+        $map = [
+            "३ महिनासम्म" => '३ महिना',
+            "४ देखि ६ महिनासम्म" => '४-६ महिना',
+            "७ देखि ९ महिनासम्म" => '७-९ महिना',
+            "९ महिना भन्दा बढि" => '>९ महिना',
+        ];
+        $data = $this->countBySingleColumnHousehold('subsistence_of_income', $params);
+        
+        return array_map(function ($v) use ($map) {
+            return [
+                'category' => isset($map[$v['category']]) ? $map[$v['category']] : $v['category'],
+                'total' => $v['total']
+            ];
+        }, $data);
     }
 
     /**
