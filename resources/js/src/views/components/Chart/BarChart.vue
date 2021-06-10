@@ -89,10 +89,7 @@ export default {
               fontFamily: "Noto Sans, sans-serif",
             },
             formatter: function (value) {
-              if (typeof value === "number") {
-                return englishToNepaliNumber(value);
-              }
-              return value;
+              return englishToNepaliNumber(value);
             },
           },
           axisTicks: {
