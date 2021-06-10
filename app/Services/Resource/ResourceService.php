@@ -28,12 +28,13 @@ class ResourceService
     /**
      * Get count of resource profile according to selected ward
      * 
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getResourceStats($ward = []): array
+    public function getResourceStats($params): array
     {
+        $ward          = isset($params['ward']) ? explode(',', $params['ward']) : [];
         $select_attr   = ['resource_type.id', 'resource_type.name_np as nepali_name', 'resource_type.name as resource_profile', DB::raw('count(*) as total')];
         $where_attr    = [];
         $where_in_attr = count($ward) ? [['resource.ward', $ward]] : [];
@@ -46,13 +47,15 @@ class ResourceService
     /**
      * Get resource information according to selected ward and resource type 
      * 
-     * @param $resource_type_id
-     * @param $ward
+     * @param $params
      * 
      * @return array
      */
-    public function getResourceMapData($resource_type_id = [], $ward = []): array
+    public function getResourceMapData($params): array
     {
+        $ward = isset($params['ward']) ? explode(',', $params['ward']) : [];
+        $resource_type_id = isset($params['resource_type_id']) ? explode(',', $params['resource_type_id']) : [];
+
         $select_attr   = [
             'resource_type.id as resource_type_id',
             'resource_type.name as resource_type',
@@ -84,7 +87,7 @@ class ResourceService
 
         $data = array_map(function ($v) {
             $v['metadata'] = json_decode($v['metadata']);
-            $v['leaflet_geolocation'] = [$v['geo_latitude'],$v['geo_longitude']];
+            $v['leaflet_geolocation'] = [$v['geo_latitude'], $v['geo_longitude']];
             return $v;
         }, $data);
 

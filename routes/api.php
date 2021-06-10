@@ -27,7 +27,7 @@ Route::get('/resource/stats', [ResourceController::class, 'getResourceStats'])->
 Route::get('/resource/mapdata', [ResourceController::class, 'getResourceMapData'])->name('resource.mapdata');
 
 Route::prefix('household')->group(function () {
-    // Route::get('summary-stats', [HouseholdController::class, 'getSummaryStats'])->name('household.stats');
+    Route::get('summary-stats', [HouseholdController::class, 'getSummaryStats'])->name('household.stats');
     Route::get('ownership', [HouseholdController::class, 'getHouseOwnershipData'])->name('household.ownership');
     Route::get('roofing', [HouseholdController::class, 'getRoofingData'])->name('household.roofing');
     Route::get('foundation', [HouseholdController::class, 'getFoundationData'])->name('household.foundation');
@@ -37,7 +37,6 @@ Route::prefix('household')->group(function () {
     Route::get('house-count', [HouseholdController::class, 'getHouseCount'])->name('household.houseCount');
     Route::get('room-count', [HouseholdController::class, 'getRoomData'])->name('household.roomData');
     Route::get('house-listed', [HouseholdController::class, 'getHouseListedData'])->name('household.houseListed');
-
     Route::get('source-drinking-water', [HouseholdController::class, 'getWaterSourceData'])->name('household.waterSource');
     Route::get('source-fuel', [HouseholdController::class, 'getFuelSourceData'])->name('household.fuelSource');
     Route::get('source-electricity', [HouseholdController::class, 'getElectricitySourceData'])->name('household.electricitySource');
@@ -45,24 +44,17 @@ Route::prefix('household')->group(function () {
     Route::get('distance-basic-healthcare', [HouseholdController::class, 'getDistanceHealthData'])->name('household.distanceHealth');
     Route::get('distance-fetch-water', [HouseholdController::class, 'getDistanceWaterData'])->name('household.distanceWater');
     Route::get('newborn-birthplace', [HouseholdController::class, 'getBirthplaceData'])->name('household.birthplace');
-
     Route::get('earthquake-resistant', [HouseholdController::class, 'getEarthquakeResistantData'])->name('household.eq');
     Route::get('vulnerable-types', [HouseholdController::class, 'getVulnerabilityData'])->name('household.vulnerable');
     Route::get('risk-mitigation', [HouseholdController::class, 'getRiskMitigationData'])->name('household.risk');
-
     Route::get('facilities', [HouseholdController::class, 'getFacilitiesData'])->name('household.facilities');
-
     Route::get('toilet-availability', [HouseholdController::class, 'getToiletData'])->name('household.toilet');
     Route::get('toilet-types', [HouseholdController::class, 'getToiletTypeData'])->name('household.toiletType');
-
     Route::get('waste-mgmt', [HouseholdController::class, 'getWasteMgmtData'])->name('household.waste');
-
-    Route::get('test', [HouseholdController::class, 'test'])->name('household.test');
 });
 
 Route::prefix('family')->group(function () {
-    // Route::get('summary-stats', [FamilyController::class, 'getSummaryStats'])->name('family.stats');
-    
+    Route::get('summary-stats', [FamilyController::class, 'getSummaryStats'])->name('family.stats');
     Route::get('house-count', [FamilyController::class, 'getHouseCount'])->name('family.houseCount');
     // Route::get('permanent-residency', [FamilyController::class, 'getPermanentResidency'])->name('family.pr');
     Route::get('source-income', [FamilyController::class, 'getIncomeSource'])->name('family.income');
@@ -73,7 +65,6 @@ Route::prefix('family')->group(function () {
     Route::get('banking-details', [FamilyController::class, 'getBankingData'])->name('family.bank');
     Route::get('agricultural-products', [FamilyController::class, 'getAgriProducts'])->name('family.agriProucts');
     Route::get('has-livestocks', [FamilyController::class, 'getLivestocks'])->name('family.livestocks');
-
     Route::get('livestock-in-family', [FamilyController::class, 'getLivestockData'])->name('family.livestockData');
     Route::get('milk-production', [FamilyController::class, 'getProductionData'])->name('family.milkProd');
     Route::get('meat-production', [FamilyController::class, 'getProductionData'])->name('family.meatProd');
@@ -102,7 +93,6 @@ Route::prefix('individual')->group(function () {
     Route::get('employment-status',[IndividualController::class,'getEmploymentStatusData'])->name('individual.byEmploymentStatus');
     Route::get('foreign-employment',[IndividualController::class,'getForeignEmploymentData'])->name('individual.byForeignEmployment');
     Route::get('private-business',[IndividualController::class,'getPrivateBusinessData'])->name('individual.byPrivateBusines');
-    
     Route::get('has-mobile',[IndividualController::class,'getMobileData'])->name('individual.byMobile');
     Route::get('mobile-telecom',[IndividualController::class,'getMobileTelecomData'])->name('individual.byMobileTelecom');
     Route::get('government-id',[IndividualController::class,'getGovernmentIdData'])->name('individual.byGovernmentId');
@@ -111,6 +101,7 @@ Route::prefix('individual')->group(function () {
     Route::get('common-diseases',[IndividualController::class,'getDiseaseStatus'])->name('individual.byCommonDisease');
     Route::get('vaccination-immunization',[IndividualController::class,'getVaccineStatus'])->name('individual.byVaccineStatus');
 });
+
 Route::prefix('home')->group(function () {
     Route::get('summary-stats', [HomeController::class, 'getSummaryStats'])->name('home.stats');
 });
