@@ -3,7 +3,7 @@
     <!-- <button v-on:click="updateData">Update Data</button> -->
     <TitleBar title="जनसांख्यिकीय विवरण" />
     <div class="main-content" id="main">
-      <Stats />
+      <Stats :url="'individual/summary-stats'"/>
       <div class="tabs">
         <tabs
           :options="{ useUrlFragment: false }"
@@ -64,7 +64,7 @@ export default {
     GovernmentId: () => import("./GovernmentId"),
     Manpower: () => import("./Manpower"),
     TitleBar: () => import("../shared/TitleBar"),
-    Stats: () => import("../shared/Stats"),
+    Stats: () => import("./IndividualStats"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),

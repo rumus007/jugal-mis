@@ -23,12 +23,8 @@
                 :class="!showGraph ? 'active' : ''"
               />
             </button>
-            <button
-              v-on:click="changeTableDisplay()"
-              :class="!showGraph ? 'active' : ''"
-              class="table-view"
-            >
-              <img src="images/ic_table.svg" alt="" width="16" height="16" />
+             <button v-on:click="changeTableDisplay()" class="table-view" :class="!showGraph ? 'active' : ''">
+              <img src="images/ic_table.svg" alt="" width="16" height="16" :class="showGraph ? 'active' : ''" />
             </button>
           </div>
         </div>

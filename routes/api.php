@@ -76,6 +76,7 @@ Route::prefix('family')->group(function () {
 
 
 Route::prefix('individual')->group(function () {
+    Route::get('summary-stats', [FamilyController::class, 'getSummary'])->name('individual.stats');
     Route::get('population-by-gender',[IndividualController::class,'getGenderData'])->name('individual.byGender');
     Route::get('population-by-age-group',[IndividualController::class,'getAgeGroupData'])->name('individual.byGender');
     Route::get('population-by-ethnicity',[IndividualController::class,'getEthnicityData'])->name('individual.byEthnicity');
