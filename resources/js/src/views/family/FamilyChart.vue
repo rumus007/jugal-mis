@@ -52,7 +52,7 @@
         <simplebar data-simplebar-auto-hide="false" v-else class="chart-table">
           <Table
             :data="data"
-            :title="chartDetail.columnTitle ? chartDetail.columnTitle : title"
+            :title="chartDetail.columnTitle ? chartDetail.columnTitle : tableTitle"
             :isColumn="chartDetail.type === 'Column' ? true : false"
             :categoryData="chartDetail.columnCategory"
           />
@@ -80,6 +80,7 @@ export default {
     showLoader: { type: Boolean, required: true },
     data: { type: Array, required: true },
     title: { type: String, required: true },
+    tableTitle: { type: String, required: true },
     showGraph: { type: Boolean, required: true },
     showGraphText: { type: String, required: true },
     chartDetail: { type: Object, required: true },

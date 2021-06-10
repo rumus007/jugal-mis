@@ -4,7 +4,7 @@
     <div class="main-content" id="main">     
       <Stats/>
       <div class="tabs">
-        <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange">
+        <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange" cache-lifetime="0">
           <tab name="परिवारकाे संयाेजन">
             <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारकाे संयाेजन</h2> -->
             <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
@@ -52,6 +52,9 @@ export default {
       window.scrollTo(0,0);
     },
   },
+  // mounted(){
+  //  this.selectedTab = "परिवारकाे संयाेजन"
+  // }
 };
 </script>
 

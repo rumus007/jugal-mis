@@ -5,7 +5,7 @@
     <div class="main-content" id="main">     
         <Stats/>
       <div class="tabs">
-        <tabs :options="{ useUrlFragment: false }" @changed="houseTabChange">
+        <tabs :options="{ useUrlFragment: false }" @changed="houseTabChange"  cache-lifetime="0">
           <tab name="घरकाे अवस्था">
             <!-- <h2>घरकाे अवस्था</h2> -->
           <house-status v-if="selectedTab === 'घरकाे अवस्था'" />
@@ -83,6 +83,9 @@ export default {
       window.scrollTo(0,0);
     },
   },
+  // mounted(){
+  //  this.selectedTab = "घरकाे अवस्था"
+  // }
 };
 </script>
 

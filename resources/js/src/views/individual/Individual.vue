@@ -8,6 +8,7 @@
         <tabs
           :options="{ useUrlFragment: false }"
           @changed="individualTabChange"
+          cache-lifetime="0"
         >
           <tab name="जनसंख्याकाे वितरण">
             <!-- <h2 v-if="!this.$store.getters.isLoading">जनसंख्याकाे वितरण</h2> -->
@@ -70,7 +71,7 @@ export default {
   },
   data() {
     return {
-      selectedTab: "घरकाे अवस्था",
+      selectedTab: "जनसंख्याकाे वितरण",
     };
   },
   methods: {
@@ -80,6 +81,9 @@ export default {
       window.scrollTo(0,0);
     },
   },
+  // mounted(){
+  //  this.selectedTab = "जनसंख्याकाे वितरण"
+  // }
 };
 </script>
 
