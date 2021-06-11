@@ -2,7 +2,7 @@
   <div class="house-wrapper">
     <TitleBar title="पारिवारिक विवरण" />
     <div class="main-content" id="main">     
-      <Stats/>
+      <Stats :url="'family/summary-stats'"/>
       <div class="tabs">
         <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange" cache-lifetime="0">
           <tab name="परिवारकाे संयाेजन">
@@ -35,7 +35,7 @@ export default {
     FamilyAgriculture: () => import("./FamilyAgriculture"),
     FamilyLivestock: () => import("./FamilyLivestock"),
     TitleBar: () => import("../shared/TitleBar"),
-    Stats: () => import("../shared/Stats"),
+    Stats: () => import("./FamilyStats"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),

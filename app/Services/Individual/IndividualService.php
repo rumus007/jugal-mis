@@ -419,6 +419,130 @@ class IndividualService
     }
 
     /**
+     * Population by voter pop
+     * 
+     * @param $params
+     * 
+     * @return int
+     */
+    public function getVoterPop($params): int
+    {
+
+        $select_attr = [
+            DB::raw('sum(case when cast(individual.age as FLOAT) >= 18 then 1 else 0 end) as voter'),
+        ];
+        $where_attr = [
+            ['individual.age_group', 'वर्ष']
+        ];
+        $where_in_attr = [];
+        $group_by_attr = [];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        return $data['voter'];
+    }
+
+    /**
+     * Population by population max involved sector
+     * 
+     * @param $params
+     * 
+     * @return string
+     */
+    public function getMaxInvolvedSector($params): string
+    {
+
+        $employements = [
+            "उद्योग तथा व्यापार",
+            "नोकरी/जागीर",
+            "वैदेशिक रोजगारी",
+            "कृषि तथा पशुपालन",
+            "ज्याला/मजदुरी",
+            "व्यावसायिक कार्य (पत्रकार, वकिल, परामर्श, ठेक्कापट्टा, पुजारी आदि",
+            "अन्य"
+        ];
+
+        $select_attr = ['individual.employment_status', DB::raw('count(*) as total'),];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = ['individual.employment_status'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortByDesc('total')->first();
+        return $data ? $data->employment_status : "N/A";
+    }
+
+    /**
+     * Population by gender wise max involved sector
+     * 
+     * @param $params
+     * 
+     * @return array
+     */
+    public function getEmploymentWise($params): array
+    {
+        $map = [
+            'पुरुष' => 'male',
+            "महिला" => 'female',
+            'तेश्रो लिङ्गी' => 'others'
+        ];
+
+        $final = [
+            'male' => '',
+            'female' => '',
+            'others' => ''
+        ];
+
+        $employements = [
+            "उद्योग तथा व्यापार",
+            "नोकरी/जागीर",
+            "वैदेशिक रोजगारी",
+            "कृषि तथा पशुपालन",
+            "ज्याला/मजदुरी",
+            "व्यावसायिक कार्य (पत्रकार, वकिल, परामर्श, ठेक्कापट्टा, पुजारी आदि",
+            "अन्य"
+        ];
+
+        $select_attr = ['individual.gender', 'individual.employment_status', DB::raw('count(*) as total'),];
+        $where_attr = [];
+        $where_in_attr = [];
+        $group_by_attr = ['individual.gender', 'individual.employment_status'];
+
+        if (isset($params['ward']) && $params['ward']) {
+            $ward = $params['ward'] ? explode(',', $params['ward']) : [];
+            $where_in_attr[] = ['ward', $ward];
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->groupBy('gender')->toArray();
+
+        foreach ($data as $key => $value) {
+            foreach ($value as $k => $v) {
+                if (!in_array($v['employment_status'], $employements)) {
+                    unset($data[$key][$k]);
+                }
+            }
+        }
+
+        foreach ($data as $key => $value) {
+            $collection = collect($value);
+            $most_involved = $collection->sortByDesc('total')->first();
+            if ($most_involved && isset($final[$map[$key]])) {
+                $final[$map[$key]] = $most_involved['employment_status'];
+            }
+        }
+
+        return $final;
+    }
+
+    /**
      * Population by age group
      * 
      * @param $params
@@ -433,7 +557,7 @@ class IndividualService
             "16-50" => 0,
             "50+" => 0,
         ];
-        
+
         $select_attr = [
             DB::raw('sum(case when cast(individual.age as FLOAT) >= 0 and cast(individual.age as FLOAT) <= 5 then 1 else 0 end) as infant'),
             DB::raw('sum(case when cast(individual.age as FLOAT) >= 6 and cast(individual.age as FLOAT) <= 16 then 1 else 0 end) as children'),

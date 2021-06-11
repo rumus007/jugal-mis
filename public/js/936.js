@@ -1,0 +1,2 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[936],{2936:(e,s,t)=>{"use strict";t.r(s),t.d(s,{default:()=>a});const n={name:"Loader"};const a=(0,t(1900).Z)(n,(function(){var e=this,s=e.$createElement;e._self._c;return e._m(0)}),[function(){var e=this,s=e.$createElement,t=e._self._c||s;return t("div",{staticClass:"loader-wrapper-component"},[t("div",{staticClass:"spinner-local"},[t("div",{staticClass:"double-bounce1"}),e._v(" "),t("div",{staticClass:"double-bounce2"})])])}],!1,null,"35b3b8e8",null).exports}}]);
+//# sourceMappingURL=936.js.map

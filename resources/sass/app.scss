@@ -91,7 +91,24 @@ body {
 }
 
 .main-scroll {
-    padding-top: 74px;
+    padding-top: 176px;
+    .stats-section {
+        left: 0;
+        position: fixed!important;
+        top: 74px;
+        width: 100%;
+        z-index: 1;
+    }
+    .tabs-component-tabs {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        top: 176px;
+        z-index: 1;
+    }
+     .tabs-component-panels {
+         margin-left: 300px;
+     }
 }
 
 .tabs {
@@ -145,19 +162,19 @@ body {
             }
         }
     }
-    &.fixed {
-        .tabs-component-tabs {
-            bottom: 0;
-            left: 0;
-            position: fixed;
-            top: 74px;
-            z-index: 1;
-        }
+    // &.fixed {
+    //     .tabs-component-tabs {
+    //         bottom: 0;
+    //         left: 0;
+    //         position: fixed;
+    //         top: 74px;
+    //         z-index: 1;
+    //     }
 
-        .tabs-component-panels {
-            margin-left: 300px;
-        }
-    }
+    //     .tabs-component-panels {
+    //         margin-left: 300px;
+    //     }
+    // }
 }
 
 .apexcharts {
@@ -171,6 +188,7 @@ body {
 
     &-toolbar {
         top: -30px !important;
+        z-index: 0!important;
     }
 
     &-zoom-icon,
@@ -303,6 +321,10 @@ body {
         .apexcharts-legend-series {
             margin-right: 16px !important;
         }
+
+        .view-icons {
+            z-index: 1;
+        }
     }
 
 }
@@ -394,6 +416,12 @@ body {
     }
 }
 
+.institution-wrapper {
+    .download-pdf {
+        display: none;
+    }
+}
+
 @media print {
 
     @page {
@@ -447,5 +475,6 @@ body {
         clear: both;
         width: 100%;
         page-break-inside: avoid;
+        margin-bottom: 24px;
     }
 }

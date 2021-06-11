@@ -81,10 +81,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .institution {
   display: flex;
 }
+
 .map-filter {
   list-style: none;
 }

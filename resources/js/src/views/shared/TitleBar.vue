@@ -11,7 +11,7 @@
         selectLabel=""
         deselectLabel=""
         placeholder="वार्ड छनौट गर्नुहोस्"
-        @input="scroll('main')"
+        @input="mainScroll()"
       ></multiselect>
       <!-- <v-select :options="wardOptions" placeholder="वार्ड छनौट गर्नुहोस्"/> -->
       <button class="download-pdf" @click="download">
@@ -57,19 +57,20 @@ export default {
     handleScroll (event) {
       let TitleBar = document.querySelector(".title-bar");
       let Main = document.querySelector(".main-content");
-      let Tabs = document.querySelector(".tabs");
-      if (window.scrollY > 92 && !TitleBar.className.includes('fixed')) {
+      let offsetHeight = document.querySelector('header').offsetHeight;
+      if (window.scrollY > offsetHeight && !TitleBar.className.includes('fixed')) {
       TitleBar.classList.add('fixed'); 
       Main.classList.add('main-scroll'); 
-      } else if (window.scrollY < 92) {
+      } else if (window.scrollY < offsetHeight) {
          TitleBar.classList.remove('fixed'); 
          Main.classList.remove('main-scroll'); 
       }
-      if (window.scrollY > 194 && !Tabs.className.includes('fixed')) {
-      Tabs.classList.add('fixed'); 
-      } else if (window.scrollY < 194) {
-         Tabs.classList.remove('fixed'); 
-      }
+    },
+    mainScroll (event) {
+      window.scrollTo({
+        top: 92,
+        behavior: 'smooth',
+      });
     },
     download(){
       window.print();

@@ -555,7 +555,24 @@ body {
 }
 
 .main-scroll {
-  padding-top: 74px;
+  padding-top: 176px;
+}
+.main-scroll .stats-section {
+  left: 0;
+  position: fixed !important;
+  top: 74px;
+  width: 100%;
+  z-index: 1;
+}
+.main-scroll .tabs-component-tabs {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  top: 176px;
+  z-index: 1;
+}
+.main-scroll .tabs-component-panels {
+  margin-left: 300px;
 }
 
 .tabs-component {
@@ -600,16 +617,6 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-.tabs.fixed .tabs-component-tabs {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  top: 74px;
-  z-index: 1;
-}
-.tabs.fixed .tabs-component-panels {
-  margin-left: 300px;
-}
 
 .apexcharts-canvas {
   width: 100% !important;
@@ -619,6 +626,7 @@ body {
 }
 .apexcharts-toolbar {
   top: -30px !important;
+  z-index: 0 !important;
 }
 .apexcharts-zoom-icon, .apexcharts-reset-icon, .apexcharts-menu-icon {
   transform: none !important;
@@ -717,6 +725,9 @@ body {
 .chart-legend .apexcharts-legend-series {
   margin-right: 16px !important;
 }
+.chart-legend .view-icons {
+  z-index: 1;
+}
 
 .card-table:after {
   content: "";
@@ -790,6 +801,10 @@ body {
   overflow: visible;
 }
 
+.institution-wrapper .download-pdf {
+  display: none;
+}
+
 @media print {
   @page {
     margin: 20px 0;
@@ -841,5 +856,6 @@ body {
     clear: both;
     width: 100%;
     page-break-inside: avoid;
+    margin-bottom: 24px;
   }
 }

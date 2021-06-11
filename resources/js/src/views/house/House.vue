@@ -3,8 +3,8 @@
     <!-- <button v-on:click="updateData">Update Data</button> -->
     <TitleBar title="घरधुरीकाे विवरण" />
     <div class="main-content" id="main">     
-        <Stats/>
-      <div class="tabs">
+        <Stats :url="'household/summary-stats'"/>
+      <div class="tabs" id="tabs">
         <tabs :options="{ useUrlFragment: false }" @changed="houseTabChange"  cache-lifetime="0">
           <tab name="घरकाे अवस्था">
             <!-- <h2>घरकाे अवस्था</h2> -->
@@ -53,7 +53,7 @@ export default {
     HouseToilet: () => import("./HouseToilet"),
     HouseWasteMgmt: () => import("./HouseWasteMgmt"),
     TitleBar: () => import("../shared/TitleBar"),
-    Stats: () => import("../shared/Stats"),
+    Stats: () => import("./HouseStats"),
     Tabs,
     Tab,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),

@@ -42,7 +42,33 @@ class FamilyController extends Controller
             $ward = $request->ward ? explode(',', $request->ward) : [];
 
             $data['total_family']        = $this->householdService->getTotalHouseholdCount($ward);
-            $data['househead_gender']  = $this->householdService->getHouseHeadGender($ward);
+            $data['househead_gender']  = $this->householdService->getHouseHeadGender($request->all());
+
+            return response()->json(prepareResponseFormat($data));
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Returns api response category individual summary stats
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse|\Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getSummary(Request $request)
+    {
+        try {
+            $data['voter_population']  =  $this->individualService->getVoterPop($request->all());
+            $data['employment_total']  = $this->individualService->getMaxInvolvedSector($request->all());
+            $data['employment_gender'] = $this->individualService->getEmploymentWise($request->all());
 
             return response()->json(prepareResponseFormat($data));
         } catch (\Exception $e) {
