@@ -96,7 +96,7 @@ namespace :devops do
     end
 end
 
-namespace :uahep_demo do
+namespace :phpapp do
     desc "Initial setup"
     task :set_up do
         on roles(:all) do
@@ -159,8 +159,8 @@ namespace :deploy do
     after :updated, "vendor:copy"
     after :updated, "composer:install"
     after :updated, "environment:set_variables"
-    after :published, "uahep_demo:create_symlink"
-    after :finished, "uahep_demo:create_ver_txt"
+    after :published, "phpapp:create_symlink"
+    after :finished, "phpapp:create_ver_txt"
 end
 
-after "deploy", "php_fpm:reload"
+# after "deploy", "php_fpm:reload"
