@@ -575,16 +575,74 @@ body {
   margin-left: 300px;
 }
 
+.stats {
+  color: var(--color-primary-dark);
+  padding-left: 68px;
+  position: relative;
+}
+.stats:before {
+  background-color: rgba(168, 216, 255, 0.5);
+  background-image: url(/images/ic_sprite.svg?f1e51de0b01b8cf8e4ef4c369a04b9ba);
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  content: "";
+  height: 52px;
+  left: 0;
+  position: absolute;
+  top: 2px;
+  width: 52px;
+}
+.stats-section {
+  background: var(--color-base);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  justify-content: space-between;
+  padding: 24px 48px;
+  position: relative;
+}
+.stats strong {
+  display: block;
+  font-size: 20px;
+}
+.stats-maximum {
+  border-left: 1px solid rgba(114, 115, 142, 0.2);
+  justify-content: space-between;
+  padding-left: 24px;
+  width: calc(100% - 254px);
+}
+.stats-maximum strong {
+  font-size: 16px;
+}
+.stats-population::before {
+  background-position: 16px 16px;
+}
+.stats-family::before {
+  background-position: 15px -29px;
+}
+.stats-female::before {
+  background-position: 15px -77px;
+}
+.stats-male::before {
+  background-position: 14px -127px;
+}
+.stats-third-gender::before {
+  background-position: 12px -173px;
+}
+.stats-employment:before {
+  background-position: 12px -225px;
+}
+
 .tabs-component {
   display: flex;
 }
 .tabs-component-tabs {
   background-color: var(--color-base);
+  border-right: 1px solid rgba(114, 115, 142, 0.2);
   min-width: 300px;
   width: 300px;
 }
 .tabs-component-panels {
-  border-left: 1px solid rgba(114, 115, 142, 0.2);
   width: calc(100vw - 300px);
   padding: 24px 40px;
 }
