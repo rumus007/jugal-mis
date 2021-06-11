@@ -111,18 +111,86 @@ body {
      }
 }
 
+.stats {
+    color: var(--color-primary-dark);
+    padding-left: 68px;
+    position: relative;
+
+    &:before {
+        background-color: rgba(168, 216, 255, 0.5);
+        background-image: url("../../public/images/ic_sprite.svg");
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        content: "";
+        height: 52px;
+        left: 0;
+        position: absolute;
+        top: 2px;
+        width: 52px;
+    }
+
+    &-section {
+        background: var(--color-base);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        justify-content: space-between;
+        padding: 24px 48px;
+        position: relative;
+    }
+
+    strong {
+        display: block;
+        font-size: 20px;
+    }
+
+    &-maximum {
+        border-left: 1px solid rgba(114, 115, 142, 0.2);
+        justify-content: space-between;
+        padding-left: 24px;
+        width: calc(100% - 254px);
+        strong {
+            font-size: 16px;
+        }
+    }
+
+    &-population::before {
+        background-position: 16px 16px;
+    }
+
+    &-family::before {
+        background-position: 15px -29px;
+    }
+
+    &-female::before {
+        background-position: 15px -77px;
+    }
+
+    &-male::before {
+        background-position: 14px -127px;
+    }
+
+    &-third-gender::before {
+        background-position: 12px -173px;
+    }
+
+    &-employment:before {
+        background-position: 12px -225px;
+    }
+}
+
 .tabs {
     &-component {
         display: flex;
 
         &-tabs {
             background-color: var(--color-base);
+            border-right: 1px solid rgba(114, 115, 142, 0.2);
             min-width: 300px;
             width: 300px;
         }
 
-        &-panels {
-            border-left: 1px solid rgba(114, 115, 142, 0.2);
+        &-panels {            
             width: calc(100vw - 300px);
             padding: 24px 40px;
 

@@ -99,56 +99,56 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
-.stats {
-  color: var(--color-primary-dark);
-  padding-left: 68px;
-  position: relative;
-  &:before {
-    background-color: rgba(168, 216, 255, 0.5);
-    background-image: url("../../../../../public/images/ic_sprite.svg");
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    content: "";
-    height: 52px;
-    left: 0;
-    position: absolute;
-    top: 2px;
-    width: 52px;
-  }
-  &-section {
-    background: var(--color-base);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    justify-content: space-between;
-    padding: 24px 48px;
-    position: relative;
-  }
+// <style scoped lang="scss">
+// .stats {
+//   color: var(--color-primary-dark);
+//   padding-left: 68px;
+//   position: relative;
+//   &:before {
+//     background-color: rgba(168, 216, 255, 0.5);
+//     background-image: url("../../../../../public/images/ic_sprite.svg");
+//     background-repeat: no-repeat;
+//     border-radius: 50%;
+//     content: "";
+//     height: 52px;
+//     left: 0;
+//     position: absolute;
+//     top: 2px;
+//     width: 52px;
+//   }
+//   &-section {
+//     background: var(--color-base);
+//     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+//     border-bottom-left-radius: 8px;
+//     border-bottom-right-radius: 8px;
+//     justify-content: space-between;
+//     padding: 24px 48px;
+//     position: relative;
+//   }
 
-  strong {
-    display: block;
-    font-size: 20px;
-  }
+//   strong {
+//     display: block;
+//     font-size: 20px;
+//   }
 
-  &-population::before {
-    background-position: 16px 16px;
-  }
+//   &-population::before {
+//     background-position: 16px 16px;
+//   }
 
-  &-family::before {
-    background-position: 15px -29px;
-  }
+//   &-family::before {
+//     background-position: 15px -29px;
+//   }
 
-  &-female::before {
-    background-position: 15px -77px;
-  }
+//   &-female::before {
+//     background-position: 15px -77px;
+//   }
 
-  &-male::before {
-    background-position: 14px -171px;
-  }
+//   &-male::before {
+//     background-position: 14px -171px;
+//   }
 
-  &-third-gender::before {
-    background-position: 12px -173px;
-  }
-}
-</style>
+//   &-third-gender::before {
+//     background-position: 12px -173px;
+//   }
+// }
+// </style>
