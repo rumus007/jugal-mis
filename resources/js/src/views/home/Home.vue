@@ -3,15 +3,43 @@
     <section class="hero-section">
       <div class="container">
         <div class="hero-section__container">
-          <h1 class="hero-section__title">जुगल गाउँपालिका</h1>
-          <h2 class="hero-section__desc">
-            जुगल गाउँपालिका बागमती प्रदेश अन्तरगत सिन्धुपाल्चोक जिल्लामा पर्दछ ।
-            यो गाँउपालिकाकाे कुल क्षेत्रफल ५९२ वर्ग कि.मी. छ ।
-          </h2>
-          <button class="hero-section__btn" @click="scroll('about')">
+          <div>
+            <h1 class="hero-section__title">जुगल गाउँपालिका</h1>
+            <p class="hero-section__desc">जुगल गाउँपालिकाकाे विद्युतिय प्राेफाईलमा तपाईलाई स्वागत छ।</p>
+          </div>
+
+          <!-- <button class="hero-section__btn" @click="scroll('about')">
             थप जानकारी
             <i class="ri-arrow-down-line"></i>
-          </button>
+          </button>-->
+
+          <div class="hero-section__cards info-cards-section">
+            <div v-if="showLoader" class="loader-wrapper">
+              <loader />
+            </div>
+            <div class="info-cards-section__container" v-else>
+              <div class="card">
+                <div class="card__title">{{ homePageData.household_count }}</div>
+                <div class="card__desc">घरपरिवारकाे कूल संख्या</div>
+              </div>
+              <div class="card">
+                <div class="card__title">{{ homePageData.population_count }}</div>
+                <div class="card__desc">कूल जनसंख्या</div>
+              </div>
+              <div class="card">
+                <div class="card__title">{{ homePageData.youth_percentage }}%</div>
+                <div class="card__desc">युवाकाे प्रतिशत</div>
+              </div>
+              <div class="card">
+                <div class="card__title">{{ homePageData.employed_percentage }}%</div>
+                <div class="card__desc">राेजगार जनसंख्या</div>
+              </div>
+              <div class="card">
+                <div class="card__title">{{ homePageData.internet_percentage }}%</div>
+                <div class="card__desc">इन्टरनेटकाे पहुँच</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -19,35 +47,20 @@
     <section class="about-section" id="about">
       <div class="container">
         <div class="about-section__container">
-          <h2 class="about-section__title">जुगल गाउँपालिका</h2>
+          <div class="about-section__map about-map">
+            <img :src="mapImage" alt="Map Image" />
+            <div class="about-map__overlay">
+              <router-link class="about-map__btn" to="/institution">जुगल गाउँपालिका संस्थागत विवरण</router-link>
+            </div>
+          </div>
           <div class="about-section__desc">
-            <p>
-              बागमती प्रदेशको पहाडी जिल्ला सिन्धुपाल्चोकमा अवस्थित जुगल
-              गाउँपालिका सिन्धुपाल्चोक जिल्लाको उत्तरपुर्वी क्षेत्रमा अवस्थित छ
-              । नेपालको संविधान २०७२ ले परिकल्पना गरे अनुसार संघीय शासकीय स्वरुप
-              वमोजिम राज्य पुर्नसंरचनामा सविकका सेलाङ, गोल्चे, गुम्बा, पाङताङ,
-              बराम्ची र हगाम गरी ६ वटा गा.वि.स.हरु समावेश गरि यस गाउँपालिकाको
-              गठन गरिएको हो । हाल यस गाउँपालिकामा सेलाङ, गोल्चे, गुम्बा, पाङताङ,
-              बराम्ची हगाम र याङलाकोट गरि ७ वटा वडाहरु रहेका छन् ।
-            </p>
-            <p>
-              यस गाउँपालिका ५९२ वर्गकिलोमिटर क्षेत्रमा फैलिएको छ । ब्रहयणी नदीको
-              तटीय क्षेत्र तथा तल्लो किनारा ढाँडेको ८१० मिटर देखि दोर्जे लाक्पा
-              हिमालको शिर ६९६६ मिटर उचाइसम्म फैलिएको छ । २०६८ सालको जनगणना
-              अनुसार १९२३१ जनसंख्या रहेको छ । तामाङ समुदायको बाहुल्यता रहेको यस
-              क्षेत्रमा बाहुन, क्षेत्री, नेवार, शेर्पा, लगाएतका समुदायको बसोबास
-              रहेको छ ।
-            </p>
-            <p>
-              जुगल हिमश्रृंखलामा २६ वटा पीक छन् । यस हिमश्रृंखलामा रहेका हिमाल
-              मध्ये दोर्जे र लाक्पा २ वटा हिमालका युगल जोडी मानिन्छ । युगल हिमाल
-              भन्ने बोलीचालीको भाषा नै पछि गएर जुगल कायम हुन गएको र सोहीबाट यस
-              गाउँपालिकाको नामाकरण गरिएको हो । जुगल हिमाल संघीय राजधानी
-              काठमाडौंबाट सबै भन्दा नजिक रहेको हिमाल हो । जुगल हिमश्रृंखला, जुगल
-              हिमाल, नेपेमासाल, नमस्तेपास, ब्रहयणी नदी जस्ता प्रमुख धार्मिक तथा
-              पर्यटकीय क्षेत्र रहेका छन् । गाउँपालिकामा ढाँडे बजार, कात्तिके
-              बजार, जस्ता प्रमुख व्यापारिक केन्द्रहरु छन् ।
-            </p>
+            <h2 class="about-section__title">जुगल गाउँपालिकाः संक्षिप्त परिचय</h2>
+            <div class="about-section__content">
+              <p>यस प्राेफाईलमार्फत् जुगल गाउँपालिकाकाे बस्तुस्थिति विवरण प्राप्त गर्न सकिन्छ। यसमा मूख्यत् जुगल गाउँपालिकाकाे घरधुरीकाे विवरण, पारिवारिक विवरण, जनसांखिकीय विवरण एवं संस्थागत विवरण समावेश गरिएकाे छ। विवरणलाई उपयुक्त चार्ट, तालिका एवं नक्सामा देखाइएकाे छ। प्रयाेगकर्ताले आवश्यकताअनुसार डाउनलाेड समेत गरी प्रयाेग गर्न सकिन्छ।</p>
+              <div
+                class="about-section__note"
+              >नाेटः यसमा उल्लेख भएका आँकडा गाउँपालिकाद्वारा वि.सं. २०७७ मा सञ्चालित घरधुरी एवं संस्थागत सर्वेक्षणबाट प्राप्त भएका नतिजाका आधारमा प्रस्तुत गरिएकाे हाे।</div>
+            </div>
           </div>
         </div>
       </div>
@@ -127,58 +140,24 @@
         </div>
       </div>
     </section>
-
-    <section class="info-cards-section">
-      <div class="container">
-        <div v-if="showLoader" class="loader-wrapper">
-          <loader />
-        </div>
-        <div class="info-cards-section__container" v-else>
-          <div class="card">
-            <div class="card__title">{{ homePageData.household_count }}</div>
-            <div class="card__desc">घरपरिवारकाे कूल संख्या</div>
-          </div>
-          <div class="card">
-            <div class="card__title">{{ homePageData.population_count }}</div>
-            <div class="card__desc">कूल जनसंख्या</div>
-          </div>
-          <div class="card">
-            <div class="card__title">{{ homePageData.youth_percentage }}%</div>
-            <div class="card__desc">युवाकाे प्रतिशत</div>
-          </div>
-          <div class="card">
-            <div class="card__title">
-              {{ homePageData.employed_percentage }}%
-            </div>
-            <div class="card__desc">राेजगार जनसंख्या</div>
-          </div>
-          <div class="card">
-            <div class="card__title">
-              {{ homePageData.internet_percentage }}%
-            </div>
-            <div class="card__desc">इन्टरनेटकाे पहुँच</div>
-          </div>
-          <div class="card">
-            <div class="card__title">१००</div>
-            <div class="card__desc">अन्य</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <Footer></Footer>
   </main>
 </template>
 
 <script>
+import mapImage from "../../../../../public/images/map.jpg";
 import { englishToNepaliNumber } from "nepali-number";
 export default {
   name: "Home",
   components: {
     Loader: () => import("../components/Loader/Loader"),
+    Footer: () => import("../shared/Footer"),
   },
   data() {
     return {
       homePageData: {},
       showLoader: false,
+      mapImage: mapImage,
     };
   },
   methods: {
@@ -226,47 +205,97 @@ export default {
 <style lang="scss" scoped>
 .about-section {
   margin-bottom: 80px;
-  margin-top: -100px;
-  padding-top: 30px;
   position: relative;
 
-  &::after {
-    bottom: 21px;
-    box-shadow: 0px 2px 60px #014983;
-    content: "";
-    height: 375px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    width: 702px;
-    z-index: -2;
+  &__container {
+    display: flex;
+    justify-content: space-between;
   }
 
-  &__container {
+  &__map {
+    width: calc(50% - 12px);
+    margin-right: 12px;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__desc {
     background-color: var(--color-base);
-    padding: 77px 129px;
+    width: calc(50% - 12px);
+    margin-left: 12px;
+    padding: 48px 40px;
+    box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
   }
 
   &__title {
     color: var(--color-primary-dark);
     font-size: 40px;
     font-weight: bold;
-    line-height: 54px;
-    margin-bottom: 32px;
+    line-height: 52px;
+    margin-bottom: 18px;
   }
 
-  &__desc {
-    font-size: 18px;
-    line-height: 27px;
-
+  &__content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100% - 52px);
+    justify-content: space-between;
     p {
+      font-size: 22px;
+      line-height: 33px;
       margin-bottom: 24px;
     }
+  }
+
+  &__note {
+    background-color: var(--blue-100);
+    padding: 17px 22px;
+    color: var(--neutrals-700);
+  }
+}
+
+.about-map {
+  position: relative;
+
+  &:hover {
+    .about-map__overlay {
+      opacity: 1;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 0.5s ease;
+    background-color: rgba(0, 83, 155, 0.3);
+  }
+
+  &__btn {
+    background-color: var(--blue-400);
+    padding: 16px 33px;
+    font-size: 18px;
+    color: var(--neutrals-0);
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
 }
 
 .card {
-  padding: 64px 56px;
+  padding: 25px;
 
   &__img {
     align-items: center;
@@ -274,24 +303,24 @@ export default {
     border-radius: 50%;
     color: var(--blue-400);
     display: flex;
-    font-size: 34px;
-    height: 80px;
+    font-size: 22px;
+    height: 48px;
     justify-content: center;
-    margin-bottom: 33px;
-    width: 80px;
+    margin-bottom: 28px;
+    width: 48px;
   }
 
   &__title {
     color: var(--color-primary-dark);
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 500;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   &__desc {
     font-size: 18px;
     line-height: 27px;
-    margin-bottom: 29px;
+    margin-bottom: 18px;
   }
 
   &__action {
@@ -314,26 +343,21 @@ export default {
 
 .category-cards-section {
   margin-bottom: 80px;
+
+  .card {
+    padding: 25px;
+  }
+
   &__container {
     display: grid;
-    gap: 40px;
-    grid-template-columns: 1fr 1fr;
+    gap: 23px;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .hero-section {
   position: relative;
-
-  &::before {
-    background-color: #014983;
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 50%;
-    z-index: -1;
-  }
+  margin-bottom: 80px;
 
   &::after {
     background: linear-gradient(rgba(2, 142, 255, 0.3), rgba(2, 142, 255, 0.3)),
@@ -346,30 +370,35 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
-    width: 50%;
+    width: 100%;
     z-index: -1;
   }
 
   &__container {
     align-items: center;
+    justify-content: space-between;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 118px);
-    justify-content: center;
+    height: 580px;
     text-align: center;
+    padding-top: 144px;
+    padding-bottom: 44px;
   }
 
   &__title {
     color: var(--color-base);
     font-size: 80px;
-    margin-bottom: 16px;
   }
 
   &__desc {
     color: var(--color-base);
     font-size: 32px;
+    line-height: 48px;
     font-weight: 700;
-    margin-bottom: 40px;
+  }
+
+  &__cards {
+    width: 100%;
   }
 
   &__btn {
@@ -394,8 +423,6 @@ export default {
   }
 }
 .info-cards-section {
-  background-color: var(--blue-400);
-  padding: 64px 0;
   position: relative;
 
   .double-bounce1,
@@ -406,23 +433,25 @@ export default {
   &__container {
     display: grid;
     gap: 40px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .card {
     background-color: #fff;
-    padding: 56px;
+    height: 150px;
+    padding: 20px;
     text-align: center;
 
     &__title {
       font-size: 40px;
       font-weight: 700;
+      color: var(--blue-400);
       margin-bottom: 0;
     }
 
     &__desc {
-      font-size: 24px;
-      line-height: 31px;
+      font-size: 18px;
+      line-height: 23px;
       margin-bottom: 0px;
     }
   }
