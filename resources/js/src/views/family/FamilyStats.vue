@@ -1,13 +1,11 @@
 <template>
-  <div style="position: relative">
-    <div class="stats-section flex" id="Stats" v-if="statLoader">
+  <div class="stats-section">
+    <div class="loader-wrapper" v-if="statLoader">
       <loader />
     </div>
-    <div class="stats-section flex"  v-else>
+    <div class="flex justify-space-between" v-else>
       <div class="stats stats-family">
-        <strong
-          v-text="statData.total_family ? statData.total_family : '-'"
-        ></strong>
+        <strong v-text="statData.total_family ? statData.total_family : '-'"></strong>
         <span>कुल परिवार</span>
       </div>
       <div class="stats stats-female">

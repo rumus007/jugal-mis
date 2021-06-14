@@ -1,9 +1,9 @@
 <template>
-  <div style="position: relative">
-    <div class="stats-section flex" id="Stats" v-if="statLoader">
+   <div class="stats-section">
+    <div class="loader-wrapper" v-if="statLoader">
       <loader />
     </div>
-    <div class="stats-section flex" v-else>
+    <div class="flex justify-space-between" v-else>
       <div class="stats stats-population">
         <strong
           v-text="statData.total_population ? statData.total_population : '-'"
