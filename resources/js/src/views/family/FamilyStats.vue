@@ -1,26 +1,44 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
+  <div class="stats-section">
+    <div class="loader-wrapper" v-if="statLoader">
+      <loader />
+    </div>
+    <div class="flex justify-space-between" v-else>
       <div class="stats stats-family">
         <strong v-text="statData.total_family ? statData.total_family : '-'"></strong>
         <span>कुल परिवार</span>
       </div>
       <div class="stats stats-female">
-        <strong v-text="statData.househead_gender && statData.househead_gender[2].total ? statData.househead_gender[2].total: '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender_female
+              ? statData.househead_gender_female
+              : '-'
+          "
+        ></strong>
         <span>कुल महिला</span>
       </div>
       <div class="stats stats-male">
-        <strong v-text="statData.househead_gender && statData.househead_gender[1].total ? statData.househead_gender[1].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender_male
+              ? statData.househead_gender_male
+              : '-'
+          "
+        ></strong>
         <span>कुल पुरुष</span>
       </div>
       <div class="stats stats-third-gender">
-        <strong v-text="statData.househead_gender && statData.househead_gender[0].total ? statData.househead_gender[0].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender_other
+              ? statData.househead_gender_other
+              : '-'
+          "
+        ></strong>
         <span>कुल तेश्रो लिङ्गी</span>
       </div>
-    <!-- </div> -->
-    <!-- <div v-else> -->
-      <!-- <loader /> -->
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -54,20 +72,10 @@ export default {
         .then(({ data }) => {
           let formattedData = {};
           for (let [key, value] of Object.entries(data.data)) {
-            if (typeof value !== "object") {
-              formattedData[key] = this.getFormattedCount(value);
-            } else {
-              formattedData[key] = value;
-            }
-          }
-          formattedData.househead_gender =
-            formattedData.househead_gender.map((genderWise) => {
-              return {
-                total: this.getFormattedCount(genderWise.total),
-                category: genderWise.category,
-              };
-            });
-          this.statData = formattedData;
+            formattedData[key] = this.getFormattedCount(value);
+          }        
+          
+          this.statData = Object.keys(formattedData).length > 0 ? formattedData : [] ;;
           this.statLoader = false;
         })
         .catch(() => {
@@ -148,4 +156,5 @@ export default {
 //     background-position: 12px -173px;
 //   }
 // }
-// </style>
+//
+</style>

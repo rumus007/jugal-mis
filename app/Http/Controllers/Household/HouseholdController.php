@@ -41,10 +41,22 @@ class HouseholdController extends Controller
     {
         try {
             $ward = $request->ward ? explode(',', $request->ward) : [];
+            $map = [
+                "पुरुष" => "male",
+                "महिला" => "female",
+                "तेश्रो लिङ्गी" => "other",
+            ];
 
             $data['total_household']        = $this->householdService->getTotalHouseholdCount($ward);
             $data['total_population']       = $this->individualService->getTotalPop($request->all());
-            $data['population_genderwise']  = $this->individualService->getGenderWise($request->all());
+            $tmp  = $this->individualService->getGenderWise($request->all());
+
+            foreach($tmp as $value){
+                if(array_key_exists($value['category'],$map)){
+                    $key = 'population_gender_' . $map[$value['category']];
+                    $data[$key] = $value['total'];
+                }
+            }
 
             return response()->json(prepareResponseFormat($data));
         } catch (\Exception $e) {

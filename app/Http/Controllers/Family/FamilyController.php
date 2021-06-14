@@ -40,9 +40,21 @@ class FamilyController extends Controller
     {
         try {
             $ward = $request->ward ? explode(',', $request->ward) : [];
+            $map = [
+                "पुरुष" => "male",
+                "महिला" => "female",
+                "तेश्रो लिङ्गी" => "other",
+            ];
 
             $data['total_family']        = $this->householdService->getTotalHouseholdCount($ward);
-            $data['househead_gender']  = $this->householdService->getHouseHeadGender($request->all());
+            $tmp  = $this->householdService->getHouseHeadGender($request->all());
+
+            foreach($tmp as $value){
+                if(array_key_exists($value['category'],$map)){
+                    $key = 'househead_gender_' . $map[$value['category']];
+                    $data[$key] = $value['total'];
+                }
+            }
 
             return response()->json(prepareResponseFormat($data));
         } catch (\Exception $e) {

@@ -80,6 +80,7 @@ export default {
 
     houseTabChange(selectedTab) {
       this.selectedTab = selectedTab.tab.name;
+      this.$store.commit("changeLoader", true);
       window.scrollTo(0,0);
     },
   },

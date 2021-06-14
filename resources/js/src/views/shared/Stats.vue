@@ -1,30 +1,11 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
-      <div class="stats stats-population">
-        <strong>{{ statData.total_population }}</strong>
-        <span>कुल जनसंख्या</span>
-      </div>
-      <div class="stats stats-family">
-        <strong>{{ statData.total_household }}</strong>
-        <span>कुल परिवार</span>
-      </div>
-      <div class="stats stats-female">
-        <strong>{{statData.population_genderwise[2].total}}</strong>
-        <span>कुल महिला</span>
-      </div>
-      <div class="stats stats-male">
-        <strong>{{statData.population_genderwise[1].total}}</strong>
-        <span>कुल पुरुष</span>
-      </div>
-      <div class="stats stats-third-gender">
-        <strong>{{statData.population_genderwise[0].total}}</strong>
-        <span>कुल तेश्रो लिङ्गी</span>
-      </div>
-    <!-- </div> -->
-    <!-- <div v-else> -->
-      <!-- <loader /> -->
-    <!-- </div> -->
+  <div class="stats-section">
+    <div class="loader-wrapper" v-if="isLoading">
+      <loader />
+    </div>
+    <div class="flex justify-space-between" v-else>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -39,6 +20,7 @@ export default {
   },
   props: {
     url: { type: String, rquired: true },
+    isLoading: { type: Boolean, rquired: true },
   },
   data() {
     return {
@@ -59,14 +41,13 @@ export default {
           let formattedData = {};
           let genderData = {};
           for (let [key, value] of Object.entries(data.data)) {
-            if(typeof value !== "object"){
-                formattedData[key] = this.getFormattedCount(value);
-            }
-            else{
-                formattedData[key] = value;
+            if (typeof value !== "object") {
+              formattedData[key] = this.getFormattedCount(value);
+            } else {
+              formattedData[key] = value;
             }
           }
-         this.statData = formattedData;
+          this.statData = formattedData;
           //   this.statData = data?.data ?? [];
           this.statLoader = false;
         })

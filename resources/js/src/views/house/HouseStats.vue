@@ -1,30 +1,52 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
-    <div class="stats stats-population">
-      <strong v-text="statData.total_population ? statData.total_population : '-'"></strong>
-      <span>कुल जनसंख्या</span>
+  <div class="stats-section">
+    <div class="loader-wrapper" v-if="statLoader">
+      <loader />
     </div>
-    <div class="stats stats-family">
-      <strong  v-text="statData.total_household ? statData.total_household : '-'"></strong>
-      <span>कुल परिवार</span>
-    </div>
-     <div class="stats stats-female">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[2].total ? statData.population_genderwise[2].total: '-'"></strong>
+    <div class="flex justify-space-between" v-else>
+      <div class="stats stats-population">
+        <strong
+          v-text="statData.total_population ? statData.total_population : '-'"
+        ></strong>
+        <span>कुल जनसंख्या</span>
+      </div>
+      <div class="stats stats-family">
+        <strong
+          v-text="statData.total_household ? statData.total_household : '-'"
+        ></strong>
+        <span>कुल परिवार</span>
+      </div>
+      <div class="stats stats-female">
+        <strong
+          v-text="
+            statData.population_gender_female
+              ? statData.population_gender_female
+              : '-'
+          "
+        ></strong>
         <span>कुल महिला</span>
       </div>
       <div class="stats stats-male">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[1].total ? statData.population_genderwise[1].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.population_gender_male
+              ? statData.population_gender_male
+              : '-'
+          "
+        ></strong>
         <span>कुल पुरुष</span>
       </div>
       <div class="stats stats-third-gender">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[0].total ? statData.population_genderwise[0].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.population_gender_other
+              ? statData.population_gender_other
+              : '-'
+          "
+        ></strong>
         <span>कुल तेश्रो लिङ्गी</span>
       </div>
-    <!-- </div> -->
-    <!-- <div v-else> -->
-    <!-- <loader /> -->
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -36,6 +58,7 @@ export default {
   name: "Stats",
   components: {
     Loader: () => import("../components/Loader/Loader.vue"),
+    Stats: () => import("../../views/shared/Stats.vue")
   },
   props: {
     url: { type: String, rquired: true },
@@ -57,20 +80,10 @@ export default {
         .then(({ data }) => {
           let formattedData = {};
           for (let [key, value] of Object.entries(data.data)) {
-            if (typeof value !== "object") {
-              formattedData[key] = this.getFormattedCount(value);
-            } else {
-              formattedData[key] = value;
-            }
+            formattedData[key] = this.getFormattedCount(value);
           }
-          formattedData.population_genderwise =
-            formattedData.population_genderwise.map((genderWise) => {
-              return {
-                total: this.getFormattedCount(genderWise.total),
-                category: genderWise.category,
-              };
-            });
-          this.statData = formattedData;
+
+          this.statData = Object.keys(formattedData).length > 0 ? formattedData : [] ;
           this.statLoader = false;
         })
         .catch(() => {
@@ -151,4 +164,5 @@ export default {
 //     background-position: 12px -173px;
 //   }
 // }
-// </style>
+//
+</style>
