@@ -11,8 +11,8 @@
       <div class="stats stats-female">
         <strong
           v-text="
-            statData.househead_gender && statData.househead_gender[2].total
-              ? statData.househead_gender[2].total
+            statData.househead_gender_female
+              ? statData.househead_gender_female
               : '-'
           "
         ></strong>
@@ -21,8 +21,8 @@
       <div class="stats stats-male">
         <strong
           v-text="
-            statData.househead_gender && statData.househead_gender[1].total
-              ? statData.househead_gender[1].total
+            statData.househead_gender_male
+              ? statData.househead_gender_male
               : '-'
           "
         ></strong>
@@ -31,8 +31,8 @@
       <div class="stats stats-third-gender">
         <strong
           v-text="
-            statData.househead_gender && statData.househead_gender[0].total
-              ? statData.househead_gender[0].total
+            statData.househead_gender_other
+              ? statData.househead_gender_other
               : '-'
           "
         ></strong>
@@ -72,21 +72,10 @@ export default {
         .then(({ data }) => {
           let formattedData = {};
           for (let [key, value] of Object.entries(data.data)) {
-            if (typeof value !== "object") {
-              formattedData[key] = this.getFormattedCount(value);
-            } else {
-              formattedData[key] = value;
-            }
-          }
-          formattedData.househead_gender = formattedData.househead_gender.map(
-            (genderWise) => {
-              return {
-                total: this.getFormattedCount(genderWise.total),
-                category: genderWise.category,
-              };
-            }
-          );
-          this.statData = formattedData;
+            formattedData[key] = this.getFormattedCount(value);
+          }        
+          
+          this.statData = Object.keys(formattedData).length > 0 ? formattedData : [] ;;
           this.statLoader = false;
         })
         .catch(() => {

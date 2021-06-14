@@ -1,5 +1,5 @@
 <template>
-   <div class="stats-section">
+  <div class="stats-section">
     <div class="loader-wrapper" v-if="statLoader">
       <loader />
     </div>
@@ -19,9 +19,8 @@
       <div class="stats stats-female">
         <strong
           v-text="
-            statData.population_genderwise &&
-            statData.population_genderwise[2].total
-              ? statData.population_genderwise[2].total
+            statData.population_gender_female
+              ? statData.population_gender_female
               : '-'
           "
         ></strong>
@@ -30,9 +29,8 @@
       <div class="stats stats-male">
         <strong
           v-text="
-            statData.population_genderwise &&
-            statData.population_genderwise[1].total
-              ? statData.population_genderwise[1].total
+            statData.population_gender_male
+              ? statData.population_gender_male
               : '-'
           "
         ></strong>
@@ -41,9 +39,8 @@
       <div class="stats stats-third-gender">
         <strong
           v-text="
-            statData.population_genderwise &&
-            statData.population_genderwise[0].total
-              ? statData.population_genderwise[0].total
+            statData.population_gender_other
+              ? statData.population_gender_other
               : '-'
           "
         ></strong>
@@ -61,6 +58,7 @@ export default {
   name: "Stats",
   components: {
     Loader: () => import("../components/Loader/Loader.vue"),
+    Stats: () => import("../../views/shared/Stats.vue")
   },
   props: {
     url: { type: String, rquired: true },
@@ -82,20 +80,10 @@ export default {
         .then(({ data }) => {
           let formattedData = {};
           for (let [key, value] of Object.entries(data.data)) {
-            if (typeof value !== "object") {
-              formattedData[key] = this.getFormattedCount(value);
-            } else {
-              formattedData[key] = value;
-            }
+            formattedData[key] = this.getFormattedCount(value);
           }
-          formattedData.population_genderwise =
-            formattedData.population_genderwise.map((genderWise) => {
-              return {
-                total: this.getFormattedCount(genderWise.total),
-                category: genderWise.category,
-              };
-            });
-          this.statData = formattedData;
+
+          this.statData = Object.keys(formattedData).length > 0 ? formattedData : [] ;
           this.statLoader = false;
         })
         .catch(() => {
