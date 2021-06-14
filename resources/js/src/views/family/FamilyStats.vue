@@ -1,26 +1,46 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
+  <div style="position: relative">
+    <div class="stats-section flex" id="Stats" v-if="statLoader">
+      <loader />
+    </div>
+    <div class="stats-section flex"  v-else>
       <div class="stats stats-family">
-        <strong v-text="statData.total_family ? statData.total_family : '-'"></strong>
+        <strong
+          v-text="statData.total_family ? statData.total_family : '-'"
+        ></strong>
         <span>कुल परिवार</span>
       </div>
       <div class="stats stats-female">
-        <strong v-text="statData.househead_gender && statData.househead_gender[2].total ? statData.househead_gender[2].total: '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender && statData.househead_gender[2].total
+              ? statData.househead_gender[2].total
+              : '-'
+          "
+        ></strong>
         <span>कुल महिला</span>
       </div>
       <div class="stats stats-male">
-        <strong v-text="statData.househead_gender && statData.househead_gender[1].total ? statData.househead_gender[1].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender && statData.househead_gender[1].total
+              ? statData.househead_gender[1].total
+              : '-'
+          "
+        ></strong>
         <span>कुल पुरुष</span>
       </div>
       <div class="stats stats-third-gender">
-        <strong v-text="statData.househead_gender && statData.househead_gender[0].total ? statData.househead_gender[0].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.househead_gender && statData.househead_gender[0].total
+              ? statData.househead_gender[0].total
+              : '-'
+          "
+        ></strong>
         <span>कुल तेश्रो लिङ्गी</span>
       </div>
-    <!-- </div> -->
-    <!-- <div v-else> -->
-      <!-- <loader /> -->
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -60,13 +80,14 @@ export default {
               formattedData[key] = value;
             }
           }
-          formattedData.househead_gender =
-            formattedData.househead_gender.map((genderWise) => {
+          formattedData.househead_gender = formattedData.househead_gender.map(
+            (genderWise) => {
               return {
                 total: this.getFormattedCount(genderWise.total),
                 category: genderWise.category,
               };
-            });
+            }
+          );
           this.statData = formattedData;
           this.statLoader = false;
         })
@@ -148,4 +169,5 @@ export default {
 //     background-position: 12px -173px;
 //   }
 // }
-// </style>
+//
+</style>

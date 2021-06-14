@@ -1,48 +1,56 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
-    <div class="stats stats-population">
-      <strong
-        v-text="statData.voter_population ? statData.voter_population : '-'"
-      ></strong>
-      <span>कुल मतदाता योग्य जनसंख्या</span>
+  <div style="position: relative">
+    <div class="stats-section flex" id="Stats" v-if="statLoader">
+      <loader />
     </div>
+    <div class="stats-section flex" v-else>
+      <!-- <div v-if="!statLoader"> -->
+      <div class="stats stats-population">
+        <strong
+          v-text="statData.voter_population ? statData.voter_population : '-'"
+        ></strong>
+        <span>कुल मतदाता योग्य जनसंख्या</span>
+      </div>
 
-    <div class="flex stats-maximum">
-    <div class="stats stats-employment">
-      <strong
-        v-text="statData.employment_total ? statData.employment_total : '-'"
-      ></strong>
-      <span>अधिकतम जनसंख्या समावेश क्षेत्र</span>
-    </div>
+      <div class="flex stats-maximum">
+        <div class="stats stats-employment">
+          <strong
+            v-text="statData.employment_total ? statData.employment_total : '-'"
+          ></strong>
+          <span>अधिकतम जनसंख्या समावेश क्षेत्र</span>
+        </div>
 
-    <div class="stats stats-female">
-      <strong
-        v-text="
-          statData.employment_gender && statData.employment_gender.female
-            ? statData.employment_gender.female
-            : '-'"
-      ></strong>
-      <span>अधिकतम महिला समावेश क्षेत्र </span>
-    </div>
-    <div class="stats stats-male">
-      <strong
-        v-text="
-          statData.employment_gender && statData.employment_gender.male
-            ? statData.employment_gender.male
-            : '-'"
-      ></strong>
-      <span>अधिकतम पुरुष समावेश क्षेत्र </span>
-    </div>
-    <div class="stats stats-third-gender">
-      <strong
-        v-text="
-          statData.employment_gender && statData.employment_gender.others
-            ? statData.employment_gender.others
-            : '-'"
-      ></strong>
-      <span>अधिकतम तेश्रो लिङ्गी समावेश क्षेत्र </span>
-    </div>
+        <div class="stats stats-female">
+          <strong
+            v-text="
+              statData.employment_gender && statData.employment_gender.female
+                ? statData.employment_gender.female
+                : '-'
+            "
+          ></strong>
+          <span>अधिकतम महिला समावेश क्षेत्र </span>
+        </div>
+        <div class="stats stats-male">
+          <strong
+            v-text="
+              statData.employment_gender && statData.employment_gender.male
+                ? statData.employment_gender.male
+                : '-'
+            "
+          ></strong>
+          <span>अधिकतम पुरुष समावेश क्षेत्र </span>
+        </div>
+        <div class="stats stats-third-gender">
+          <strong
+            v-text="
+              statData.employment_gender && statData.employment_gender.others
+                ? statData.employment_gender.others
+                : '-'
+            "
+          ></strong>
+          <span>अधिकतम तेश्रो लिङ्गी समावेश क्षेत्र </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

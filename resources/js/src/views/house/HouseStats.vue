@@ -1,30 +1,55 @@
 <template>
-  <div class="stats-section flex" id="Stats">
-    <!-- <div v-if="!statLoader"> -->
-    <div class="stats stats-population">
-      <strong v-text="statData.total_population ? statData.total_population : '-'"></strong>
-      <span>कुल जनसंख्या</span>
+  <div style="position: relative">
+    <div class="stats-section flex" id="Stats" v-if="statLoader">
+      <loader />
     </div>
-    <div class="stats stats-family">
-      <strong  v-text="statData.total_household ? statData.total_household : '-'"></strong>
-      <span>कुल परिवार</span>
-    </div>
-     <div class="stats stats-female">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[2].total ? statData.population_genderwise[2].total: '-'"></strong>
+    <div class="stats-section flex" v-else>
+      <div class="stats stats-population">
+        <strong
+          v-text="statData.total_population ? statData.total_population : '-'"
+        ></strong>
+        <span>कुल जनसंख्या</span>
+      </div>
+      <div class="stats stats-family">
+        <strong
+          v-text="statData.total_household ? statData.total_household : '-'"
+        ></strong>
+        <span>कुल परिवार</span>
+      </div>
+      <div class="stats stats-female">
+        <strong
+          v-text="
+            statData.population_genderwise &&
+            statData.population_genderwise[2].total
+              ? statData.population_genderwise[2].total
+              : '-'
+          "
+        ></strong>
         <span>कुल महिला</span>
       </div>
       <div class="stats stats-male">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[1].total ? statData.population_genderwise[1].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.population_genderwise &&
+            statData.population_genderwise[1].total
+              ? statData.population_genderwise[1].total
+              : '-'
+          "
+        ></strong>
         <span>कुल पुरुष</span>
       </div>
       <div class="stats stats-third-gender">
-        <strong v-text="statData.population_genderwise && statData.population_genderwise[0].total ? statData.population_genderwise[0].total : '-'"></strong>
+        <strong
+          v-text="
+            statData.population_genderwise &&
+            statData.population_genderwise[0].total
+              ? statData.population_genderwise[0].total
+              : '-'
+          "
+        ></strong>
         <span>कुल तेश्रो लिङ्गी</span>
       </div>
-    <!-- </div> -->
-    <!-- <div v-else> -->
-    <!-- <loader /> -->
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -151,4 +176,5 @@ export default {
 //     background-position: 12px -173px;
 //   }
 // }
-// </style>
+//
+</style>
