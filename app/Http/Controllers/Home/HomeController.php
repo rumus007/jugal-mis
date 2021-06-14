@@ -36,9 +36,9 @@ class HomeController extends Controller
 
             $data['household_count']        = $this->householdService->getTotalHouseholdCount();
             $data['population_count']       = $this->individualService->getTotalPopulation();
-            $data['youth_percentage']       = (float) number_format(($youth * 100) / $data['population_count'], 2);
-            $data['employed_percentage']    = (float) number_format(($employed * 100) / $data['population_count'], 2);
-            $data['internet_percentage']    = (float) number_format(($internet * 100) / $data['household_count'], 2);
+            $data['youth_percentage']       = $data['population_count'] ? (float) number_format(($youth * 100) / $data['population_count'], 2) : 0;
+            $data['employed_percentage']    = $data['population_count'] ? (float) number_format(($employed * 100) / $data['population_count'], 2) : 0;
+            $data['internet_percentage']    =  $data['household_count'] ? (float) number_format(($internet * 100) / $data['household_count'], 2) : 0;
 
             return response()->json(prepareResponseFormat($data),200);
         } catch (\Exception $e) {
