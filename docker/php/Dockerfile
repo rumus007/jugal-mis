@@ -79,8 +79,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # set working directory
 WORKDIR $APP_HOME
 
-USER root
 # create composer folder for user www-data
-RUN mkdir -p /var/www/.composer && chown -R www-data:www-data /var/www/.composer
+RUN mkdir -p /var/www/.composer 
+RUN chmod -R 777 /var/www/.composer
 
 USER www-data

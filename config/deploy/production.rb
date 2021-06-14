@@ -1,4 +1,4 @@
-server 'jugal.susasan.org',user: 'jugal', roles: %w{web app db}
+server 'eprofile.jugal.susasan.org',user: 'jugal', roles: %w{web app db}
 # Directory to deploy
 # ===================
 set :env, 'production'

@@ -4,7 +4,7 @@
 #####################################################################################
 set :application,     "JUGAL"
 set :branch,          ENV["branch"] || "master"
-set :user,            ENV["user"] || ENV["USER"] || "uahep"
+set :user,            ENV["user"] || ENV["USER"] || "jugal"
 set :tmp_dir,         '/home/jugal/web/tmp'
 # SCM #
 #####################################################################################
@@ -27,6 +27,12 @@ set :use_set_permissions, true
 set :webserver_user,      "www-data"
 set :group,               "www-data"
 set :keep_releases,       1
+# NVM #
+#####################################################################################
+# set :nvm_type, :user # or :system, depends on your nvm setup
+# set :nvm_node, 'v14.17.0'
+# set :nvm_map_bins, %w{node npm yarn}
+
 
 require 'date'
 set :current_time, DateTime.now
@@ -44,12 +50,17 @@ end
 namespace :composer do
     desc "Running Composer Install"
     task :install do
-        on roles(:app) do
-            within release_path do
-                execute :composer, "install --no-dev --quiet"
-                execute :composer, "dump-autoload -o"
+        # skip this is in production
+        if fetch(:stage).to_s === "staging"
+            on roles(:app) do
+                within release_path do
+                    execute :composer, "install --no-dev --quiet"
+                    execute :composer, "dump-autoload -o"
+                end
             end
-        end
+        else
+            puts("Composer install skipped in production")
+        end        
     end
 end
 namespace :app do
@@ -135,6 +146,7 @@ namespace :vendor do
         on roles(:web) do
             puts ("--> Copy vendor folder from previous release")
             execute "vendorDir=#{current_path}/vendor; if [ -d $vendorDir ] || [ -h $vendorDir ]; then cp -a $vendorDir #{release_path}/vendor; fi;"
+            # execute "nodeDir=#{current_path}/node_modules; if [ -d $nodeDir ] || [ -h $nodeDir ]; then cp -a $nodeDir #{release_path}/node_modules; fi;"
         end
     end
 end
@@ -148,19 +160,47 @@ namespace :nginx do
 end
 namespace :php_fpm do
     desc 'Reload php-fpm'
+        # skip this is production
         task :reload do
-            on roles(:all) do
-            execute :sudo, :service, "php8.0-fpm reload"
-        end
+            if fetch(:stage).to_s === "staging"
+                on roles(:all) do
+                    execute :sudo, :service, "php8.0-fpm reload"
+                end
+            else
+                puts('fpm skipped in produciton')
+            end        
     end
 end
+# namespace :node do
+#     desc 'Compile JS and CSS assests'
+#         task :install do
+#             on roles(:all) do 
+#                 within release_path do
+#                     puts ("--> install node packages")
+#                     execute :npm,"install"
+#                 end
+#             end
+#         end
+
+#         task :prod do
+#             on roles(:all) do 
+#                 within release_path do
+#                     puts ("--> make production build")
+#                     execute :npm,"run prod"
+#                 end
+#             end
+#         end
+# end
 
 namespace :deploy do
     after :updated, "vendor:copy"
     after :updated, "composer:install"
     after :updated, "environment:set_variables"
+    # after :updated, "node:install"
+    # after :updated, "node:prod"
     after :published, "phpapp:create_symlink"
     after :finished, "phpapp:create_ver_txt"
 end
 
-# after "deploy", "php_fpm:reload"
+
+after "deploy", "php_fpm:reload"
