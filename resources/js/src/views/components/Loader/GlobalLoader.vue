@@ -24,7 +24,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.9);
         z-index: 999;
         cursor: pointer;
         span.text {

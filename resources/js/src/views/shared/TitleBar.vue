@@ -45,7 +45,7 @@ export default {
       set(value) {
         this.$store.commit("changeWard", value);
       },
-    },
+    }
   },
   methods: {
     selectWard: function () {},
@@ -73,7 +73,15 @@ export default {
       });
     },
     download(){
-      window.print();
+      this.$store.commit("changePrinting", true);
+
+      setTimeout(() => {
+        window.print();
+      }, 4000);
+
+       window.onafterprint = () => {
+          this.$store.commit("changePrinting", false);
+        }
     }
   },
     created () {

@@ -2,6 +2,7 @@
   <div>
     <apexchart
       type="bar"
+      :width="this.$store.getters.isPrinting ? '640' : '100%'"
       height="300"
       :options="chartOptions"
       :series="series"
@@ -18,7 +19,7 @@ export default {
     data: { type: Array, required: true },
     horizontalBar : {type: Boolean, required: true},
     xAxisTitle: {type: String, required: true},
-    yAxisTitle: {type: String, required: true}
+    yAxisTitle: {type: String, required: true},
     // options: { type: Object, required: true },
   },
   components: {
@@ -150,6 +151,7 @@ export default {
   data: function () {
     return {
       showGraph: true,
+      // isPrinting: false
     };
   },
 };

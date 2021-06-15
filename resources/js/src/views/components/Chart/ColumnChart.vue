@@ -1,6 +1,11 @@
 <template>
   <div>
-    <apexchart type="bar" height="300" :options="chartOptions" :series="series"></apexchart>
+    <apexchart 
+      type="bar" 
+      :width="this.$store.getters.isPrinting ? '640' : '100%'"
+      height="300" 
+      :options="chartOptions" 
+      :series="series"></apexchart>
   </div>
 </template>
 

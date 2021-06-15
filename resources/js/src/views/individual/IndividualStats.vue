@@ -40,16 +40,6 @@
           ></strong>
           <span>अधिकतम पुरुष समावेश क्षेत्र </span>
         </div>
-        <div class="stats stats-third-gender">
-          <strong
-            v-text="
-              statData.employment_gender && statData.employment_gender.others
-                ? statData.employment_gender.others
-                : '-'
-            "
-          ></strong>
-          <span>अधिकतम तेश्रो लिङ्गी समावेश क्षेत्र </span>
-        </div>
       </div>
     </div>
   </div>

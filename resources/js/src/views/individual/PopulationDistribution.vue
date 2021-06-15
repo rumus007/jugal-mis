@@ -506,7 +506,7 @@ export default {
         this.getFromApi(
           "showMobileTelecomLoader",
           "byMobileTelecomData",
-          "has-mobile"
+          "mobile-telecom"
         );
       },
       deep: true,

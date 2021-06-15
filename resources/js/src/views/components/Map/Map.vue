@@ -1,13 +1,13 @@
 <template>
   <div id="container" class="map-wrapper">
-    <div class="map-wrapper__search-input-wrapper map-search">
+    <!-- <div class="map-wrapper__search-input-wrapper map-search">
       <i class="ri-search-line map-search__icon"></i>
       <input
         type="text"
         class="map-search__input"
         placeholder="ठाउँको नामले खोजी गर्नुहोस्..."
       />
-    </div>
+    </div> -->
     <div id="mapContainer"></div>
   </div>
 </template>
