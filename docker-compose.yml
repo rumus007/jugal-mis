@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: "${APP_NAME}_laravel"
+    command: bash -c "chmod 777 -R /home/jugal/web/current/docker && /usr/bin/composer install --no-interaction --no-progress &&  "php-fpm &" && php -a"
+    ports:
+      - "9005:9000"
+    volumes:
+      - .:/home/jugal/web/current
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - /home/jugal/web/releases/:/home/jugal/web/releases/
+      - /home/jugal/web/shared/storage/:/home/jugal/web/shared/storage/
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    name: ${APP_NAME}

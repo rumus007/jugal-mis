@@ -1,11 +1,11 @@
-server 'uahep-grmss.yipl.com.np',user: 'uahep_prod', roles: %w{web app db}
+server 'eprofile.jugal.susasan.org',user: 'jugal', roles: %w{web app db}
 # Directory to deploy
 # ===================
 set :env, 'production'
-set :deploy_to, '/home/uahep_prod/web'
-set :shared_path, '/home/uahep_prod/web/shared'
-set :overlay_path, '/home/uahep_prod/web/overlay'
-set :tmp_dir, '/home/uahep_prod/web/tmp'
+set :deploy_to, '/home/jugal/web'
+set :shared_path, '/home/jugal/web/shared'
+set :overlay_path, '/home/jugal/web/overlay'
+set :tmp_dir, '/home/jugal/web/tmp'
 set :app_env, 'prod'
 set :app_debug, 'false'
 set :session_driver, 'file'
@@ -73,3 +73,4 @@ set :app_key, ''
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
