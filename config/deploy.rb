@@ -167,7 +167,13 @@ namespace :php_fpm do
                     execute :sudo, :service, "php8.0-fpm reload"
                 end
             else
-                puts('fpm skipped in produciton')
+                on roles(:all) do
+                    within current_path do
+                        execute "docker stop Jugal_laravel"
+                        execute "docker rm Jugal_laravel"
+                        execute "docker-compose -f /home/jugal/web/current/docker-compose.yml up -d --build"
+                    end
+                end
             end        
     end
 end

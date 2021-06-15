@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./docker/php/Dockerfile
     container_name: "${APP_NAME}_laravel"
-    command: bash -c "/usr/bin/composer install --no-interaction --no-progress &&  "php-fpm &" && php -a"
+    command: bash -c "chmod 777 -R /home/jugal/web/current/docker && /usr/bin/composer install --no-interaction --no-progress &&  "php-fpm &" && php -a"
     ports:
       - "9005:9000"
     volumes:
