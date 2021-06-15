@@ -59,3 +59,14 @@ This application uses Vue.js for frontend all files related to frontend is found
     - src/views : contains all the vue files related to view
     - src/routes : vue router files
     - src/store : vuex store
+
+## For Deployment
+This uses capistrano for deployment process
+- Staging => `cap staging deploy branch={branch_name}`
+- Production => `cap production deploy branch={branch_name}`
+
+## For Running artisan cmds in Production
+Follow the steps for proper use of artisan cmd in production server
+- `ssh jugal@eprofile.jugal.susasan.org` to ssh into production server
+- `docker exec -it Jugal_laravel bash` to run bash shell from docker and run the cmds you want
+- `docker start Jugal_laravel` after exit run to restart the docker container
