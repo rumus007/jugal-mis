@@ -259,7 +259,8 @@ export default {
     getAgeGroupData: function () {
       this.showAgeGroupLoader = true;
       const targetUrl = `individual/population-by-age-group`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -276,7 +277,8 @@ export default {
     getMaritalData: function () {
       this.showMaritalLoader = true;
       const targetUrl = `individual/population-by-marital-status`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -293,7 +295,8 @@ export default {
     getEthnicityData: function () {
       this.showEthnicityLoader = true;
       const targetUrl = `individual/population-by-ethnicity`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -310,7 +313,8 @@ export default {
     getReligionData: function () {
       this.showReligionLoader = true;
       const targetUrl = `individual/population-by-religion`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
 
@@ -328,7 +332,8 @@ export default {
     getMotherTongueData: function () {
       this.showMotherTongueLoader = true;
       const targetUrl = `individual/population-by-mother-tongue`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
 
@@ -346,7 +351,8 @@ export default {
     getGenderData: function () {
       this.showGenderLoader = true;
       const targetUrl = `individual/population-by-gender`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
 
@@ -364,7 +370,8 @@ export default {
     getDomicileData: function () {
       this.showDomicileLoader = true;
       const targetUrl = `individual/domicile-status`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
 
@@ -382,7 +389,8 @@ export default {
     getBearChildData: function () {
       this.showBearChildLoader = true;
       const targetUrl = `individual/population-by-gender`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -399,7 +407,8 @@ export default {
     getDisabilityData: function () {
       this.showDisabilityLoader = true;
       const targetUrl = `individual/population-by-disability`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -416,7 +425,8 @@ export default {
     getFromApi: function (loader, stateData, url) {
       this[loader] = true;
       const targetUrl = `individual/${url}`;
-      let queryParams = { ward: this.ward };
+      // let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -470,9 +480,51 @@ export default {
     ward() {
       return this.$store.getters.ward;
     },
+     ageRange() {
+      return this.$store.getters.ageRange;
+    },
   },
   watch: {
     ward: {
+      handler() {
+        this.getAgeGroupData();
+        this.getMaritalData();
+        this.getEthnicityData();
+        this.getReligionData();
+        this.getMotherTongueData();
+        this.getGenderData();
+        this.getDomicileData();
+        // this.getBearChildData();
+        this.getDisabilityData();
+        this.getFromApi(
+          "showDisabilityIdLoader",
+          "byDisabilityIdData",
+          "disability-id"
+        );
+        this.getFromApi(
+          "showTechHumanSrcLoader",
+          "byTechHumanSrcData",
+          "training-type"
+        );
+        this.getFromApi(
+          "showMobileHolderLoader",
+          "byMobileHolderData",
+          "has-mobile"
+        );
+        this.getFromApi(
+          "showDisabilityTypeLoader",
+          "disabilityTypeData",
+          "disability-types"
+        );
+        this.getFromApi(
+          "showMobileTelecomLoader",
+          "byMobileTelecomData",
+          "mobile-telecom"
+        );
+      },
+      deep: true,
+    },
+    ageRange: {
       handler() {
         this.getAgeGroupData();
         this.getMaritalData();

@@ -12,6 +12,7 @@ use App\Repositories\Household\HouseholdRepository;
 use App\Repositories\WasteMgmt\WasteMgmtRepository;
 use App\Repositories\WaterDistance\WaterDistanceRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class HouseholdService
@@ -387,7 +388,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->waterDistanceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        $data = $this->waterDistanceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
         
         return array_map(function ($v) use ($map) {
             return [
@@ -416,7 +417,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->birthplaceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->birthplaceRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -438,7 +439,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->disastorRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->disastorRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -460,7 +461,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->facilitiesRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->facilitiesRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -482,7 +483,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->wasteMgmtRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->wasteMgmtRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -504,7 +505,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getWithIncomeSourceData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getWithIncomeSourceData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -526,7 +527,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getWithLandTitleData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getWithLandTitleData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -548,7 +549,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getWithAgriProductsData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getWithAgriProductsData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
 
@@ -571,7 +572,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -667,7 +668,6 @@ class HouseholdService
         }
 
         $data = $this->householdRepository->getWithLivestockData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
-
         switch ($type) {
             case 'family.milkProd':
                 $final = array_map(function ($val) use ($milk_items) {
@@ -741,8 +741,8 @@ class HouseholdService
                 }, $data);
                 break;
         }
-
-        return array_values(array_filter($final));
+        
+        return collect(array_values(array_filter($final)))->sortby('total')->values()->toArray();
     }
 
 
@@ -928,7 +928,7 @@ class HouseholdService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getHouseholdData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -946,11 +946,13 @@ class HouseholdService
         $where_attr    = [];
         $group_by_attr = [$column];
         $ward          = isset($params['ward']) ? explode(',', $params['ward']) : [];
+        $routename     =  Route::currentRouteName();
+        $sort          = ($routename == "household.houseCount") ? 'category' : 'total';
 
         if ($ward) {
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdHomeRepository->getHouseholdHome($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdHomeRepository->getHouseholdHome($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy($sort)->values()->toArray();
     }
 }

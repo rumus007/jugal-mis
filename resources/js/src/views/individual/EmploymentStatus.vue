@@ -82,7 +82,8 @@ export default {
     getFromApi: function (loader, stateData, url) {
       this[loader] = true;
       const targetUrl = `individual/${url}`;
-      let queryParams = { ward: this.ward };
+        let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
+      // let queryParams = { ward: this.ward };
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -117,9 +118,34 @@ export default {
     ward() {
       return this.$store.getters.ward;
     },
+    ageRange() {
+      return this.$store.getters.ageRange;
+    },
   },
   watch: {
     ward: {
+      handler() {
+        this.getFromApi(
+          "showEmploymentStatsLoader",
+          "employmentStatsData",
+          "employment-status"
+        );
+
+        this.getFromApi(
+          "showHouseListedLoader",
+          "privateBusinessData",
+          "private-business"
+        );
+
+        this.getFromApi(
+          "showHouseListedLoader",
+          "privateBusinessData",
+          "private-business"
+        );
+      },
+      deep: true,
+    },
+     ageRange: {
       handler() {
         this.getFromApi(
           "showEmploymentStatsLoader",

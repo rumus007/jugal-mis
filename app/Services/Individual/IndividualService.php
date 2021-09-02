@@ -6,6 +6,7 @@ namespace App\Services\Individual;
 
 use App\Repositories\Household\HouseholdRepository;
 use App\Repositories\Individual\IndividualRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -179,13 +180,18 @@ class IndividualService
         $where_attr  = [];
         $where_in_attr = [];
         $group_by_attr = [];
+        $where_raw = "";
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)
             ->filter(function ($item) {
                 if ($item->disability_status != "अपाङ्गता नभएको") {
                     return $item;
@@ -194,7 +200,7 @@ class IndividualService
 
         $count = $data->countBy(function ($item) {
             return $item['category'];
-        })->toArray();
+        })->sort()->toArray();
 
         return array_map(function ($k, $v) {
             return [
@@ -398,13 +404,19 @@ class IndividualService
         $where_attr = [];
         $where_in_attr = [];
         $group_by_attr = [];
+        $where_raw = "";
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)->first()?->toArray();
+        asort($data);
 
         foreach ($data as $k => $v) {
             if (array_key_exists($k, $types)) {
@@ -477,6 +489,7 @@ class IndividualService
         }
 
         $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortByDesc('total')->first();
+
         return $data ? $data->employment_status : "N/A";
     }
 
@@ -551,19 +564,19 @@ class IndividualService
      */
     public function getAgeGroupData($params): array
     {
-        $age_groups = [
-            "0-5" => 0,
-            "5-16" => 0,
-            "16-50" => 0,
-            "50+" => 0,
-        ];
+        $age_groups     = [];
+        $select_attr    = [];
+        $min            = array_key_exists('minage', $params) ? (int) $params['minage'] : 0;
+        $max            = array_key_exists('maxage', $params) ? (int) $params['maxage'] : 100;
+        $ageArray       = createAgeGroupArray($min, $max);
 
-        $select_attr = [
-            DB::raw('sum(case when cast(individual.age as FLOAT) >= 0 and cast(individual.age as FLOAT) <= 5 then 1 else 0 end) as infant'),
-            DB::raw('sum(case when cast(individual.age as FLOAT) >= 6 and cast(individual.age as FLOAT) <= 16 then 1 else 0 end) as children'),
-            DB::raw('sum(case when cast(individual.age as FLOAT) >= 17 and cast(individual.age as FLOAT) <= 50 then 1 else 0 end) as youth'),
-            DB::raw('sum(case when cast(individual.age as FLOAT) >= 51 then 1 else 0 end) as elderly'),
-        ];
+        foreach ($ageArray as $key => $val) {
+            $firstExpression = "sum(case when cast(individual.age as FLOAT) >= " . $val['start'];
+            $secondExpression = array_key_exists('end', $val) ? " and cast(individual.age as FLOAT) <= " . $val['end'] . " then 1 else 0 end) as range_" . $key : " then 1 else 0 end) as range_" . $key;
+            $sqlExpression = $firstExpression . $secondExpression;
+            $select_attr[] = DB::raw($sqlExpression);
+        }
+
         $where_attr = [
             ['individual.age_group', 'वर्ष']
         ];
@@ -574,7 +587,6 @@ class IndividualService
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
-        //#endregion
 
         $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
 
@@ -583,26 +595,15 @@ class IndividualService
             ['individual.age_group', '!=', 'वर्ष']
         ];
 
-        $data2 = $this->individualRepository->getWithHousehold($select, $where, $where_in_attr)->first()?->toArray();
+        $data2 = $min == 0 ? $this->individualRepository->getWithHousehold($select, $where, $where_in_attr)->first()?->toArray() : [];
 
-        $merged = array_merge($data, $data2);
+        if($data2) {
+            $data['range_0'] += $data2['outliers'];
+        }
 
-        foreach ($merged as $k => $v) {
-            if ($k == "outliers" || $k == "infant") {
-                $age_groups["0-5"] += $v;
-            }
-
-            if ($k == "children") {
-                $age_groups["5-16"] += $v;
-            }
-
-            if ($k == "youth") {
-                $age_groups["16-50"] += $v;
-            }
-
-            if ($k == "elderly") {
-                $age_groups["50+"] += $v;
-            }
+        foreach ($ageArray as $key => $val) {
+            $str = ($val['start'] == $val['end']) ? $val['end'] : (isset($val['last']) ? $val['start'] . "+" : $val['start'] . "-" . $val['end']);
+            $age_groups[$str] = array_key_exists($val['name'], $data) ? $data[$val['name']] : 0;
         }
 
         return array_map(function ($k, $v) {
@@ -700,13 +701,19 @@ class IndividualService
         $where_attr = [];
         $where_in_attr = [];
         $group_by_attr = [];
+        $where_raw = "";
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)->first()?->toArray();
+        asort($data);
 
         foreach ($data as $k => $v) {
             if (array_key_exists($k, $types)) {
@@ -737,13 +744,19 @@ class IndividualService
         $where_attr = [];
         $where_in_attr = [];
         $group_by_attr = [];
+        $where_raw = "";
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
         }
 
-        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
+        }
+
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)->first()?->toArray();
+        asort($data);
 
         return array_map(function ($k, $v) {
             return [
@@ -768,10 +781,15 @@ class IndividualService
         $where_attr = [];
         $where_in_attr = [];
         $group_by_attr = [];
+        $where_raw = "";
 
         if (isset($params['ward']) && $params['ward']) {
             $ward = $params['ward'] ? explode(',', $params['ward']) : [];
             $where_in_attr[] = ['ward', $ward];
+        }
+
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
         }
 
         if ($route == 'individual.byProlongedDisease') {
@@ -822,7 +840,8 @@ class IndividualService
             ];
         }
 
-        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->first()?->toArray();
+        $data = $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)->first()?->toArray();
+        asort($data);
 
         foreach ($data as $k => $v) {
             if (array_key_exists($k, $types)) {
@@ -855,7 +874,7 @@ class IndividualService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->householdRepository->getWithVaccineData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        return $this->householdRepository->getWithVaccineData($select_attr, $where_attr, $where_in_attr, $group_by_attr)->sortBy('total')->values()->toArray();
     }
 
     /**
@@ -871,6 +890,7 @@ class IndividualService
         $select_attr = ["individual.$column as category", DB::raw('count(*) as total')];
         $where_attr  = [];
         $where_in_attr = [];
+        $where_raw = "";
         $group_by_attr = ["individual.$column"];
 
         if (isset($params['ward']) && $params['ward']) {
@@ -878,6 +898,30 @@ class IndividualService
             $where_in_attr[] = ['ward', $ward];
         }
 
-        return $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr)->toArray();
+        if (isset($params['minage']) && $params['maxage']) {
+            $where_raw = $this->getRawQueryForAgeGroup($params['minage'], $params['maxage']);
+        }
+
+        return $this->individualRepository->getWithHousehold($select_attr, $where_attr, $where_in_attr, $group_by_attr, $where_raw)->sortBy('total')->values()->toArray();
+    }
+
+    /**
+     * Get raw query for individual for age group
+     * 
+     * @param int $min
+     * @param int $max
+     * 
+     * @return string
+     */
+    private function getRawQueryForAgeGroup($min, $max): string
+    {
+        if ($min >= $max) {
+            throw new Exception('Max age must be greater than mininum age', 400);
+        }
+
+        $operator = $min == 0 ? 'or' : 'and';
+        $condition = $min == 0 ? '!=' : '=';
+
+        return "(cast(individual.age as float) between $min and $max) $operator individual.age_group $condition 'वर्ष'";
     }
 }

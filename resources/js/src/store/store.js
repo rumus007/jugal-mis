@@ -8,13 +8,15 @@ const store = new Vuex.Store({
         ward: [],
         manPower: [{}],
         isLoading: false,
-        isPrinting: false
+        isPrinting: false,
+        ageRange: { min: 0, max: 100 }
     },
     getters: {
         ward: state => state.ward,
         manPower: state => state.manPower,
         isLoading: state => state.isLoading,
-        isPrinting: state => state.isPrinting
+        isPrinting: state => state.isPrinting,
+        ageRange: state => state.ageRange
     },
     actions: {
         ward({ commit }, payload) {
@@ -28,6 +30,10 @@ const store = new Vuex.Store({
         },
         isPrinting({ commit }, payload) {
             commit("changePrinting", payload)
+        },
+        ageRange({ commit }, payload) {
+            commit("changeAgeRange", payload)
+
         }
     },
     mutations: {
@@ -42,6 +48,10 @@ const store = new Vuex.Store({
         },
         changePrinting(state, payload) {
             state.isPrinting = payload
+        },
+        changeAgeRange(state, payload) {
+            console.log(payload)
+            state.ageRange = payload
         }
     },
 });

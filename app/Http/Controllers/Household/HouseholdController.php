@@ -47,12 +47,13 @@ class HouseholdController extends Controller
                 "तेश्रो लिङ्गी" => "other",
             ];
 
-            $data['total_household']        = $this->householdService->getTotalHouseholdCount($ward);
-            $data['total_population']       = $this->individualService->getTotalPop($request->all());
-            $tmp  = $this->individualService->getGenderWise($request->all());
+            $data['total_household']  = $this->householdService->getTotalHouseholdCount($ward);
+            $data['total_population'] = $this->individualService->getTotalPop($request->all());
+            $tmp                      = $this->individualService->getGenderWise($request->all());
 
-            foreach($tmp as $value){
-                if(array_key_exists($value['category'],$map)){
+            foreach ($tmp as $value) {
+
+                if (array_key_exists($value['category'], $map)) {
                     $key = 'population_gender_' . $map[$value['category']];
                     $data[$key] = $value['total'];
                 }
@@ -81,6 +82,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getHouseOwnershipData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -104,6 +106,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getRoofingData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -127,6 +130,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getFoundationData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -150,6 +154,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getHouseNumberData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -173,6 +178,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getRoadToHouseData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -196,6 +202,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getRoadTypeData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -219,6 +226,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getHouseCount($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -242,6 +250,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getRoomData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -266,6 +275,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getHouseListedData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -289,6 +299,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getWaterSourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -312,6 +323,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getFuelSourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -335,6 +347,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getElectricitySourceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -358,6 +371,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getAlternateEnergyData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -381,6 +395,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getDistanceHealthData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -404,6 +419,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getEarthquakeResistantData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -427,6 +443,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getRiskMitigationData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -450,6 +467,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getToiletTypeData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -473,6 +491,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getToiletData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -496,6 +515,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getDistanceWaterData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -519,6 +539,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getBirthplaceData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -542,6 +563,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getVulnerabilityData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -565,6 +587,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getFacilitiesData($params)));
         } catch (\Exception $e) {
             logger()->error($e);
@@ -588,6 +611,7 @@ class HouseholdController extends Controller
     {
         try {
             $params = $request->all();
+
             return response()->json(prepareResponseFormat($this->householdService->getWasteMgmtData($params)));
         } catch (\Exception $e) {
             logger()->error($e);

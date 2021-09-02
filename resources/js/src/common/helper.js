@@ -49,6 +49,12 @@ export const formatRouteUrl = ({...obj}) => {
             [data]: `${obj[data].join(",")}`,
           };
         }
+        if(typeof obj[data] === 'number'){
+            formattedParams = {
+                ...formattedParams,
+                [data]: `${obj[data]}`,
+              };
+        }
       });
     return formattedParams;
 };
