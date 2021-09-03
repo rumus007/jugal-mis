@@ -5,7 +5,9 @@
         <div class="hero-section__container">
           <div>
             <h1 class="hero-section__title">जुगल गाउँपालिका</h1>
-            <p class="hero-section__desc">जुगल गाउँपालिकाकाे विद्युतिय प्राेफाईलमा तपाईलाई स्वागत छ।</p>
+            <p class="hero-section__desc">
+              यस प्राेफाईलमार्फत् जुगल गाउँपालिकाकाे बस्तुस्थिति विवरण प्राप्त गर्न सकिन्छ। यसमा मूख्यत् जुगल गाउँपालिकाकाे घरधुरीकाे विवरण, पारिवारिक विवरण, जनसांखिकीय विवरण एवं संस्थागत विवरण समावेश गरिएकाे छ। विवरणलाई उपयुक्त चार्ट, तालिका एवं नक्सामा देखाइएकाे छ। प्रयाेगकर्ताले आवश्यकताअनुसार डाउनलाेड समेत गरी प्रयाेग गर्न सकिन्छ।
+            </p>
           </div>
 
           <!-- <button class="hero-section__btn" @click="scroll('about')">
@@ -56,10 +58,7 @@
           <div class="about-section__desc">
             <h2 class="about-section__title">जुगल गाउँपालिकाः संक्षिप्त परिचय</h2>
             <div class="about-section__content">
-              <p>यस प्राेफाईलमार्फत् जुगल गाउँपालिकाकाे बस्तुस्थिति विवरण प्राप्त गर्न सकिन्छ। यसमा मूख्यत् जुगल गाउँपालिकाकाे घरधुरीकाे विवरण, पारिवारिक विवरण, जनसांखिकीय विवरण एवं संस्थागत विवरण समावेश गरिएकाे छ। विवरणलाई उपयुक्त चार्ट, तालिका एवं नक्सामा देखाइएकाे छ। प्रयाेगकर्ताले आवश्यकताअनुसार डाउनलाेड समेत गरी प्रयाेग गर्न सकिन्छ।</p>
-              <div
-                class="about-section__note"
-              >नाेटः यसमा उल्लेख भएका आँकडा गाउँपालिकाद्वारा वि.सं. २०७७ मा सञ्चालित घरधुरी एवं संस्थागत सर्वेक्षणबाट प्राप्त भएका नतिजाका आधारमा प्रस्तुत गरिएकाे हाे।</div>
+              <p>जुगल गाउँपालिका बागमती प्रदेश अन्तरगत सिन्धुपाल्चोक जिल्लामा पर्दछ । यो गाँउपालिकाकाे कुल क्षेत्रफल ५९६ वर्ग कि.मी. छ । यो गाँउपालिकामा ७ वडा (साबिक सेलाङ, गाेल्चे, गुम्बा, पाङताङ, बराम्ची, हगाम गाबिस) छन ।  २०६८ को जनगणना अनुसार यो गाउँपालिकाको जम्मा जनसंख्या १९२२३ रहेको छ । यहाँका बासिन्दाहरुको मुख्य विशेषता भनेको धार्मिक र सास्कृतिक विविधतामा एकता हो । यहा विभिन्न धर्मका अनुयायीहरु जस्तै हिन्दु , बौद्ध र क्रिचियनहरुको बसोबास रहेको छ। जसले सार्वलौकिक सस्कृती झल्काउछ । यहाको मुख्य भाषा भनेको तामाङ, नेपाली, शेर्पा, नेवारी हो । यस क्षेत्रकाे मुख्य आयस्राेतहरू कृषि, पशुपालन, जडिबुटी ब्यबसाय आदि हुन । जल स्राेतकाे धनी रहेकाे याे गाँउपालिकामा साना र ठुलाे गरी करिब १० वटा जलबिध्युत आयोजना छन्।</p>
             </div>
           </div>
         </div>
@@ -218,6 +217,7 @@ export default {
 
     img {
       display: block;
+      height: 100%;
       width: 100%;
     }
   }
@@ -236,7 +236,7 @@ export default {
     font-size: 40px;
     font-weight: bold;
     line-height: 52px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   &__content {
@@ -245,9 +245,9 @@ export default {
     min-height: calc(100% - 52px);
     justify-content: space-between;
     p {
-      font-size: 22px;
-      line-height: 33px;
-      margin-bottom: 24px;
+      font-size: 20px;
+      line-height: 32px;
+      margin-bottom: 0;
     }
   }
 
@@ -261,11 +261,11 @@ export default {
 .about-map {
   position: relative;
 
-  &:hover {
+  /* &:hover {
     .about-map__overlay {
       opacity: 1;
     }
-  }
+  } */
 
   &__overlay {
     position: absolute;
@@ -273,9 +273,12 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
     width: 100%;
-    opacity: 0;
+    /* opacity: 0; */
     transition: 0.5s ease;
     background-color: rgba(0, 83, 155, 0.3);
   }
@@ -286,11 +289,11 @@ export default {
     font-size: 18px;
     color: var(--neutrals-0);
     border-radius: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease-in-out;
     text-align: center;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 
@@ -360,11 +363,11 @@ export default {
   margin-bottom: 80px;
 
   &::after {
-    background: linear-gradient(rgba(2, 142, 255, 0.3), rgba(2, 142, 255, 0.3)),
+    background: linear-gradient(rgba(2, 142, 255, 0.4), rgba(2, 142, 255, 0.4)),
       url("../../../../../public/images/hero-img.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50%;
+    background-position: center 0;
     content: "";
     height: 100%;
     position: absolute;
@@ -379,22 +382,25 @@ export default {
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-    height: 580px;
+    min-height: 620px;
     text-align: center;
-    padding-top: 144px;
-    padding-bottom: 44px;
+    padding-top: 100px;
+    padding-bottom: 60px;
   }
 
   &__title {
     color: var(--color-base);
     font-size: 80px;
+    margin-bottom: 6px;
   }
 
   &__desc {
     color: var(--color-base);
-    font-size: 32px;
-    line-height: 48px;
+    font-size: 20px;
     font-weight: 700;
+    line-height: 32px;
+    margin: 0 auto 64px;
+    max-width: 800px;
   }
 
   &__cards {
@@ -424,6 +430,10 @@ export default {
 }
 .info-cards-section {
   position: relative;
+
+  .spinner-local {
+    min-height: 150px;
+  }
 
   .double-bounce1,
   .double-bounce2 {

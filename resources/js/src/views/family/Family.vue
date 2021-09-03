@@ -1,13 +1,13 @@
 <template>
   <div class="house-wrapper">
-    <TitleBar title="पारिवारिक विवरण" />
+    <TitleBar title="पारिवारिक विवरण" @changePrint="changePrintMode" />
     <div class="main-content" id="main">     
       <Stats :url="'family/summary-stats'"/>
       <div class="tabs">
         <tabs :options="{ useUrlFragment: false }" @changed="familyTabChange" cache-lifetime="0">
           <tab name="परिवारकाे संयाेजन">
             <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारकाे संयाेजन</h2> -->
-            <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'" />
+            <family-details v-if="selectedTab === 'परिवारकाे संयाेजन'"  />
           </tab>
           <tab name="कृषि">
             <!-- <h2  v-if="!this.$store.getters.isLoading">परिवारले कृषि कार्यका लागि जग्गा प्रयोग</h2> -->

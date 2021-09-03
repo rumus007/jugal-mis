@@ -16,7 +16,7 @@
               : '-'
           "
         ></strong>
-        <span>कुल महिला</span>
+        <span>कुल महिला घरमुली</span>
       </div>
       <div class="stats stats-male">
         <strong
@@ -26,17 +26,7 @@
               : '-'
           "
         ></strong>
-        <span>कुल पुरुष</span>
-      </div>
-      <div class="stats stats-third-gender">
-        <strong
-          v-text="
-            statData.househead_gender_other
-              ? statData.househead_gender_other
-              : '-'
-          "
-        ></strong>
-        <span>कुल तेश्रो लिङ्गी</span>
+        <span>कुल पुरुष घरमुली</span>
       </div>
     </div>
   </div>

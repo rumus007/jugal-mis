@@ -251,13 +251,13 @@ body {
 }
 
 .apexcharts {
-    &-canvas {
-        width: 100% !important;
+    // &-canvas {
+    //     width: 100% !important;
 
-        svg {
-            width: 100%;
-        }
-    }
+    //     svg {
+    //         width: 100% !important;
+    //     }
+    // }
 
     &-toolbar {
         top: -30px !important;
@@ -314,9 +314,9 @@ body {
     padding: 24px 24px 18px;
     position: relative;
     width: 48%;
-    .no-data {
-        margin-top: 40px;
-    }
+    // .no-data {
+    //     margin-top: 40px;
+    // }
 
     &>div {
         height: 100%;
@@ -493,6 +493,18 @@ body {
     .download-pdf {
         display: none;
     }
+    .main-scroll {
+        padding-top: 74px;
+    }
+}
+
+.footer .nav .nav__link {
+    font-size: 14px;
+
+    &:hover {
+        color: var(--color-base);
+        text-decoration: underline;
+    }
 }
 
 @media print {
@@ -509,6 +521,23 @@ body {
     .title-bar {
         background-color: transparent !important;
         border-top: 1px solid #eee;
+        position: unset !important;
+    }
+
+    .main-scroll {
+        padding-top: 0;
+
+        .stats-section {
+            position: unset !important;
+        }
+
+        .tabs-component-tabs {
+            position: unset;
+        }
+
+        .tabs-component-panels {
+            margin-left: 0;;
+        }
     }
 
     h1 {
@@ -550,4 +579,18 @@ body {
         page-break-inside: avoid;
         margin-bottom: 24px;
     }
+
+    .loader-overlay {
+        display: none;
+    }
+
+    // .apexcharts {
+    //     &-canvas {
+    //         width: 600px !important;
+    
+    //         svg {
+    //             width: 600px !important;
+    //         }
+    //     }
+    // }
 }

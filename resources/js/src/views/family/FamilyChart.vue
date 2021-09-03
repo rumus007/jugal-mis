@@ -35,6 +35,7 @@
             :data="data"
             :horizontalBar="chartDetail.horizontalBar"
             v-if="chartDetail.type === 'Bar'"
+            :isPrinting="isPrinting"
           />
           <DonutChart :data="data" v-if="chartDetail.type === 'Donut'" />
           <ColumnChart
@@ -83,6 +84,7 @@ export default {
     showFullChartClass: { type: Boolean },
     showVerticalChartClass: { type: Boolean },
     showDonutChartClass: {type: Boolean},
+    isPrinting: {type: Boolean},
   },
   methods: {
     changeGraphDisplay() {

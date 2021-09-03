@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <Header></Header>
-    <GlobalLoader :is-visible="this.$store.getters.isLoading"></GlobalLoader>
+    <GlobalLoader :is-visible="this.$store.getters.isLoading || this.$store.getters.isPrinting"></GlobalLoader>
     <router-view></router-view>
     <!-- <Footer></Footer> -->
   </div>

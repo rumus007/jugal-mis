@@ -36,16 +36,6 @@
         ></strong>
         <span>कुल पुरुष</span>
       </div>
-      <div class="stats stats-third-gender">
-        <strong
-          v-text="
-            statData.population_gender_other
-              ? statData.population_gender_other
-              : '-'
-          "
-        ></strong>
-        <span>कुल तेश्रो लिङ्गी</span>
-      </div>
     </div>
   </div>
 </template>
