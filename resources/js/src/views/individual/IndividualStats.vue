@@ -67,7 +67,7 @@ export default {
     getFromApi: function () {
       this.statLoader = true;
       //   const targetUrl = `individual/${url}`;
-      let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -101,11 +101,20 @@ export default {
     ward() {
       return this.$store.getters.ward;
     },
+    ageRange() {
+      return this.$store.getters.ageRange;
+    },
   },
   watch: {
     ward: {
       handler() {
         this.getFromApi();
+      },
+      deep: true,
+    },
+     ageRange: {
+      handler() {
+       this.getFromApi()
       },
       deep: true,
     },

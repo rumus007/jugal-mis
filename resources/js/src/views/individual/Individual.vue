@@ -3,7 +3,25 @@
     <!-- <button v-on:click="updateData">Update Data</button> -->
     <TitleBar title="जनसांख्यिकीय विवरण" />
     <div class="main-content" id="main">
-      <Stats :url="'individual/summary-stats'"/>
+      <Stats :url="'individual/summary-stats'" />
+        <div class="age-slider">
+          <span>उमेर छनौट: </span>
+          <div class="age-slider-bar">
+            <span class="age-value">{{ barMinValue }}</span>
+            <MultiRangeSlider
+              :min="0"
+              :max="100"
+              :step="1"
+              :ruler="false"
+              :label="true"
+              v-model="ageRange"
+              :minValue="ageRange.min"
+              :maxValue="ageRange.max"
+              @input="UpdateValues"
+            />
+            <span class="age-value">{{ barMaxValue }}</span>
+        </div>
+        </div>
       <div class="tabs">
         <tabs
           :options="{ useUrlFragment: false }"
@@ -54,6 +72,7 @@
 
 <script>
 import { Tabs, Tab } from "vue-tabs-component";
+import MultiRangeSlider from "multi-range-slider-vue";
 export default {
   name: "Individual",
   components: {
@@ -67,18 +86,39 @@ export default {
     Stats: () => import("./IndividualStats"),
     Tabs,
     Tab,
+    MultiRangeSlider,
     // TabFilter: () => import("../components/TabFilter/TabFilter"),
   },
   data() {
     return {
       selectedTab: "जनसंख्याकाे वितरण",
+      testAgeRange: { min: 10, max: 100 },
+      barMinValue: 0,
+      barMaxValue: 100,
     };
+  },
+  computed: {
+    ageRange: {
+      get() {
+        return this.$store.getters.ageRange;
+      },
+      set: _.debounce(function (value) {
+        this.$store.commit("changeAgeRange", value);
+      }, 1000),
+    },
+    currentRouteName() {
+      return this.$route.name;
+    },
   },
   methods: {
     individualTabChange(selectedTab) {
       this.selectedTab = selectedTab.tab.name;
       this.$store.commit("changeLoader", true);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
+    },
+    UpdateValues(e) {
+      this.barMinValue = e.minValue;
+      this.barMaxValue = e.maxValue;
     },
   },
   // mounted(){

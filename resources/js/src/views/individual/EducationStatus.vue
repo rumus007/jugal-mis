@@ -1,32 +1,38 @@
 <template>
-<div><h2>शैक्षिक स्थिति</h2>
-  <div class="chart-wrapper flex">
-    <individual-chart
-      :showLoader="showEducationStatusLoader"
-      :data="educationStatusData"
-      :title="'शैक्षिक अवस्था'"
-      :tableTitle="'शैक्षिक अवस्था'"
-      :showGraphText="'showEducationStatusGraph'"
-      :showGraph="showEducationStatusGraph"
-      :chartDetail="{ type: 'Donut' }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-      :showDonutChartClass= "true"
-    />
-    <individual-chart
-      :showLoader="showByEducationLoader"
-      :data="byEducationData"
-      :title="'शैैक्षिक तह'"
-      :tableTitle="'शैैक्षिक तह'"
-      :showGraphText="'showByEducationGraph'"
-      :showGraph="showByEducationGraph"
-      :chartDetail="{ type: 'Bar', horizontalBar: false, yAxisTitle: 'शैैक्षिक तह', xAxisTitle: 'जम्मा' }"
-      @graphFunction="showGraph"
-      @tableFunction="showTable"
-      :showVerticalChartClass= "true"
-    />
+  <div>
+    <h2>शैक्षिक स्थिति</h2>
+    <div class="chart-wrapper flex">
+      <individual-chart
+        :showLoader="showEducationStatusLoader"
+        :data="educationStatusData"
+        :title="'शैक्षिक अवस्था'"
+        :tableTitle="'शैक्षिक अवस्था'"
+        :showGraphText="'showEducationStatusGraph'"
+        :showGraph="showEducationStatusGraph"
+        :chartDetail="{ type: 'Donut' }"
+        @graphFunction="showGraph"
+        @tableFunction="showTable"
+        :showDonutChartClass="true"
+      />
+      <individual-chart
+        :showLoader="showByEducationLoader"
+        :data="byEducationData"
+        :title="'शैैक्षिक तह'"
+        :tableTitle="'शैैक्षिक तह'"
+        :showGraphText="'showByEducationGraph'"
+        :showGraph="showByEducationGraph"
+        :chartDetail="{
+          type: 'Bar',
+          horizontalBar: false,
+          yAxisTitle: 'शैैक्षिक तह',
+          xAxisTitle: 'जम्मा',
+        }"
+        @graphFunction="showGraph"
+        @tableFunction="showTable"
+        :showVerticalChartClass="true"
+      />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -59,7 +65,7 @@ export default {
     getEducationStatusData: function () {
       this.showEducationStatusLoader = true;
       const targetUrl = `individual/population-by-literacy`;
-      let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
       axios
@@ -76,7 +82,7 @@ export default {
     getEducationLevelData: function () {
       this.showByEducationLoader = true;
       const targetUrl = `individual/education-level`;
-      let queryParams = { ward: this.ward };
+      let queryParams = { ward: this.ward, minage: this.ageRange.minValue , maxage: this.ageRange.maxValue};
       queryParams = filterObject(queryParams);
       let formattedParams = formatRouteUrl(queryParams);
 
@@ -99,9 +105,19 @@ export default {
     ward() {
       return this.$store.getters.ward;
     },
+    ageRange() {
+      return this.$store.getters.ageRange;
+    },
   },
   watch: {
     ward: {
+      handler() {
+        this.getEducationLevelData();
+        this.getEducationStatusData();
+      },
+      deep: true,
+    },
+    ageRange: {
       handler() {
         this.getEducationLevelData();
         this.getEducationStatusData();

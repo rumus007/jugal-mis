@@ -36,7 +36,7 @@ class IndividualRepository extends Repository
      * 
      * @return array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getWithHousehold($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [])
+    public function getWithHousehold($select_attr = '*', $where_attr = [], $where_in_attr = [], $group_by_attr = [], $where_raw = "")
     {
         $data = $this->model
             ->join('household', 'household.id', '=', 'individual.household_id')
@@ -46,6 +46,10 @@ class IndividualRepository extends Repository
             foreach ($where_attr as $val) {
                 $data->where(...$val);
             }
+        }
+
+        if ($where_raw) {
+            $data->whereRaw($where_raw);
         }
 
         if ($where_in_attr) {
