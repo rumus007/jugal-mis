@@ -1,5 +1,5 @@
 
-<h1> Jugal Gaupalika Management Information System </h1> <br/>
+<h1> Jugal VDC Management Information System </h1> <br/>
 
 ## Prerequisite
 
@@ -13,9 +13,7 @@ The prerequisite for this GRMSS are:
 
 ## Install
 Jugal-MIS can be cloned from gitlab repository and installed as follows:
-- git clone git@gitlab.yipl.com.np:web-apps/jugal-mis.git <br />
-OR<br />
-  git clone git@gitlab.yipl.com.np:web-apps/jugal-mis.git
+- git clone git@github.com:rumus007/jugal-mis.git <br />
 - cd jugal-mis
 
 
@@ -33,7 +31,7 @@ This application is coded in PHP using [Laravel](http://laravel.com) framework f
 
 
 ## Tools and packages
-The packages used in this application can be seen in [composer.json](https://gitlab.yipl.com.np/web-apps/jugal-mis/-/blob/master/composer.json) file and [package.json](https://gitlab.yipl.com.np/web-apps/jugal-mis/-/blob/master/package.json) file.
+The packages used in this application can be seen in [composer.json] file and [package.json]file.
 
 ## Important commands
 The following commands should be run one after another for populating the database 
@@ -60,7 +58,7 @@ This application uses Vue.js for frontend all files related to frontend is found
     - src/routes : vue router files
     - src/store : vuex store
 
-## For Deployment
+<!-- ## For Deployment
 This uses capistrano for deployment process
 - Staging => `cap staging deploy branch={branch_name}`
 - Production => `cap production deploy branch={branch_name}`
@@ -69,4 +67,4 @@ This uses capistrano for deployment process
 Follow the steps for proper use of artisan cmd in production server
 - `ssh jugal@eprofile.jugal.susasan.org` to ssh into production server
 - `docker exec -it Jugal_laravel bash` to run bash shell from docker and run the cmds you want
-- `docker start Jugal_laravel` after exit run to restart the docker container
+- `docker start Jugal_laravel` after exit run to restart the docker container -->
